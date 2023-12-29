@@ -1,8 +1,8 @@
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
 cmake_minimum_required(VERSION 3.7.2)
-project("Crispy Doom" VERSION 6.0.0 LANGUAGES C)
+project("Crispy Doom" VERSION 6.0.0 LANGUAGES C CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 # Autotools variables
 set(top_srcdir ${CMAKE_CURRENT_SOURCE_DIR})
 set(top_builddir ${CMAKE_CURRENT_BINARY_DIR})
@@ -24,7 +24,7 @@ if(MSVC)
     add_definitions("/D_CRT_SECURE_NO_WARNINGS" "/D_CRT_SECURE_NO_DEPRECATE"
                     "/D_CRT_NONSTDC_NO_DEPRECATE")
 else()
-    add_compile_options("-Wall" "-Wdeclaration-after-statement"
+    add_compile_options("-Wall"
                         "-Wredundant-decls")
 endif()
 
