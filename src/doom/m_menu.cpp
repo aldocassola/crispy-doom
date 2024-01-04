@@ -202,7 +202,7 @@ short		whichSkull;		// which skull to draw
 
 // graphic name of skulls
 // warning: initializer-string for array of chars is too long
-const char *skullName[2] = {"M_SKULL1","M_SKULL2"};
+constexpr char *skullName[2] = {"M_SKULL1","M_SKULL2"};
 
 // current menudef
 menu_t*	currentMenu;

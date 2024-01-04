@@ -32,7 +32,7 @@ typedef struct {
     unsigned int bits;
 } bex_thingbits_t;
 
-static const bex_thingbits_t bex_thingbitstable[] = {
+static constexpr bex_thingbits_t bex_thingbitstable[] = {
     {"SPECIAL", MF_SPECIAL},
     {"SOLID", MF_SOLID},
     {"SHOOTABLE", MF_SHOOTABLE},

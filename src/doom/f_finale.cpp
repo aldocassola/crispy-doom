@@ -427,7 +427,7 @@ struct actionsound_t
 	const boolean early;
 };
 
-static const actionsound_t actionsounds[] =
+static constexpr actionsound_t actionsounds[] =
 {
 	{A_PosAttack,   sfx_pistol, false},
 	{A_SPosAttack,  sfx_shotgn, false},

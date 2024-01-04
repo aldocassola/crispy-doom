@@ -474,7 +474,7 @@ typedef struct
 	const int pass;
 } extsavegdata_t;
 
-static const extsavegdata_t extsavegdata[] =
+static constexpr extsavegdata_t extsavegdata[] =
 {
 	// [crispy] @FORKS: please change this if you are going to introduce incompatible changes!
 	{"crispy-doom", P_WritePackageTarname, NULL, 0},

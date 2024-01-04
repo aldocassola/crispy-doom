@@ -43,7 +43,7 @@
 #define WEAPONTOP		32*FRACUNIT
 
 // [crispy] weapon recoil pitch values
-static const int recoil_values[] = {
+static constexpr int recoil_values[] = {
    0, // wp_fist
    4, // wp_pistol
    8, // wp_shotgun

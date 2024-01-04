@@ -197,7 +197,7 @@ const char *mapnames[] =	// DOOM shareware/registered/retail (Ultimate) names.
     "NEWLEVEL"
 };
 
-const char *mapnames_chex[] =   // Chex Quest names.
+constexpr char *mapnames_chex[] =   // Chex Quest names.
 {
 
     HUSTR_E1M1,
@@ -535,7 +535,7 @@ typedef struct
     const char *name;
 } speciallevel_t;
 
-static const speciallevel_t speciallevels[] = {
+static constexpr speciallevel_t speciallevels[] = {
     // [crispy] ExM0
     {doom, 1, 0, NULL, NULL},
     {doom, 2, 0, NULL, NULL},
@@ -969,7 +969,7 @@ static void Crispy_Statsline_Boolean (char *str, int str_size, const char *prefi
 
 typedef void (*crispy_statsline_func_t)(char *str, int str_size, const char *prefix, int count, int total, int extra);
 
-static const crispy_statsline_func_t crispy_statslines[NUM_STATSFORMATS] =
+static constexpr crispy_statsline_func_t crispy_statslines[NUM_STATSFORMATS] =
 {
 	Crispy_Statsline_Ratio,
 	Crispy_Statsline_Remaining,

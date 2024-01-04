@@ -31,7 +31,7 @@ typedef struct {
 } bex_string_t;
 
 // mnemonic keys table
-static const bex_string_t bex_stringtable[] = {
+static constexpr bex_string_t bex_stringtable[] = {
     // part 1 - general initialization and prompts
     {"D_DEVSTR", D_DEVSTR},
     {"D_CDROM", D_CDROM},
