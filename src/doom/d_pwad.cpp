@@ -29,7 +29,7 @@
 #include "m_misc.hpp"
 #include "w_main.hpp"
 #include "w_wad.hpp"
-#include "w_merge.h" // [crispy] W_MergeFile()
+#include "w_merge.hpp" // [crispy] W_MergeFile()
 
 extern char *iwadfile;
 
@@ -188,7 +188,7 @@ static boolean LoadSigil2Wad (const char *iwaddir, boolean pwadtexture)
 
     static const struct {
         const char *name;
-        const char new_name[8];
+        const char new_name[9];
     } sigil2_lumps [] = {
         {"CREDIT",   "SG2CREDI"},
         {"HELP1",    "SG2HELP1"},
