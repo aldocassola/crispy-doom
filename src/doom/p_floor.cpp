@@ -288,37 +288,33 @@ void T_MoveGoobers (floormove_t *floor)
 // [crispy] easter egg: homage to an old friend
 void EV_DoGoobers (void)
 {
-    int i;
-
-    for (i = 0; i < numsectors; i++)
+    for (auto &sector: sectors)
     {
-	sector_t* sec;
 	floormove_t* floor;
 
-	sec = &sectors[i];
 
 	// [crispy] remove thinker for sectors that are already moving
-	if (sec->specialdata)
+	if (sector.specialdata)
 	{
-	    floor = static_cast<floormove_t *>(sec->specialdata);
+	    floor = static_cast<floormove_t *>(sector.specialdata);
 	    P_RemoveThinker(&floor->thinker);
-	    sec->specialdata = NULL;
+	    sector.specialdata = NULL;
 	}
 
 	floor = static_cast<floormove_t *>(Z_Malloc(sizeof(*floor), PU_LEVSPEC, 0));
 	P_AddThinker(&floor->thinker);
-	sec->specialdata = floor;
+	sector.specialdata = floor;
 	floor->thinker.function = T_MoveGoobers;
-	floor->sector = sec;
+	floor->sector = &sector;
 	// [crispy] actually destination ceilingheight here (destination floorheight is always 0),
 	// leave destination ceilingheight for untagged closed sectors (i.e. DR-type doors) at 0,
 	// for all others set to 128
-	floor->floordestheight = (!sec->tag &&
-	    sec->interpceilingheight == sec->interpfloorheight) ? 0 : 128 * FRACUNIT;
+	floor->floordestheight = (!sector.tag &&
+	    sector.interpceilingheight == sector.interpfloorheight) ? 0 : 128 * FRACUNIT;
 	// [crispy] the lowest bit determines floor direction (i.e. 1 means "up" for floorheight < 0),
 	// the second-lowest bit determines ceiling direction (e.g. if ceiling height is below its destination height)
-	floor->direction = (sec->floorheight < 0) |
-	                   (sec->ceilingheight < floor->floordestheight) << 1;
+	floor->direction = (sector.floorheight < 0) |
+	                   (sector.ceilingheight < floor->floordestheight) << 1;
     }
 }
 
@@ -482,7 +478,7 @@ EV_DoFloor
 	    {
 		if ( twoSided(secnum, i) )
 		{
-		    if (getSide(secnum,i,0)->sector-sectors == secnum)
+		    if (getSide(secnum,i,0)->sector-sectors.data() == secnum)
 		    {
 			sec = getSector(secnum,i,1);
 
@@ -593,13 +589,13 @@ EV_BuildStairs
 		    continue;
 
 		tsec = (sec->lines[i])->frontsector;
-		newsecnum = tsec-sectors;
+		newsecnum = tsec-sectors.data();
 
 		if (secnum != newsecnum)
 		    continue;
 
 		tsec = (sec->lines[i])->backsector;
-		newsecnum = tsec - sectors;
+		newsecnum = tsec - sectors.data();
 
 		if (tsec->floorpic != texture)
 		    continue;

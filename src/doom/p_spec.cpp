@@ -529,9 +529,10 @@ P_FindSectorFromLineTag
     }
 #endif
 
-    for (i=start+1;i<numsectors;i++)
-	if (sectors[i].tag == line->tag)
-	    return i;
+    for (auto sector = sectors.cbegin()+start+1; sector != sectors.cend(); ++sector){
+	if (sector->tag == line->tag)
+	    return (sector - sectors.cbegin());
+	}
 
     return -1;
 }
@@ -1592,38 +1593,37 @@ void P_SpawnSpecials (void)
     }
 
     //	Init special SECTORs.
-    sector = sectors;
-    for (i=0 ; i<numsectors ; i++, sector++)
+    for (auto &sector: sectors)
     {
-	if (!sector->special)
+	if (!sector.special)
 	    continue;
 
-	switch (sector->special)
+	switch (sector.special)
 	{
 	  case 1:
 	    // FLICKERING LIGHTS
-	    P_SpawnLightFlash (sector);
+	    P_SpawnLightFlash (&sector);
 	    break;
 
 	  case 2:
 	    // STROBE FAST
-	    P_SpawnStrobeFlash(sector,FASTDARK,0);
+	    P_SpawnStrobeFlash(&sector,FASTDARK,0);
 	    break;
 
 	  case 3:
 	    // STROBE SLOW
-	    P_SpawnStrobeFlash(sector,SLOWDARK,0);
+	    P_SpawnStrobeFlash(&sector,SLOWDARK,0);
 	    break;
 
 	  case 4:
 	    // STROBE FAST/DEATH SLIME
-	    P_SpawnStrobeFlash(sector,FASTDARK,0);
-	    sector->special = 4;
+	    P_SpawnStrobeFlash(&sector,FASTDARK,0);
+	    sector.special = 4;
 	    break;
 
 	  case 8:
 	    // GLOWING LIGHT
-	    P_SpawnGlowingLight(sector);
+	    P_SpawnGlowingLight(&sector);
 	    break;
 	  case 9:
 	    // SECRET SECTOR
@@ -1632,29 +1632,29 @@ void P_SpawnSpecials (void)
 
 	  case 10:
 	    // DOOR CLOSE IN 30 SECONDS
-	    P_SpawnDoorCloseIn30 (sector);
+	    P_SpawnDoorCloseIn30 (&sector);
 	    break;
 
 	  case 12:
 	    // SYNC STROBE SLOW
-	    P_SpawnStrobeFlash (sector, SLOWDARK, 1);
+	    P_SpawnStrobeFlash (&sector, SLOWDARK, 1);
 	    break;
 
 	  case 13:
 	    // SYNC STROBE FAST
-	    P_SpawnStrobeFlash (sector, FASTDARK, 1);
+	    P_SpawnStrobeFlash (&sector, FASTDARK, 1);
 	    break;
 
 	  case 14:
 	    // DOOR RAISE IN 5 MINUTES
-	    P_SpawnDoorRaiseIn5Mins (sector, i);
+	    P_SpawnDoorRaiseIn5Mins (&sector, &sector-sectors.data());
 	    break;
 
         case 17:
             // first introduced in official v1.4 beta
             if (gameversion > exe_doom_1_2)
             {
-                P_SpawnFireFlicker(sector);
+                P_SpawnFireFlicker(&sector);
             }
             break;
 	}
@@ -1685,11 +1685,11 @@ void P_SpawnSpecials (void)
 	    {
 		int secnum;
 
-		for (secnum = 0; secnum < numsectors; secnum++)
+		for (auto &sector: sectors)
 		{
-		    if (sectors[secnum].tag == lines[i].tag)
+		    if (sector.tag == lines[i].tag)
 		    {
-			sectors[secnum].sky = i | PL_SKYFLAT;
+			sector.sky = i | PL_SKYFLAT;
 		    }
 		}
 	    }

@@ -23,6 +23,7 @@
 #ifndef __P_SPEC__
 #define __P_SPEC__
 
+#include "r_defs.hpp"
 
 //
 // End-level timer (-TIMER option)

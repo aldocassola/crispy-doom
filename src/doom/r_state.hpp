@@ -20,12 +20,13 @@
 #ifndef __R_STATE__
 #define __R_STATE__
 
+#include "memory/memory.hpp"
+
 // Need data structure definitions.
 #include "d_player.hpp"
 #include "r_data.hpp"
 
-
-
+#include "r_defs.hpp"
 
 
 
@@ -79,8 +80,7 @@ extern vertex_t*	vertexes;
 extern int		numsegs;
 extern seg_t*		segs;
 
-extern int		numsectors;
-extern sector_t*	sectors;
+extern z_level_vector<sector_t>	sectors;
 
 extern int		numsubsectors;
 extern subsector_t*	subsectors;

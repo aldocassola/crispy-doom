@@ -80,7 +80,13 @@ add_library(doom STATIC
             st_stuff.cpp      st_stuff.hpp
             v_snow.cpp        v_snow.hpp
             wi_stuff.cpp      wi_stuff.hpp
-            actions.hpp)
+            #actual c++ stuff
+            actions.hpp
+            sector.cpp sector.hpp
+            subsector.cpp subsector.hpp
+            line.cpp line.hpp
+            vertex.cpp vertex.hpp
+            memory/memory.hpp)
 
 target_include_directories(doom PRIVATE "../" "${CMAKE_CURRENT_BINARY_DIR}/../../")
 target_link_libraries(doom SDL2::SDL2)

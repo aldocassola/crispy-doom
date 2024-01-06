@@ -924,7 +924,6 @@ ST_Responder (event_t* ev)
 
 	if (plyr->cheats & CF_NOTARGET)
 	{
-		int i;
 		thinker_t *th;
 
 		// [crispy] let mobjs forget their target and tracer
@@ -946,11 +945,9 @@ ST_Responder (event_t* ev)
 			}
 		}
 		// [crispy] let sectors forget their soundtarget
-		for (i = 0; i < numsectors; i++)
+		for (auto &sector: sectors)
 		{
-			sector_t *const sector = &sectors[i];
-
-			sector->soundtarget = NULL;
+			sector.soundtarget = NULL;
 		}
 	}
 

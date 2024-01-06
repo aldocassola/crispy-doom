@@ -44,6 +44,7 @@
 #include "doomstat.hpp"
 
 #include "p_extnodes.hpp" // [crispy] support extended node formats
+#include "memory/memory.hpp"
 
 void	P_SpawnMapThing (mapthing_t*	mthing);
 
@@ -58,8 +59,7 @@ vertex_t*	vertexes;
 int		numsegs;
 seg_t*		segs;
 
-int		numsectors;
-sector_t*	sectors;
+z_level_vector<sector_t>	sectors;
 
 int		numsubsectors;
 subsector_t*	subsectors;
@@ -135,11 +135,6 @@ fixed_t GetOffset(vertex_t *v1, vertex_t *v2)
 //
 void P_LoadVertexes (int lump)
 {
-    byte*		data;
-    int			i;
-    mapvertex_t*	ml;
-    vertex_t*		li;
-
     // Determine number of lumps:
     //  total lump length / vertex record length.
     numvertexes = W_LumpLength (lump) / sizeof(mapvertex_t);
@@ -148,26 +143,15 @@ void P_LoadVertexes (int lump)
     vertexes = static_cast<decltype(vertexes)>(Z_Malloc (numvertexes*sizeof(vertex_t),PU_LEVEL,0));
 
     // Load data into cache.
-    data = static_cast<decltype(data)>(W_CacheLumpNum (lump, PU_STATIC));
-
-    ml = (mapvertex_t *)data;
-    li = vertexes;
+    auto ml = cache_lump_num<mapvertex_t>(lump, PU_STATIC);
 
     // Copy and convert vertex coordinates,
     // internal representation as fixed.
-    for (i=0 ; i<numvertexes ; i++, li++, ml++)
+    for (int i=0 ; i<numvertexes ; i++)
     {
-	li->x = SHORT(ml->x)<<FRACBITS;
-	li->y = SHORT(ml->y)<<FRACBITS;
-
-	// [crispy] initialize vertex coordinates *only* used in rendering
-	li->r_x = li->x;
-	li->r_y = li->y;
-	li->moved = false;
+        ::new (vertexes+i) vertex_t(ml[i]);
     }
 
-    // Free buffer memory.
-    W_ReleaseLumpNum(lump);
 }
 
 //
@@ -175,16 +159,7 @@ void P_LoadVertexes (int lump)
 //
 sector_t* GetSectorAtNullAddress(void)
 {
-    static boolean null_sector_is_initialized = false;
-    static sector_t null_sector;
-
-    if (!null_sector_is_initialized)
-    {
-        memset(&null_sector, 0, sizeof(null_sector));
-        I_GetMemoryValue(0, &null_sector.floorheight, 4);
-        I_GetMemoryValue(4, &null_sector.ceilingheight, 4);
-        null_sector_is_initialized = true;
-    }
+    static sector_t null_sector{};
 
     return &null_sector;
 }
@@ -340,30 +315,21 @@ void P_SegLengths (boolean contrast_only)
 //
 void P_LoadSubsectors (int lump)
 {
-    byte*		data;
-    int			i;
-    mapsubsector_t*	ms;
-    subsector_t*	ss;
-
     numsubsectors = W_LumpLength (lump) / sizeof(mapsubsector_t);
     subsectors = static_cast<decltype(subsectors)>(Z_Malloc (numsubsectors*sizeof(subsector_t),PU_LEVEL,0));
-    data = static_cast<decltype(data)>(W_CacheLumpNum (lump,PU_STATIC));
+    auto ms = cache_lump_num<mapsubsector_t>(lump,PU_STATIC);
 
     // [crispy] fail on missing subsectors
-    if (!data || !numsubsectors)
+    if (!ms || !numsubsectors)
 	I_Error("P_LoadSubsectors: No subsectors in map!");
 
-    ms = (mapsubsector_t *)data;
-    memset (subsectors,0, numsubsectors*sizeof(subsector_t));
-    ss = subsectors;
+    auto *ss = subsectors;
 
-    for (i=0 ; i<numsubsectors ; i++, ss++, ms++)
+    for (int i = 0 ; i<numsubsectors ; i++, ss++)
     {
-	ss->numlines = (unsigned short)SHORT(ms->numsegs); // [crispy] extended nodes
-	ss->firstline = (unsigned short)SHORT(ms->firstseg); // [crispy] extended nodes
+        new (ss) subsector_t(ms[i]);
     }
 
-    W_ReleaseLumpNum(lump);
 }
 
 
@@ -373,52 +339,24 @@ void P_LoadSubsectors (int lump)
 //
 void P_LoadSectors (int lump)
 {
-    byte*		data;
-    int			i;
-    mapsector_t*	ms;
-    sector_t*		ss;
-
     // [crispy] fail on missing sectors
     if (lump >= numlumps)
 	I_Error("P_LoadSectors: No sectors in map!");
 
-    numsectors = W_LumpLength (lump) / sizeof(mapsector_t);
-    sectors = static_cast<decltype(sectors)>(Z_Malloc (numsectors*sizeof(sector_t),PU_LEVEL,0));
-    memset (sectors, 0, numsectors*sizeof(sector_t));
-    data = static_cast<decltype(data)>(W_CacheLumpNum (lump,PU_STATIC));
+    auto numsectors = W_LumpLength (lump) / sizeof(mapsector_t);
+    sectors.clear();
+    sectors.shrink_to_fit();
+    sectors.reserve(numsectors);
+
+    auto ms = cache_lump_num<mapsector_t>(lump, PU_STATIC);
 
     // [crispy] fail on missing sectors
-    if (!data || !numsectors)
+    if (!ms || !numsectors)
 	I_Error("P_LoadSectors: No sectors in map!");
 
-    ms = (mapsector_t *)data;
-    ss = sectors;
-    for (i=0 ; i<numsectors ; i++, ss++, ms++)
-    {
-	ss->floorheight = SHORT(ms->floorheight)<<FRACBITS;
-	ss->ceilingheight = SHORT(ms->ceilingheight)<<FRACBITS;
-	ss->floorpic = R_FlatNumForName(ms->floorpic);
-	ss->ceilingpic = R_FlatNumForName(ms->ceilingpic);
-	ss->lightlevel = SHORT(ms->lightlevel);
-	// [crispy] A11Y light level used for rendering
-	ss->rlightlevel = ss->lightlevel;
-	ss->special = SHORT(ms->special);
-	ss->tag = SHORT(ms->tag);
-	ss->thinglist = NULL;
-	// [crispy] WiggleFix: [kb] for R_FixWiggle()
-	ss->cachedheight = 0;
-        // [AM] Sector interpolation.  Even if we're
-        //      not running uncapped, the renderer still
-        //      uses this data.
-        ss->oldfloorheight = ss->floorheight;
-        ss->interpfloorheight = ss->floorheight;
-        ss->oldceilingheight = ss->ceilingheight;
-        ss->interpceilingheight = ss->ceilingheight;
-        // [crispy] inhibit sector interpolation during the 0th gametic
-        ss->oldgametic = -1;
+    while(sectors.size() < sectors.capacity()) {
+        sectors.emplace_back(ms[sectors.size()]);
     }
-
-    W_ReleaseLumpNum(lump);
 }
 
 
@@ -558,9 +496,7 @@ void P_LoadThings (int lump)
 //
 void P_LoadLineDefs (int lump)
 {
-    byte*		data;
     int			i;
-    maplinedef_t*	mld;
     line_t*		ld;
     vertex_t*		v1;
     vertex_t*		v2;
@@ -569,22 +505,21 @@ void P_LoadLineDefs (int lump)
     numlines = W_LumpLength (lump) / sizeof(maplinedef_t);
     lines = static_cast<decltype(lines)>(Z_Malloc (numlines*sizeof(line_t),PU_LEVEL,0));
     memset (lines, 0, numlines*sizeof(line_t));
-    data = static_cast<decltype(data)>(W_CacheLumpNum (lump,PU_STATIC));
+    auto mld = cache_lump_num<maplinedef_t>(lump,PU_STATIC);
 
-    mld = (maplinedef_t *)data;
     ld = lines;
     warn = warn2 = 0; // [crispy] warn about invalid linedefs
-    for (i=0 ; i<numlines ; i++, mld++, ld++)
+    for (i=0 ; i<numlines ; i++, ld++)
     {
-	ld->flags = (unsigned short)SHORT(mld->flags); // [crispy] extended nodes
-	ld->special = SHORT(mld->special);
+	ld->flags = (unsigned short)SHORT(mld[i].flags); // [crispy] extended nodes
+	ld->special = SHORT(mld[i].special);
 	// [crispy] warn about unknown linedef types
 	if ((unsigned short) ld->special > 141 && ld->special != 271 && ld->special != 272)
 	{
 	    fprintf(stderr, "P_LoadLineDefs: Unknown special %d at line %d.\n", ld->special, i);
 	    warn++;
 	}
-	ld->tag = SHORT(mld->tag);
+	ld->tag = SHORT(mld[i].tag);
 	// [crispy] warn about special linedefs without tag
 	if (ld->special && !ld->tag)
 	{
@@ -615,8 +550,8 @@ void P_LoadLineDefs (int lump)
 		    break;
 	    }
 	}
-	v1 = ld->v1 = &vertexes[(unsigned short)SHORT(mld->v1)]; // [crispy] extended nodes
-	v2 = ld->v2 = &vertexes[(unsigned short)SHORT(mld->v2)]; // [crispy] extended nodes
+	v1 = ld->v1 = &vertexes[(unsigned short)SHORT(mld[i].v1)]; // [crispy] extended nodes
+	v2 = ld->v2 = &vertexes[(unsigned short)SHORT(mld[i].v2)]; // [crispy] extended nodes
 	ld->dx = v2->x - v1->x;
 	ld->dy = v2->y - v1->y;
 
@@ -658,8 +593,8 @@ void P_LoadLineDefs (int lump)
 	ld->soundorg.x = ld->bbox[BOXLEFT] / 2 + ld->bbox[BOXRIGHT] / 2;
 	ld->soundorg.y = ld->bbox[BOXTOP] / 2 + ld->bbox[BOXBOTTOM] / 2;
 
-	ld->sidenum[0] = SHORT(mld->sidenum[0]);
-	ld->sidenum[1] = SHORT(mld->sidenum[1]);
+	ld->sidenum[0] = SHORT(mld[i].sidenum[0]);
+	ld->sidenum[1] = SHORT(mld[i].sidenum[1]);
 
 	// [crispy] substitute dummy sidedef for missing right side
 	if (ld->sidenum[0] == NO_INDEX)
@@ -693,8 +628,6 @@ void P_LoadLineDefs (int lump)
     {
 	fprintf(stderr, "THIS MAP MAY NOT WORK AS EXPECTED!\n");
     }
-
-    W_ReleaseLumpNum(lump);
 }
 
 
@@ -803,7 +736,6 @@ void P_GroupLines (void)
     int			i;
     int			j;
     line_t*		li;
-    sector_t*		sector;
     subsector_t*	ss;
     seg_t*		seg;
     fixed_t		bbox[4];
@@ -835,17 +767,17 @@ void P_GroupLines (void)
     // build line tables for each sector
     linebuffer = static_cast<decltype(linebuffer)>(Z_Malloc (totallines*sizeof(line_t *), PU_LEVEL, 0));
 
-    for (i=0; i<numsectors; ++i)
+    for (auto &sector: sectors)
     {
         // Assign the line buffer for this sector
 
-        sectors[i].lines = linebuffer;
-        linebuffer += sectors[i].linecount;
+        sector.lines = linebuffer;
+        linebuffer += sector.linecount;
 
         // Reset linecount to zero so in the next stage we can count
         // lines into the list.
 
-        sectors[i].linecount = 0;
+        sector.linecount = 0;
     }
 
     // Assign lines to sectors
@@ -856,7 +788,7 @@ void P_GroupLines (void)
 
         if (li->frontsector != NULL)
         {
-            sector = li->frontsector;
+            auto *sector = li->frontsector;
 
             sector->lines[sector->linecount] = li;
             ++sector->linecount;
@@ -864,7 +796,7 @@ void P_GroupLines (void)
 
         if (li->backsector != NULL && li->frontsector != li->backsector)
         {
-            sector = li->backsector;
+            auto *sector = li->backsector;
 
             sector->lines[sector->linecount] = li;
             ++sector->linecount;
@@ -873,39 +805,38 @@ void P_GroupLines (void)
 
     // Generate bounding boxes for sectors
 
-    sector = sectors;
-    for (i=0 ; i<numsectors ; i++, sector++)
+    for (auto &sector: sectors)
     {
 	M_ClearBox (bbox);
 
-	for (j=0 ; j<sector->linecount; j++)
+	for (j=0 ; j<sector.linecount; j++)
 	{
-            li = sector->lines[j];
+            li = sector.lines[j];
 
             M_AddToBox (bbox, li->v1->x, li->v1->y);
             M_AddToBox (bbox, li->v2->x, li->v2->y);
 	}
 
 	// set the degenmobj_t to the middle of the bounding box
-	sector->soundorg.x = (bbox[BOXRIGHT]+bbox[BOXLEFT])/2;
-	sector->soundorg.y = (bbox[BOXTOP]+bbox[BOXBOTTOM])/2;
+	sector.soundorg.x = (bbox[BOXRIGHT]+bbox[BOXLEFT])/2;
+	sector.soundorg.y = (bbox[BOXTOP]+bbox[BOXBOTTOM])/2;
 
 	// adjust bounding box to map blocks
 	block = (bbox[BOXTOP]-bmaporgy+MAXRADIUS)>>MAPBLOCKSHIFT;
 	block = block >= bmapheight ? bmapheight-1 : block;
-	sector->blockbox[BOXTOP]=block;
+	sector.blockbox[BOXTOP]=block;
 
 	block = (bbox[BOXBOTTOM]-bmaporgy-MAXRADIUS)>>MAPBLOCKSHIFT;
 	block = block < 0 ? 0 : block;
-	sector->blockbox[BOXBOTTOM]=block;
+	sector.blockbox[BOXBOTTOM]=block;
 
 	block = (bbox[BOXRIGHT]-bmaporgx+MAXRADIUS)>>MAPBLOCKSHIFT;
 	block = block >= bmapwidth ? bmapwidth-1 : block;
-	sector->blockbox[BOXRIGHT]=block;
+	sector.blockbox[BOXRIGHT]=block;
 
 	block = (bbox[BOXLEFT]-bmaporgx-MAXRADIUS)>>MAPBLOCKSHIFT;
 	block = block < 0 ? 0 : block;
-	sector->blockbox[BOXLEFT]=block;
+	sector.blockbox[BOXLEFT]=block;
     }
 
 }
@@ -1026,7 +957,7 @@ static void P_LoadReject(int lumpnum)
 
     // Calculate the size that the REJECT lump *should* be.
 
-    minlength = (numsectors * numsectors + 7) / 8;
+    minlength = (sectors.size() * sectors.size() + 7) / 8;
 
     // If the lump meets the minimum length, it can be loaded directly.
     // Otherwise, we need to allocate a buffer of the correct size

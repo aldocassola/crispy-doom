@@ -240,31 +240,27 @@ void EV_StartLightStrobing(line_t*	line)
 void EV_TurnTagLightsOff(line_t* line)
 {
     int			i;
-    int			j;
     int			min;
-    sector_t*		sector;
     sector_t*		tsec;
     line_t*		templine;
 
-    sector = sectors;
-
-    for (j = 0;j < numsectors; j++, sector++)
+    for (auto &sector: sectors)
     {
-	if (sector->tag == line->tag)
+	if (sector.tag == line->tag)
 	{
-	    min = sector->lightlevel;
-	    for (i = 0;i < sector->linecount; i++)
+	    min = sector.lightlevel;
+	    for (i = 0;i < sector.linecount; i++)
 	    {
-		templine = sector->lines[i];
-		tsec = getNextSector(templine,sector);
+		templine = sector.lines[i];
+		tsec = getNextSector(templine,&sector);
 		if (!tsec)
 		    continue;
 		if (tsec->lightlevel < min)
 		    min = tsec->lightlevel;
 	    }
-	    sector->lightlevel = min;
+	    sector.lightlevel = min;
 	    // [crispy] A11Y
-	    sector->rlightlevel = sector->lightlevel;
+	    sector.rlightlevel = sector.lightlevel;
 	}
     }
 }
@@ -278,27 +274,23 @@ EV_LightTurnOn
 ( line_t*	line,
   int		bright )
 {
-    int		i;
     int		j;
-    sector_t*	sector;
     sector_t*	temp;
     line_t*	templine;
 
-    sector = sectors;
-
-    for (i=0;i<numsectors;i++, sector++)
+    for (auto &sector: sectors)
     {
-	if (sector->tag == line->tag)
+	if (sector.tag == line->tag)
 	{
 	    // bright = 0 means to search
 	    // for highest light level
 	    // surrounding sector
 	    if (!bright)
 	    {
-		for (j = 0;j < sector->linecount; j++)
+		for (j = 0;j < sector.linecount; j++)
 		{
-		    templine = sector->lines[j];
-		    temp = getNextSector(templine,sector);
+		    templine = sector.lines[j];
+		    temp = getNextSector(templine,&sector);
 
 		    if (!temp)
 			continue;
@@ -307,9 +299,9 @@ EV_LightTurnOn
 			bright = temp->lightlevel;
 		}
 	    }
-	    sector-> lightlevel = bright;
+	    sector. lightlevel = bright;
 	    // [crispy] A11Y
-	    sector->rlightlevel = sector->lightlevel;
+	    sector.rlightlevel = sector.lightlevel;
 	}
     }
 }

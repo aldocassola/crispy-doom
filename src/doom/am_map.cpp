@@ -1941,14 +1941,13 @@ AM_drawThings
 ( int	colors,
   int 	colorrange)
 {
-    int		i;
     mobj_t*	t;
     keycolor_t	key;
     mpoint_t	pt;
 
-    for (i=0;i<numsectors;i++)
+    for (const auto &sector: sectors)
     {
-	t = sectors[i].thinglist;
+	t = sector.thinglist;
 	while (t)
 	{
 	    // [crispy] do not draw an extra triangle for the player

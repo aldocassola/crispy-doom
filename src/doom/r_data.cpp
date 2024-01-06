@@ -1441,10 +1441,10 @@ void R_PrecacheLevel (void)
     flatpresent = static_cast<decltype(flatpresent)>(Z_Malloc(numflats, PU_STATIC, NULL));
     memset (flatpresent,0,numflats);
 
-    for (i=0 ; i<numsectors ; i++)
+    for (const auto &sector: sectors)
     {
-	flatpresent[sectors[i].floorpic] = 1;
-	flatpresent[sectors[i].ceilingpic] = 1;
+	flatpresent[sector.floorpic] = 1;
+	flatpresent[sector.ceilingpic] = 1;
     }
 
     flatmemory = 0;

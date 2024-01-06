@@ -132,7 +132,7 @@ static void P_WriteFireFlicker (const char *key)
 
 			M_snprintf(line, MAX_LINE_LEN, "%s %d %d %d %d\n",
 			           key,
-			           (int)(flick->sector - sectors),
+			           (int)(flick->sector - sectors.data()),
 			           (int)flick->count,
 			           (int)flick->maxlight,
 			           (int)flick->minlight);
@@ -172,19 +172,19 @@ static void P_ReadFireFlicker (const char *key)
 
 static void P_WriteSoundTarget (const char *key)
 {
-	int i;
-	sector_t *sector;
+	int i = 0;
 
-	for (i = 0, sector = sectors; i < numsectors; i++, sector++)
+	for (auto const &sector: sectors)
 	{
-		if (sector->soundtarget)
+		if (sector.soundtarget)
 		{
 			M_snprintf(line, MAX_LINE_LEN, "%s %d %d\n",
 			           key,
 			           i,
-			           P_ThinkerToIndex((thinker_t *) sector->soundtarget));
+			           P_ThinkerToIndex((thinker_t *) sector.soundtarget));
 			fputs(line, save_stream);
 		}
+		i++;
 	}
 }
 
@@ -206,19 +206,19 @@ static void P_ReadSoundTarget (const char *key)
 
 static void P_WriteOldSpecial (const char *key)
 {
-	int i;
-	sector_t *sector;
+	int i = 0;
 
-	for (i = 0, sector = sectors; i < numsectors; i++, sector++)
+	for (const auto &sector: sectors)
 	{
-		if (sector->oldspecial)
+		if (sector.oldspecial)
 		{
 			M_snprintf(line, MAX_LINE_LEN, "%s %d %d\n",
 			           key,
 			           i,
-			           sector->oldspecial);
+			           sector.oldspecial);
 			fputs(line, save_stream);
 		}
+		i++;
 	}
 }
 
@@ -240,19 +240,19 @@ static void P_ReadOldSpecial (const char *key)
 
 static void P_WriteRLightlevel (const char *key)
 {
-	int i;
-	sector_t *sector;
+	int i = 0;
 
-	for (i = 0, sector = sectors; i < numsectors; i++, sector++)
+	for (const auto &sector: sectors)
 	{
-		if (sector->rlightlevel != sector->lightlevel)
+		if (sector.rlightlevel != sector.lightlevel)
 		{
 			M_snprintf(line, MAX_LINE_LEN, "%s %d %d\n",
 			           key,
 			           i,
-			           (int)sector->rlightlevel);
+			           (int)sector.rlightlevel);
 			fputs(line, save_stream);
 		}
+		i++;
 	}
 }
 

@@ -38,6 +38,14 @@
 
 
 
+struct degenmobj_t
+{
+    thinker_t		thinker;	// not used for anything
+    fixed_t		x;
+    fixed_t		y;
+    fixed_t		z;
+
+};
 
 
 
@@ -232,7 +240,7 @@ struct mobj_t
     struct mobj_t*	bnext;
     struct mobj_t*	bprev;
 
-    struct subsector_s*	subsector;
+    struct subsector_t*	subsector;
 
     // The closest interval over all contacted Sectors.
     fixed_t		floorz;

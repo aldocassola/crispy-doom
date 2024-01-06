@@ -50,7 +50,6 @@ EV_Teleport
     mobj_t*	fog;
     unsigned	an;
     thinker_t*	thinker;
-    sector_t*	sector;
     fixed_t	oldx;
     fixed_t	oldy;
     fixed_t	oldz;
@@ -66,9 +65,9 @@ EV_Teleport
 
 
     tag = line->tag;
-    for (i = 0; i < numsectors; i++)
+    for (const auto &sector: sectors)
     {
-	if (sectors[ i ].tag == tag )
+	if (sector.tag == tag )
 	{
 	    for (thinker = thinkercap.next;
 		 thinker != &thinkercap;
@@ -84,9 +83,9 @@ EV_Teleport
 		if (m->type != MT_TELEPORTMAN )
 		    continue;
 
-		sector = m->subsector->sector;
+		auto *tmpsector = m->subsector->sector;
 		// wrong sector
-		if (sector-sectors != i )
+		if (tmpsector != &sector )
 		    continue;
 
 		oldx = thing->x;

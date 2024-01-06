@@ -21,7 +21,6 @@
 #ifndef __R_DATA__
 #define __R_DATA__
 
-#include "r_defs.hpp"
 #include "r_state.hpp"
 
 #define LOOKDIRMIN	110 // [crispy] -110, actually

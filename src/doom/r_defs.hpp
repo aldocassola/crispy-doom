@@ -20,9 +20,12 @@
 #ifndef __R_DEFS__
 #define __R_DEFS__
 
-
+#include "sector.hpp"
+#include "subsector.hpp"
+#include "vertex.hpp"
+#include "line.hpp"
 // Screenwidth.
-#include "doomdef.hpp"
+#include "doomtype.hpp"
 
 // Some more or less basic data types
 // we depend on.
@@ -59,114 +62,6 @@
 //  used by play and refresh
 //
 
-//
-// Your plain vanilla vertex.
-// Note: transformed values not buffered locally,
-//  like some DOOM-alikes ("wt", "WebView") did.
-//
-typedef struct
-{
-    fixed_t	x;
-    fixed_t	y;
-
-// [crispy] remove slime trails
-// vertex coordinates *only* used in rendering that have been
-// moved towards the linedef associated with their seg by projecting them
-// using the law of cosines in p_setup.c:P_RemoveSlimeTrails();
-    fixed_t	r_x;
-    fixed_t	r_y;
-    boolean	moved;
-} vertex_t;
-
-
-// Forward of LineDefs, for Sectors.
-struct line_s;
-
-// Each sector has a degenmobj_t in its center
-//  for sound origin purposes.
-// I suppose this does not handle sound from
-//  moving objects (doppler), because
-//  position is prolly just buffered, not
-//  updated.
-struct degenmobj_t
-{
-    thinker_t		thinker;	// not used for anything
-    fixed_t		x;
-    fixed_t		y;
-    fixed_t		z;
-
-};
-
-//
-// The SECTORS record, at runtime.
-// Stores things/mobjs.
-//
-typedef	struct
-{
-    fixed_t	floorheight;
-    fixed_t	ceilingheight;
-    short	floorpic;
-    short	ceilingpic;
-    short	lightlevel;
-    short	special;
-    short	tag;
-
-    // 0 = untraversed, 1,2 = sndlines -1
-    int		soundtraversed;
-
-    // thing that made a sound (or null)
-    mobj_t*	soundtarget;
-
-    // mapblock bounding box for height changes
-    int		blockbox[4];
-
-    // origin for any sounds played by the sector
-    degenmobj_t	soundorg;
-
-    // if == validcount, already checked
-    int		validcount;
-
-    // list of mobjs in sector
-    mobj_t*	thinglist;
-
-    // thinker_t for reversable actions
-    void*	specialdata;
-
-    int			linecount;
-    struct line_s**	lines;	// [linecount] size
-
-    // [crispy] WiggleFix: [kb] for R_FixWiggle()
-    int		cachedheight;
-    int		scaleindex;
-
-    // [crispy] add support for MBF sky tranfers
-    int		sky;
-
-    // [AM] Previous position of floor and ceiling before
-    //      think.  Used to interpolate between positions.
-    fixed_t	oldfloorheight;
-    fixed_t	oldceilingheight;
-
-    // [AM] Gametic when the old positions were recorded.
-    //      Has a dual purpose; it prevents movement thinkers
-    //      from storing old positions twice in a tic, and
-    //      prevents the renderer from attempting to interpolate
-    //      if old values were not updated recently.
-    int         oldgametic;
-
-    // [AM] Interpolated floor and ceiling height.
-    //      Calculated once per tic and used inside
-    //      the renderer.
-    fixed_t	interpfloorheight;
-    fixed_t	interpceilingheight;
-
-    // [crispy] revealed secrets
-    short	oldspecial;
-
-    // [crispy] A11Y light level used for rendering
-    short	rlightlevel;
-} sector_t;
-
 
 
 
@@ -174,7 +69,7 @@ typedef	struct
 // The SideDef.
 //
 
-typedef struct
+struct side_t
 {
     // add this to the calculated texture column
     fixed_t	textureoffset;
@@ -193,89 +88,14 @@ typedef struct
 
     // [crispy] smooth texture scrolling
     fixed_t	basetextureoffset;
-} side_t;
-
-
-
-//
-// Move clipping aid for LineDefs.
-//
-typedef enum
-{
-    ST_HORIZONTAL,
-    ST_VERTICAL,
-    ST_POSITIVE,
-    ST_NEGATIVE
-
-} slopetype_t;
-
-
-
-typedef struct line_s
-{
-    // Vertices, from v1 to v2.
-    vertex_t*	v1;
-    vertex_t*	v2;
-
-    // Precalculated v2 - v1 for side checking.
-    fixed_t	dx;
-    fixed_t	dy;
-
-    // Animation related.
-    unsigned short	flags; // [crispy] extended nodes
-    short	special;
-    short	tag;
-
-    // Visual appearance: SideDefs.
-    //  sidenum[1] will be -1 (NO_INDEX) if one sided
-    unsigned short	sidenum[2]; // [crispy] extended nodes
-
-    // Neat. Another bounding box, for the extent
-    //  of the LineDef.
-    fixed_t	bbox[4];
-
-    // To aid move clipping.
-    slopetype_t	slopetype;
-
-    // Front and back sector.
-    // Note: redundant? Can be retrieved from SideDefs.
-    sector_t*	frontsector;
-    sector_t*	backsector;
-
-    // if == validcount, already checked
-    int		validcount;
-
-    // thinker_t for reversable actions
-    void*	specialdata;
-
-    // [crispy] calculate sound origin of line to be its midpoint
-    degenmobj_t	soundorg;
-} line_t;
-
-
-
-
-//
-// A SubSector.
-// References a Sector.
-// Basically, this is a list of LineSegs,
-//  indicating the visible walls that define
-//  (all or some) sides of a convex BSP leaf.
-//
-typedef struct subsector_s
-{
-    sector_t*	sector;
-    int	numlines; // [crispy] extended nodes
-    int	firstline; // [crispy] extended nodes
-
-} subsector_t;
+};
 
 
 
 //
 // The LineSeg.
 //
-typedef struct
+struct seg_t
 {
     vertex_t*	v1;
     vertex_t*	v2;
@@ -296,14 +116,14 @@ typedef struct
     uint32_t	length; // [crispy] fix long wall wobble
     angle_t	r_angle; // [crispy] re-calculated angle used for rendering
     int	fakecontrast;
-} seg_t;
+};
 
 
 
 //
 // BSP node.
 //
-typedef struct
+struct node_t
 {
     // Partition line.
     fixed_t	x;
@@ -317,7 +137,7 @@ typedef struct
     // If NF_SUBSECTOR its a subsector.
     int children[2]; // [crispy] extended nodes
 
-} node_t;
+};
 
 
 
@@ -460,12 +280,12 @@ typedef struct
 // A sprite definition:
 //  a number of animation frames.
 //
-typedef struct
+struct spritedef_t
 {
     int			numframes;
     spriteframe_t*	spriteframes;
 
-} spritedef_t;
+};
 
 
 

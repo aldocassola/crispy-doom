@@ -38,6 +38,7 @@
 // Data.
 #include "sounds.hpp"
 
+#include "subsector.hpp"
 
 
 

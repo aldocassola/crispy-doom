@@ -336,7 +336,7 @@ static void saveg_read_mobj_t(mobj_t *str)
     // struct mobj_s* bprev;
     str->bprev = reinterpret_cast<decltype(str->bprev)>(saveg_readp()) ;
 
-    // struct subsector_s* subsector;
+    // struct subsector_t* subsector;
     str->subsector = reinterpret_cast<decltype(str->subsector)>(saveg_readp()) ;
 
     // fixed_t floorz;
@@ -508,7 +508,7 @@ static void saveg_write_mobj_t(mobj_t *str)
     // struct mobj_s* bprev;
     saveg_writep(str->bprev);
 
-    // struct subsector_s* subsector;
+    // struct subsector_t* subsector;
     saveg_writep(str->subsector);
 
     // fixed_t floorz;
@@ -1017,7 +1017,7 @@ static void saveg_write_ceiling_t(ceiling_t *str)
     saveg_write_enum(str->type);
 
     // sector_t* sector;
-    saveg_write32(str->sector - sectors);
+    saveg_write32(str->sector - sectors.data());
 
     // fixed_t bottomheight;
     saveg_write32(str->bottomheight);
@@ -1084,7 +1084,7 @@ static void saveg_write_vldoor_t(vldoor_t *str)
     saveg_write_enum(str->type);
 
     // sector_t* sector;
-    saveg_write32(str->sector - sectors);
+    saveg_write32(str->sector - sectors.data());
 
     // fixed_t topheight;
     saveg_write32(str->topheight);
@@ -1151,7 +1151,7 @@ static void saveg_write_floormove_t(floormove_t *str)
     saveg_write32(str->crush);
 
     // sector_t* sector;
-    saveg_write32(str->sector - sectors);
+    saveg_write32(str->sector - sectors.data());
 
     // int direction;
     saveg_write32(str->direction);
@@ -1221,7 +1221,7 @@ static void saveg_write_plat_t(plat_t *str)
     saveg_write_thinker_t(&str->thinker);
 
     // sector_t* sector;
-    saveg_write32(str->sector - sectors);
+    saveg_write32(str->sector - sectors.data());
 
     // fixed_t speed;
     saveg_write32(str->speed);
@@ -1291,7 +1291,7 @@ static void saveg_write_lightflash_t(lightflash_t *str)
     saveg_write_thinker_t(&str->thinker);
 
     // sector_t* sector;
-    saveg_write32(str->sector - sectors);
+    saveg_write32(str->sector - sectors.data());
 
     // int count;
     saveg_write32(str->count);
@@ -1346,7 +1346,7 @@ static void saveg_write_strobe_t(strobe_t *str)
     saveg_write_thinker_t(&str->thinker);
 
     // sector_t* sector;
-    saveg_write32(str->sector - sectors);
+    saveg_write32(str->sector - sectors.data());
 
     // int count;
     saveg_write32(str->count);
@@ -1395,7 +1395,7 @@ static void saveg_write_glow_t(glow_t *str)
     saveg_write_thinker_t(&str->thinker);
 
     // sector_t* sector;
-    saveg_write32(str->sector - sectors);
+    saveg_write32(str->sector - sectors.data());
 
     // int minlight;
     saveg_write32(str->minlight);
@@ -1557,15 +1557,15 @@ void P_ArchiveWorld (void)
     side_t*		si;
 
     // do sectors
-    for (i=0, sec = sectors ; i<numsectors ; i++,sec++)
+    for (const auto &sec: sectors)
     {
-	saveg_write16(sec->floorheight >> FRACBITS);
-	saveg_write16(sec->ceilingheight >> FRACBITS);
-	saveg_write16(sec->floorpic);
-	saveg_write16(sec->ceilingpic);
-	saveg_write16(sec->lightlevel);
-	saveg_write16(sec->special);		// needed?
-	saveg_write16(sec->tag);		// needed?
+	saveg_write16(sec.floorheight >> FRACBITS);
+	saveg_write16(sec.ceilingheight >> FRACBITS);
+	saveg_write16(sec.floorpic);
+	saveg_write16(sec.ceilingpic);
+	saveg_write16(sec.lightlevel);
+	saveg_write16(sec.special);		// needed?
+	saveg_write16(sec.tag);		// needed?
     }
 
 
@@ -1605,28 +1605,28 @@ void P_UnArchiveWorld (void)
     side_t*		si;
 
     // do sectors
-    for (i=0, sec = sectors ; i<numsectors ; i++,sec++)
+    for (auto &sec: sectors)
     {
 	// [crispy] add overflow guard for the flattranslation[] array
 	short floorpic, ceilingpic;
-	sec->floorheight = saveg_read16() << FRACBITS;
-	sec->ceilingheight = saveg_read16() << FRACBITS;
+	sec.floorheight = saveg_read16() << FRACBITS;
+	sec.ceilingheight = saveg_read16() << FRACBITS;
 	floorpic = saveg_read16();
 	ceilingpic = saveg_read16();
-	sec->lightlevel = saveg_read16();
-	sec->rlightlevel = sec->lightlevel; // [crispy] A11Y
-	sec->special = saveg_read16();		// needed?
-	sec->tag = saveg_read16();		// needed?
-	sec->specialdata = 0;
-	sec->soundtarget = 0;
+	sec.lightlevel = saveg_read16();
+	sec.rlightlevel = sec.lightlevel; // [crispy] A11Y
+	sec.special = saveg_read16();		// needed?
+	sec.tag = saveg_read16();		// needed?
+	sec.specialdata = 0;
+	sec.soundtarget = 0;
 	// [crispy] add overflow guard for the flattranslation[] array
 	if (floorpic >= 0 && floorpic < numflats)
 	{
-	    sec->floorpic = floorpic;
+	    sec.floorpic = floorpic;
 	}
 	if (ceilingpic >= 0 && ceilingpic < numflats)
 	{
-	    sec->ceilingpic = ceilingpic;
+	    sec.ceilingpic = ceilingpic;
 	}
     }
 
