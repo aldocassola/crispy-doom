@@ -24,15 +24,15 @@
 #include <cctype>
 
 #include "i_swap.hpp" // [crispy] SHORT()
-#include "i_system.hpp"
+#include "i_system.h"
 #include "i_video.hpp"
-#include "z_zone.hpp"
+#include "z_zone.h"
 #include "m_argv.hpp" // [crispy] M_ParmExists()
 #include "m_misc.hpp"
 #include "m_random.hpp"
 #include "w_wad.hpp"
 
-#include "deh_main.hpp"
+#include "deh_main.h"
 #include "deh_misc.hpp"
 #include "doomdef.hpp"
 #include "doomkeys.hpp"
@@ -53,7 +53,7 @@
 #include "s_sound.hpp"
 
 // Needs access to LFB.
-#include "v_video.hpp"
+#include "v_video.h"
 
 // State.
 #include "doomstat.hpp"

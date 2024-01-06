@@ -20,10 +20,10 @@
 #include <cstring>
 
 #include "doomdef.hpp"
-#include "doomtype.hpp"
-#include "deh_defs.hpp"
-#include "deh_io.hpp"
-#include "deh_main.hpp"
+#include "doomtype.h"
+#include "deh_defs.h"
+#include "deh_io.h"
+#include "deh_main.h"
 #include "p_local.hpp"
 
 static void *DEH_AmmoStart(deh_context_t *context, char *line)

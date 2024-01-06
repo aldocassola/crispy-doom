@@ -22,11 +22,11 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 
-#include "txt_main.hpp"
-#include "txt_sdl.hpp"
-#include "txt_utf8.hpp"
+#include "txt_main.h"
+#include "txt_sdl.h"
+#include "txt_utf8.h"
 
 #if defined(_MSC_VER) && !defined(__cplusplus)
 #define inline __inline
@@ -42,10 +42,10 @@ typedef struct
 
 // Fonts:
 
-#include "fonts/small.hpp"
-#include "fonts/normal.hpp"
-#include "fonts/large.hpp"
-#include "fonts/codepage.hpp"
+#include "fonts/small.h"
+#include "fonts/normal.h"
+#include "fonts/large.h"
+#include "fonts/codepage.h"
 
 // Time between character blinks in ms
 

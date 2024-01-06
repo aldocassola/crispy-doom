@@ -20,7 +20,7 @@
 #include <cstring>
 
 #include "deh_bexpars.hpp"
-#include "deh_io.hpp"
+#include "deh_io.h"
 
 int bex_pars[7][10] = {{0}};
 int bex_cpars[32] = {0};

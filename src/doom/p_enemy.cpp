@@ -22,7 +22,7 @@
 #include <cstdlib>
 
 #include "m_random.hpp"
-#include "i_system.hpp"
+#include "i_system.h"
 
 #include "doomdef.hpp"
 #include "p_local.hpp"

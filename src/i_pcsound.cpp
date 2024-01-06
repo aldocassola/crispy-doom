@@ -18,16 +18,16 @@
 #include "SDL.h"
 #include <cstring>
 
-#include "crispy.hpp"
-#include "doomtype.hpp"
+#include "crispy.h"
+#include "doomtype.h"
 
-#include "deh_str.hpp"
-#include "i_sound.hpp"
-#include "m_misc.hpp"
-#include "w_wad.hpp"
-#include "z_zone.hpp"
+#include "deh_str.h"
+#include "i_sound.h"
+#include "m_misc.h"
+#include "w_wad.h"
+#include "z_zone.h"
 
-#include "pcsound.hpp"
+#include "pcsound.h"
 
 #define TIMER_FREQ 1193181 /* hz */
 

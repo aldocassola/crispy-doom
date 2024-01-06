@@ -18,12 +18,12 @@
 
 #include <cstring>
 
-#include "z_zone.hpp"
-#include "i_video.hpp"
-#include "v_video.hpp"
+#include "z_zone.h"
+#include "i_video.h"
+#include "v_video.h"
 #include "m_random.hpp"
 
-#include "doomtype.hpp"
+#include "doomtype.h"
 
 #include "f_wipe.hpp"
 

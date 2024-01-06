@@ -21,9 +21,9 @@
 
 #include "tables.hpp"
 
-#include "i_system.hpp"
+#include "i_system.h"
 #include "w_wad.hpp"
-#include "z_zone.hpp"
+#include "z_zone.h"
 
 #include "doomstat.hpp"
 

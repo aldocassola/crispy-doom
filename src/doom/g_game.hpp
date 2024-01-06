@@ -21,9 +21,9 @@
 #define __G_GAME__
 
 #include "doomdef.hpp"
-#include "d_event.hpp"
-#include "d_ticcmd.hpp"
-#include "m_fixed.hpp"
+#include "d_event.h"
+#include "d_ticcmd.h"
+#include "m_fixed.h"
 
 
 //

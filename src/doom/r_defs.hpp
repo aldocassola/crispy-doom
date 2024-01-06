@@ -29,7 +29,7 @@
 
 // Some more or less basic data types
 // we depend on.
-#include "m_fixed.hpp"
+#include "m_fixed.h"
 
 // We rely on the thinker data struct
 // to handle sound origins in sectors.
@@ -37,9 +37,9 @@
 // SECTORS do store MObjs anyway.
 #include "p_mobj.hpp"
 
-#include "i_video.hpp"
+#include "i_video.h"
 
-#include "v_patch.hpp"
+#include "v_patch.h"
 
 
 

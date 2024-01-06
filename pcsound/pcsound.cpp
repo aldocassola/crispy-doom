@@ -20,8 +20,8 @@
 #include <cstring>
 
 #include "config.h"
-#include "pcsound.hpp"
-#include "pcsound_internal.hpp"
+#include "pcsound.h"
+#include "pcsound_internal.h"
 
 
 static pcsound_driver_t *drivers[] =

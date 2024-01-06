@@ -21,11 +21,11 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "doomtype.hpp"
-#include "i_system.hpp"
-#include "m_misc.hpp"
+#include "doomtype.h"
+#include "i_system.h"
+#include "m_misc.h"
 
-#include "deh_mapping.hpp"
+#include "deh_mapping.h"
 
 static deh_mapping_entry_t *GetMappingEntryByName(deh_context_t *context,
                                                   deh_mapping_t *mapping,

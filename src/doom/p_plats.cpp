@@ -18,8 +18,8 @@
 
 #include <cstdio>
 
-#include "i_system.hpp"
-#include "z_zone.hpp"
+#include "i_system.h"
+#include "z_zone.h"
 #include "m_random.hpp"
 
 #include "doomdef.hpp"

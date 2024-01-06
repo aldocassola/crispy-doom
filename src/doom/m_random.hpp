@@ -21,7 +21,7 @@
 #define __M_RANDOM__
 
 
-#include "doomtype.hpp"
+#include "doomtype.h"
 
 
 // Returns a number from 0 to 255,

@@ -18,11 +18,11 @@
 
 #include <cstdio>
 
-#include "doomtype.hpp"
-#include "i_swap.hpp"
+#include "doomtype.h"
+#include "i_swap.h"
 
-#include "memio.hpp"
-#include "mus2mid.hpp"
+#include "memio.h"
+#include "mus2mid.h"
 
 #define NUM_CHANNELS 16
 
@@ -694,8 +694,8 @@ boolean mus2mid(MEMFILE *musinput, MEMFILE *midioutput)
 
 #ifdef STANDALONE
 
-#include "m_misc.hpp"
-#include "z_zone.hpp"
+#include "m_misc.h"
+#include "z_zone.h"
 
 int main(int argc, char *argv[])
 {

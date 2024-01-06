@@ -21,8 +21,8 @@
 #include "SDL.h"
 #include "SDL_mixer.h"
 
-#include "pcsound.hpp"
-#include "pcsound_internal.hpp"
+#include "pcsound.h"
+#include "pcsound_internal.h"
 
 
 #ifndef DISABLE_SDL2MIXER

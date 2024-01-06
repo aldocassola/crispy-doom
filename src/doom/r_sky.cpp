@@ -23,7 +23,7 @@
 
 
 // Needed for FRACUNIT.
-#include "m_fixed.hpp"
+#include "m_fixed.h"
 
 // Needed for Flat retrieval.
 #include "r_data.hpp"

@@ -20,7 +20,7 @@
 #include "doomdef.hpp"
 #include "doomstat.hpp"
 
-#include "i_system.hpp"
+#include "i_system.h"
 #include "p_local.hpp"
 
 // State.

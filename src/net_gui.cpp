@@ -22,20 +22,20 @@
 #include <cctype>
 
 #include "config.h"
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 
-#include "i_system.hpp"
-#include "i_timer.hpp"
-#include "i_video.hpp"
-#include "m_argv.hpp"
-#include "m_misc.hpp"
+#include "i_system.h"
+#include "i_timer.h"
+#include "i_video.h"
+#include "m_argv.h"
+#include "m_misc.h"
 
-#include "net_client.hpp"
-#include "net_gui.hpp"
-#include "net_query.hpp"
-#include "net_server.hpp"
+#include "net_client.h"
+#include "net_gui.h"
+#include "net_query.h"
+#include "net_server.h"
 
-#include "textscreen.hpp"
+#include "textscreen.h"
 
 static txt_window_t *window;
 static int old_max_players;

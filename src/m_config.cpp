@@ -30,14 +30,14 @@
 
 #include "config.h"
 
-#include "doomtype.hpp"
-#include "doomkeys.hpp"
-#include "i_system.hpp"
-#include "m_argv.hpp"
-#include "m_config.hpp"
-#include "m_misc.hpp"
+#include "doomtype.h"
+#include "doomkeys.h"
+#include "i_system.h"
+#include "m_argv.h"
+#include "m_config.h"
+#include "m_misc.h"
 
-#include "z_zone.hpp"
+#include "z_zone.h"
 
 //
 // DEFAULTS

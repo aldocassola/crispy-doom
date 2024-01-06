@@ -28,17 +28,17 @@
 // We need globally shared data structures,
 //  for defining the global state variables.
 #include "doomdata.hpp"
-#include "d_loop.hpp"
+#include "d_loop.h"
 
 // We need the playr data structure as well.
 #include "d_player.hpp"
 
 // Game mode/mission
-#include "d_mode.hpp"
+#include "d_mode.h"
 
-#include "net_defs.hpp"
+#include "net_defs.h"
 
-#include "crispy.hpp"
+#include "crispy.h"
 
 
 // ------------------------

@@ -25,14 +25,14 @@
 #include <cstdlib>
 #include <cmath>
 
-#include "doomtype.hpp"
-#include "i_sound.hpp"
-#include "i_system.hpp"
-#include "m_misc.hpp"
-#include "memio.hpp"
-#include "mus2mid.hpp"
-#include "midifile.hpp"
-#include "midifallback.hpp"
+#include "doomtype.h"
+#include "i_sound.h"
+#include "i_system.h"
+#include "m_misc.h"
+#include "memio.h"
+#include "mus2mid.h"
+#include "midifile.h"
+#include "midifallback.h"
 
 enum
 {

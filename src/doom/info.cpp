@@ -23,7 +23,7 @@
 
 // Data.
 #include "sounds.hpp"
-#include "m_fixed.hpp"
+#include "m_fixed.h"
 
 #include "info.hpp"
 

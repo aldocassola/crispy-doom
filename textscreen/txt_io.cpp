@@ -18,8 +18,8 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "txt_io.hpp"
-#include "txt_main.hpp"
+#include "txt_io.h"
+#include "txt_main.h"
 
 static int cur_x = 0, cur_y = 0;
 static txt_color_t fgcolor = TXT_COLOR_GREY;

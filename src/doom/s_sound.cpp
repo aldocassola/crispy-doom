@@ -19,12 +19,12 @@
 #include <cstdlib>
 
 #include "i_sound.hpp"
-#include "i_system.hpp"
+#include "i_system.h"
 
 #include "deh_str.hpp"
 
 #include "doomstat.hpp"
-#include "doomtype.hpp"
+#include "doomtype.h"
 
 #include "sounds.hpp"
 #include "s_sound.hpp"
@@ -36,7 +36,7 @@
 
 #include "p_local.hpp"
 #include "w_wad.hpp"
-#include "z_zone.hpp"
+#include "z_zone.h"
 #include "g_game.hpp" // [crispy] demo_gotonextlvl
 
 // when to clip out sounds

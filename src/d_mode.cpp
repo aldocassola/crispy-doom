@@ -17,8 +17,8 @@
 //   mode.
 //
 
-#include "doomtype.hpp"
-#include "d_mode.hpp"
+#include "doomtype.h"
+#include "d_mode.h"
 
 // Valid game mode/mission combinations, with the number of
 // episodes/maps for each.

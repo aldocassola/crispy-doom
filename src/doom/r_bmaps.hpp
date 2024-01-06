@@ -20,7 +20,7 @@
 #ifndef __R_BMAPS__
 #define __R_BMAPS__
 
-#include "doomtype.hpp"
+#include "doomtype.h"
 
 extern void R_InitBrightmaps ();
 

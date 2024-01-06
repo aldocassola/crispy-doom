@@ -17,9 +17,9 @@
 //	[crispy] Crispness menu
 //
 
-#include "crispy.hpp"
+#include "crispy.h"
 #include "doomstat.hpp"
-#include "i_input.hpp" // [crispy] start/stop text input
+#include "i_input.h" // [crispy] start/stop text input
 #include "m_menu.hpp" // [crispy] M_SetDefaultDifficulty()
 #include "p_local.hpp" // [crispy] thinkercap
 #include "s_sound.hpp"

@@ -30,16 +30,16 @@
 #include <samplerate.h>
 #endif
 
-#include "deh_str.hpp"
-#include "i_sound.hpp"
-#include "i_system.hpp"
-#include "i_swap.hpp"
-#include "m_argv.hpp"
-#include "m_misc.hpp"
-#include "w_wad.hpp"
-#include "z_zone.hpp"
+#include "deh_str.h"
+#include "i_sound.h"
+#include "i_system.h"
+#include "i_swap.h"
+#include "m_argv.h"
+#include "m_misc.h"
+#include "w_wad.h"
+#include "z_zone.h"
 
-#include "doomtype.hpp"
+#include "doomtype.h"
 
 
 // [crispy] values 3 and higher might reproduce DOOM.EXE more accurately,

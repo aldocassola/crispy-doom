@@ -20,8 +20,8 @@
 
 #include <cstring>
 
-#include "doomtype.hpp"
-#include "m_cheat.hpp"
+#include "doomtype.h"
+#include "m_cheat.h"
 
 //
 // CHEAT SEQUENCE PACKAGE

@@ -17,11 +17,11 @@
 
 
 
-#include "z_zone.hpp"
+#include "z_zone.h"
 #include "doomdef.hpp"
-#include "deh_main.hpp"
+#include "deh_main.h"
 #include "p_local.hpp"
-#include "i_system.hpp"
+#include "i_system.h"
 
 #include "s_sound.hpp"
 

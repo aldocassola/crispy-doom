@@ -19,10 +19,11 @@
 #include <cstring>
 
 #include "config.h"
-#include "doomtype.hpp"
-#include "i_video.hpp"
+#include "doomtype.h"
+#include "i_video.h"
+#include "i_endoom.h"
 
-#include "txt_main.hpp"
+#include "txt_main.h"
 
 #define ENDOOM_W 80
 #define ENDOOM_H 25

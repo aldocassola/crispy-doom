@@ -33,9 +33,15 @@
 #error i_opndir.c is for Microsoft Visual C++ only
 #endif
 
+#ifdef __cplusplus
 #include <cstdlib>
 #include <cerrno>
 #include <cstring>
+#else
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+#endif
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h> /* for GetFileAttributes */
@@ -44,7 +50,7 @@
 #define SUFFIX	_T("*")
 #define	SLASH	_T("\\")
 
-#include "win_opendir.hpp"
+#include "win_opendir.h"
 
 //
 // opendir

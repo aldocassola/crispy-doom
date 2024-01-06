@@ -20,7 +20,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "opl_queue.hpp"
+#include "opl_queue.h"
 
 #define MAX_OPL_QUEUE 64
 

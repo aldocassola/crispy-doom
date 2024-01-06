@@ -22,7 +22,7 @@
 
 #include "doomdef.hpp"
 #include "d_player.hpp"
-#include "doomtype.hpp"
+#include "doomtype.h"
 
 
 boolean	P_GivePower(player_t*, int);

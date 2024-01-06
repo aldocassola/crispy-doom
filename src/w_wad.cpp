@@ -24,16 +24,16 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "doomtype.hpp"
+#include "doomtype.h"
 
-#include "i_swap.hpp"
-#include "i_system.hpp"
-#include "i_video.hpp"
-#include "m_misc.hpp"
-#include "v_diskicon.hpp"
-#include "z_zone.hpp"
+#include "i_swap.h"
+#include "i_system.h"
+#include "i_video.h"
+#include "m_misc.h"
+#include "v_diskicon.h"
+#include "z_zone.h"
 
-#include "w_wad.hpp"
+#include "w_wad.h"
 
 //
 // GLOBALS

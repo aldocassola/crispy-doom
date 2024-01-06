@@ -20,17 +20,17 @@
 #include <cstring>
 #include <cctype>
 
-#include "doomtype.hpp"
-#include "i_glob.hpp"
-#include "i_system.hpp"
-#include "d_iwad.hpp"
-#include "m_argv.hpp"
-#include "m_misc.hpp"
-#include "w_wad.hpp"
+#include "doomtype.h"
+#include "i_glob.h"
+#include "i_system.h"
+#include "d_iwad.h"
+#include "m_argv.h"
+#include "m_misc.h"
+#include "w_wad.h"
 
-#include "deh_defs.hpp"
-#include "deh_io.hpp"
-#include "deh_main.hpp"
+#include "deh_defs.h"
+#include "deh_io.h"
+#include "deh_main.h"
 
 
 static boolean deh_initialized = false;

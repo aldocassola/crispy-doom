@@ -15,10 +15,10 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "txt_gui.hpp"
-#include "txt_io.hpp"
-#include "txt_main.hpp"
-#include "txt_utf8.hpp"
+#include "txt_gui.h"
+#include "txt_io.h"
+#include "txt_main.h"
+#include "txt_utf8.h"
 
 typedef struct txt_cliparea_s txt_cliparea_t;
 

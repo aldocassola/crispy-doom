@@ -20,10 +20,10 @@
 
 #include <cstdlib>
 
-#include "doomtype.hpp"
-#include "i_system.hpp"
+#include "doomtype.h"
+#include "i_system.h"
 
-#include "m_fixed.hpp"
+#include "m_fixed.h"
 
 
 

@@ -23,9 +23,9 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "z_zone.hpp"
-#include "i_system.hpp"
-#include "doomtype.hpp"
+#include "z_zone.h"
+#include "i_system.h"
+#include "doomtype.h"
 
 #define ZONEID	0x1d4a11
 
@@ -275,7 +275,7 @@ void *Z_Malloc(int size, int tag, void *user)
     // Hook into the linked list for this tag type
 
     newblock->id = ZONEID;
-    newblock->user = user;
+    newblock->user = static_cast<void **>(user);
     newblock->size = size;
 
     Z_InsertBlock(newblock);

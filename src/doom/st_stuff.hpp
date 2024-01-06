@@ -21,9 +21,9 @@
 #ifndef __STSTUFF_H__
 #define __STSTUFF_H__
 
-#include "doomtype.hpp"
-#include "d_event.hpp"
-#include "m_cheat.hpp"
+#include "doomtype.h"
+#include "d_event.h"
+#include "m_cheat.h"
 #include "p_inter.hpp"
 
 // Size of statusbar.

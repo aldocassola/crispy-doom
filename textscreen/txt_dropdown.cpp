@@ -15,15 +15,15 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 
-#include "txt_button.hpp"
-#include "txt_dropdown.hpp"
-#include "txt_gui.hpp"
-#include "txt_io.hpp"
-#include "txt_main.hpp"
-#include "txt_utf8.hpp"
-#include "txt_window.hpp"
+#include "txt_button.h"
+#include "txt_dropdown.h"
+#include "txt_gui.h"
+#include "txt_io.h"
+#include "txt_main.h"
+#include "txt_utf8.h"
+#include "txt_window.h"
 
 typedef struct
 {

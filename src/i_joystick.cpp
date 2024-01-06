@@ -24,14 +24,14 @@
 #include <cstdio>
 #include <cstring>
 
-#include "doomtype.hpp"
-#include "d_event.hpp"
-#include "i_joystick.hpp"
-#include "i_system.hpp"
+#include "doomtype.h"
+#include "d_event.h"
+#include "i_joystick.h"
+#include "i_system.h"
 
-#include "m_config.hpp"
-#include "m_fixed.hpp"
-#include "m_misc.hpp"
+#include "m_config.h"
+#include "m_fixed.h"
+#include "m_misc.h"
 
 static SDL_GameController *gamepad = NULL;
 static SDL_Joystick *joystick = NULL;

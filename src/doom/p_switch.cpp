@@ -19,13 +19,13 @@
 
 #include <cstdio>
 
-#include "i_system.hpp"
-#include "deh_main.hpp"
+#include "i_system.h"
+#include "deh_main.h"
 #include "doomdef.hpp"
 #include "p_local.hpp"
 #include "i_swap.hpp" // [crispy] SHORT()
 #include "w_wad.hpp" // [crispy] W_CheckNumForName()
-#include "z_zone.hpp" // [crispy] PU_STATIC
+#include "z_zone.h" // [crispy] PU_STATIC
 
 #include "g_game.hpp"
 

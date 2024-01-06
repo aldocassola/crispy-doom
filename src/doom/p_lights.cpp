@@ -19,7 +19,7 @@
 
 
 
-#include "z_zone.hpp"
+#include "z_zone.h"
 #include "m_random.hpp"
 
 #include "doomdef.hpp"

@@ -21,9 +21,9 @@
 #include <cstdlib>
 
 #include "dstrings.hpp"
-#include "deh_main.hpp"
-#include "i_system.hpp"
-#include "z_zone.hpp"
+#include "deh_main.h"
+#include "i_system.h"
+#include "z_zone.h"
 #include "p_local.hpp"
 #include "p_saveg.hpp"
 

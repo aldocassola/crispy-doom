@@ -20,10 +20,10 @@
 #include <cstdio>
 #include <cstdlib> // [crispy] calloc()
 
-#include "deh_main.hpp"
+#include "deh_main.h"
 #include "i_swap.hpp"
-#include "i_system.hpp"
-#include "z_zone.hpp"
+#include "i_system.h"
+#include "z_zone.h"
 
 
 #include "w_wad.hpp"

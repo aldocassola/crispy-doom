@@ -26,23 +26,23 @@
 #include <cstring>
 #include <cmath>
 
-#include "i_system.hpp"
+#include "i_system.h"
 
-#include "doomtype.hpp"
+#include "doomtype.h"
 
-#include "deh_str.hpp"
-#include "i_input.hpp"
-#include "i_swap.hpp"
-#include "i_video.hpp"
-#include "m_bbox.hpp"
-#include "m_misc.hpp"
+#include "deh_str.h"
+#include "i_input.h"
+#include "i_swap.h"
+#include "i_video.h"
+#include "m_bbox.h"
+#include "m_misc.h"
 #ifdef CRISPY_TRUECOLOR
-#include "v_trans.hpp"
+#include "v_trans.h"
 #endif
-#include "v_video.hpp"
-#include "w_wad.hpp"
-#include "z_zone.hpp"
-#include "crispy.hpp"
+#include "v_video.h"
+#include "w_wad.h"
+#include "z_zone.h"
+#include "crispy.h"
 
 #include "config.h"
 #ifdef HAVE_LIBPNG

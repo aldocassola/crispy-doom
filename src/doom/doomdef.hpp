@@ -23,9 +23,9 @@
 #include <cstdio>
 #include <cstring>
 
-#include "doomtype.hpp"
-#include "i_timer.hpp"
-#include "d_mode.hpp"
+#include "doomtype.h"
+#include "i_timer.h"
+#include "d_mode.h"
 
 //
 // Global parameters/defines.

@@ -20,8 +20,8 @@
 #include <cstring>
 #include <cctype>
 
-#include "i_glob.hpp"
-#include "m_misc.hpp"
+#include "i_glob.h"
+#include "m_misc.h"
 #include "config.h"
 
 #if defined(_MSC_VER)

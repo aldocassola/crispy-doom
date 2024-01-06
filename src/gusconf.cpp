@@ -26,9 +26,10 @@
 #include <cstring>
 #include <cctype>
 
-#include "m_misc.hpp"
-#include "w_wad.hpp"
-#include "z_zone.hpp"
+#include "m_misc.h"
+#include "w_wad.h"
+#include "z_zone.h"
+#include "gusconf.h"
 
 #define MAX_INSTRUMENTS 256
 

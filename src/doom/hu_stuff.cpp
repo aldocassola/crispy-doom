@@ -20,12 +20,12 @@
 #include <cstdlib>
 
 #include "doomdef.hpp"
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 
-#include "z_zone.hpp"
+#include "z_zone.h"
 
-#include "deh_main.hpp"
-#include "i_input.hpp"
+#include "deh_main.h"
+#include "i_input.h"
 #include "i_swap.hpp"
 #include "i_video.hpp"
 
@@ -48,7 +48,7 @@
 #include "sounds.hpp"
 
 #include "r_state.hpp" // [crispy] colormaps
-#include "v_video.hpp" // [crispy] V_DrawPatch() et al.
+#include "v_video.h" // [crispy] V_DrawPatch() et al.
 #include "v_trans.hpp" // [crispy] colored kills/items/secret/etc. messages
 
 //

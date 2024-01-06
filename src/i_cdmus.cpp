@@ -20,9 +20,9 @@
 
 #include "SDL.h"
 
-#include "doomtype.hpp"
+#include "doomtype.h"
 
-#include "i_cdmus.hpp"
+#include "i_cdmus.h"
 
 int cd_Error;
 

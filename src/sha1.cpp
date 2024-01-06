@@ -36,8 +36,8 @@
 #include <cstring>
 #include <cassert>
 
-#include "i_swap.hpp"
-#include "sha1.hpp"
+#include "i_swap.h"
+#include "sha1.h"
 
 void SHA1_Init(sha1_context_t *hd)
 {

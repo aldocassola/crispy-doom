@@ -27,7 +27,7 @@
 
 #include <cerrno>
 
-#include "ioperm_sys.hpp"
+#include "ioperm_sys.h"
 
 #define IOPERM_FILE L"\\\\.\\ioperm"
 

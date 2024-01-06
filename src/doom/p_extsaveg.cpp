@@ -22,8 +22,8 @@
 
 #include "config.h"
 #include "doomstat.hpp"
-#include "doomtype.hpp"
-#include "deh_main.hpp"
+#include "doomtype.h"
+#include "deh_main.h"
 #include "m_misc.hpp"
 #include "p_extsaveg.hpp"
 #include "p_local.hpp"
@@ -31,7 +31,7 @@
 #include "p_setup.hpp"
 #include "s_sound.hpp"
 #include "s_musinfo.hpp"
-#include "z_zone.hpp"
+#include "z_zone.h"
 
 #define MAX_LINE_LEN 260
 #define MAX_STRING_LEN 80

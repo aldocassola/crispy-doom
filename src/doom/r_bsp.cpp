@@ -23,7 +23,7 @@
 
 #include "m_bbox.hpp"
 
-#include "i_system.hpp"
+#include "i_system.h"
 
 #include "r_main.hpp"
 #include "r_plane.hpp"

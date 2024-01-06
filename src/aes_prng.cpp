@@ -27,9 +27,9 @@
 
 #include <cstdint>
 
-#include "aes_prng.hpp"
-#include "doomtype.hpp"
-#include "i_swap.hpp"
+#include "aes_prng.h"
+#include "doomtype.h"
+#include "i_swap.h"
 
 /*
  * Cryptographic API.

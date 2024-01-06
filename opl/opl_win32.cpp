@@ -24,11 +24,11 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
-#include "opl.hpp"
-#include "opl_internal.hpp"
-#include "opl_timer.hpp"
+#include "opl.h"
+#include "opl_internal.h"
+#include "opl_timer.h"
 
-#include "ioperm_sys.hpp"
+#include "ioperm_sys.h"
 
 static unsigned int opl_port_base;
 

@@ -23,8 +23,8 @@
 
 #include "info.hpp"
 
-#include "deh_io.hpp"
-#include "deh_main.hpp"
+#include "deh_io.h"
+#include "deh_main.h"
 
 #include "actions.hpp"
 

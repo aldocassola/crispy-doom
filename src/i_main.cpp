@@ -17,7 +17,7 @@
 //
 
 #include "config.h"
-#include "crispy.hpp"
+#include "crispy.h"
 
 #include <cassert>
 #include <cstdio>
@@ -25,10 +25,10 @@
 
 #include "SDL.h"
 
-#include "doomtype.hpp"
-#include "i_system.hpp"
-#include "m_argv.hpp"
-#include "m_misc.hpp"
+#include "doomtype.h"
+#include "i_system.h"
+#include "m_argv.h"
+#include "m_misc.h"
 
 
 //
@@ -37,7 +37,7 @@
 // calls all startup code, parses command line options.
 //
 
-void D_DoomMain (void);
+extern "C" void D_DoomMain (void);
 
 int main(int argc, char **argv)
 {

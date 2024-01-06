@@ -23,10 +23,10 @@
 #include <memory>
 #include "memory/memory.hpp"
 
-#include "m_misc.hpp"
+#include "m_misc.h"
 
-#include "deh_io.hpp"
-#include "deh_main.hpp"
+#include "deh_io.h"
+#include "deh_main.h"
 
 static boolean bex_nested = false;
 

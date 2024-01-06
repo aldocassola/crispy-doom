@@ -35,12 +35,12 @@ typedef fluid_long_long_t fluid_int_t;
 
 #include "SDL_mixer.h"
 
-#include "doomtype.hpp"
-#include "i_system.hpp"
-#include "i_sound.hpp"
-#include "m_misc.hpp"
-#include "memio.hpp"
-#include "mus2mid.hpp"
+#include "doomtype.h"
+#include "i_system.h"
+#include "i_sound.h"
+#include "m_misc.h"
+#include "memio.h"
+#include "mus2mid.h"
 
 const char *fsynth_sf_path = "";
 int fsynth_chorus_active = 1;

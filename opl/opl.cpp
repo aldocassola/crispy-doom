@@ -23,8 +23,8 @@
 
 #include "SDL.h"
 
-#include "opl.hpp"
-#include "opl_internal.hpp"
+#include "opl.h"
+#include "opl_internal.h"
 
 //#define OPL_DEBUG_TRACE
 

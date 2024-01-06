@@ -25,7 +25,7 @@
 #include <cstdlib>
 
 
-#include "i_system.hpp" // [crispy] I_Realloc()
+#include "i_system.h" // [crispy] I_Realloc()
 #include "m_bbox.hpp"
 #include "m_misc.hpp"
 

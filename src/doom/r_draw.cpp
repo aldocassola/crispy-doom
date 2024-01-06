@@ -22,16 +22,16 @@
 
 
 #include "doomdef.hpp"
-#include "deh_main.hpp"
+#include "deh_main.h"
 
-#include "i_system.hpp"
-#include "z_zone.hpp"
+#include "i_system.h"
+#include "z_zone.h"
 #include "w_wad.hpp"
 
 #include "r_local.hpp"
 
 // Needs access to LFB (guess what).
-#include "v_video.hpp"
+#include "v_video.h"
 #include "v_trans.hpp"
 
 // State.

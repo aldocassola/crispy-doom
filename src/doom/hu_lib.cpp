@@ -19,10 +19,10 @@
 #include <cctype>
 
 #include "doomdef.hpp"
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 #include "doomstat.hpp"
 
-#include "v_video.hpp"
+#include "v_video.h"
 #include "i_swap.hpp"
 
 #include "hu_lib.hpp"

@@ -23,14 +23,14 @@
 #include <algorithm>
 
 #include "doomdef.hpp"
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 #include "doomstat.hpp"
 
-#include "deh_main.hpp"
+#include "deh_main.h"
 #include "deh_misc.hpp"
 #include "deh_bexpars.hpp" // [crispy] bex_pars[]
 
-#include "z_zone.hpp"
+#include "z_zone.h"
 #include "f_finale.hpp"
 #include "m_argv.hpp"
 #include "m_controls.hpp"
@@ -38,9 +38,9 @@
 #include "m_menu.hpp"
 #include "m_random.hpp"
 #include "i_joystick.hpp"
-#include "i_system.hpp"
+#include "i_system.h"
 #include "i_timer.hpp"
-#include "i_input.hpp"
+#include "i_input.h"
 #include "i_swap.hpp"
 #include "i_video.hpp"
 
@@ -58,7 +58,7 @@
 #include "statdump.hpp"
 
 // Needs access to LFB.
-#include "v_video.hpp"
+#include "v_video.h"
 
 #include "w_wad.hpp"
 
@@ -79,7 +79,7 @@
 #include "g_game.hpp"
 #include "v_trans.hpp" // [crispy] colored "always run" message
 
-#include "deh_main.hpp" // [crispy] for demo footer
+#include "deh_main.h" // [crispy] for demo footer
 #include "memio.hpp"
 
 #define SAVEGAMESIZE	0x2c000

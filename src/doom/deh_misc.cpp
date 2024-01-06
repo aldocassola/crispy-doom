@@ -18,10 +18,10 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "doomtype.hpp"
-#include "deh_defs.hpp"
-#include "deh_io.hpp"
-#include "deh_main.hpp"
+#include "doomtype.h"
+#include "deh_defs.h"
+#include "deh_io.h"
+#include "deh_main.h"
 #include "deh_misc.hpp"
 
 // Dehacked: "Initial Health"

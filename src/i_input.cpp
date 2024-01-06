@@ -21,16 +21,16 @@
 #include "SDL.h"
 #include "SDL_keycode.h"
 
-#include "doomkeys.hpp"
-#include "doomtype.hpp"
-#include "d_event.hpp"
-#include "i_input.hpp"
-#include "i_timer.hpp" // [crispy]
-#include "m_argv.hpp"
-#include "m_config.hpp"
-#include "m_fixed.hpp" // [crispy]
+#include "doomkeys.h"
+#include "doomtype.h"
+#include "d_event.h"
+#include "i_input.h"
+#include "i_timer.h" // [crispy]
+#include "m_argv.h"
+#include "m_config.h"
+#include "m_fixed.h" // [crispy]
 
-#include "crispy.hpp"
+#include "crispy.h"
 
 static const int scancode_translate_table[] = SCANCODE_TO_KEYS_ARRAY;
 

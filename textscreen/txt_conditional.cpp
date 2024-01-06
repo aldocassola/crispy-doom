@@ -15,8 +15,8 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "txt_conditional.hpp"
-#include "txt_strut.hpp"
+#include "txt_conditional.h"
+#include "txt_strut.h"
 
 struct txt_conditional_s
 {

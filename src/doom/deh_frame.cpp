@@ -18,14 +18,14 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "doomtype.hpp"
+#include "doomtype.h"
 #include "d_items.hpp"
 #include "info.hpp"
 
-#include "deh_defs.hpp"
-#include "deh_io.hpp"
-#include "deh_main.hpp"
-#include "deh_mapping.hpp"
+#include "deh_defs.h"
+#include "deh_io.h"
+#include "deh_main.h"
+#include "deh_mapping.h"
 
 DEH_BEGIN_MAPPING(state_mapping, state_t)
   DEH_MAPPING("Sprite number",    sprite)

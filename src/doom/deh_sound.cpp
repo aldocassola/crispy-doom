@@ -18,10 +18,10 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "doomtype.hpp"
-#include "deh_defs.hpp"
-#include "deh_main.hpp"
-#include "deh_mapping.hpp"
+#include "doomtype.h"
+#include "deh_defs.h"
+#include "deh_main.h"
+#include "deh_mapping.h"
 #include "sounds.hpp"
 
 DEH_BEGIN_MAPPING(sound_mapping, sfxinfo_t)

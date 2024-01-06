@@ -23,12 +23,12 @@
 #include <cstdlib>
 
 
-#include "deh_main.hpp"
+#include "deh_main.h"
 #include "doomdef.hpp"
 
 #include "i_swap.hpp"
-#include "i_system.hpp"
-#include "z_zone.hpp"
+#include "i_system.h"
+#include "z_zone.h"
 #include "w_wad.hpp"
 
 #include "r_local.hpp"

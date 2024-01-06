@@ -20,10 +20,10 @@
 
 #include "config.h"
 
-#include "doomtype.hpp"
-#include "m_argv.hpp"
+#include "doomtype.h"
+#include "m_argv.h"
 
-#include "w_file.hpp"
+#include "w_file.h"
 
 
 static wad_file_class_t *wad_file_classes[] =

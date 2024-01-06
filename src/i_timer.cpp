@@ -18,9 +18,9 @@
 
 #include "SDL.h"
 
-#include "i_timer.hpp"
-#include "m_fixed.hpp" // [crispy]
-#include "doomtype.hpp"
+#include "i_timer.h"
+#include "m_fixed.h" // [crispy]
+#include "doomtype.h"
 
 //
 // I_GetTime

@@ -18,13 +18,13 @@
 #include <cstring>
 #include <cmath>
 
-#include "txt_scrollpane.hpp"
-#include "txt_gui.hpp"
-#include "txt_io.hpp"
-#include "txt_main.hpp"
-#include "txt_table.hpp"
+#include "txt_scrollpane.h"
+#include "txt_gui.h"
+#include "txt_io.h"
+#include "txt_main.h"
+#include "txt_table.h"
 
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 
 #define SCROLLBAR_VERTICAL   (1 << 0)
 #define SCROLLBAR_HORIZONTAL (1 << 1)

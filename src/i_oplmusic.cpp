@@ -21,18 +21,18 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "memio.hpp"
-#include "mus2mid.hpp"
+#include "memio.h"
+#include "mus2mid.h"
 
-#include "deh_main.hpp"
-#include "i_sound.hpp"
-#include "i_swap.hpp"
-#include "m_misc.hpp"
-#include "w_wad.hpp"
-#include "z_zone.hpp"
+#include "deh_main.h"
+#include "i_sound.h"
+#include "i_swap.h"
+#include "m_misc.h"
+#include "w_wad.h"
+#include "z_zone.h"
 
-#include "opl.hpp"
-#include "midifile.hpp"
+#include "opl.h"
+#include "midifile.h"
 
 // #define OPL_MIDI_DEBUG
 

@@ -14,12 +14,13 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <memory>
 #include <vector>
 
-#include "txt_io.hpp"
-#include "txt_widget.hpp"
-#include "txt_gui.hpp"
-#include "txt_desktop.hpp"
+#include "txt_io.h"
+#include "txt_widget.h"
+#include "txt_gui.h"
+#include "txt_desktop.h"
 
 typedef struct
 {
@@ -28,20 +29,34 @@ typedef struct
     void *user_data;
 } txt_callback_t;
 
-struct txt_callback_table_s
+namespace Impl {
+struct txt_callback_table_t
 {
     std::vector<txt_callback_t> callbacks;
 
-    ~txt_callback_table_s() {
+    ~txt_callback_table_t() {
         for(auto &callback: callbacks) {
             free(callback.signal_name);
         }
     }
 };
+}
 
-std::shared_ptr<txt_callback_table_t> TXT_NewCallbackTable(void)
+struct txt_callback_table_s {
+    using held_type = Impl::txt_callback_table_t;
+    using ptr_type = std::shared_ptr<held_type>;
+
+    ptr_type ptr;
+
+    txt_callback_table_s(std::shared_ptr<held_type> p): ptr{p} {}
+    held_type *operator->() { return ptr.get(); }
+    held_type *operator->() const { return ptr.get(); }
+
+};
+
+txt_callback_table_s *TXT_NewCallbackTable(void)
 {
-    return std::make_shared<txt_callback_table_t>();
+    return new txt_callback_table_s{std::make_shared<Impl::txt_callback_table_t>()};
 }
 
 void TXT_InitWidget(TXT_UNCAST_ARG(widget), txt_widget_class_t *widget_class)
@@ -72,7 +87,7 @@ void TXT_SignalConnect(TXT_UNCAST_ARG(widget),
 {
     TXT_CAST_ARG(txt_widget_t, widget);
 
-    auto &table = widget->callback_table;
+    auto &table = *widget->callback_table;
 
     // Add a new callback to the table
 
@@ -87,7 +102,7 @@ void TXT_EmitSignal(TXT_UNCAST_ARG(widget), const char *signal_name)
 {
     TXT_CAST_ARG(txt_widget_t, widget);
 
-    auto &table = widget->callback_table;
+    auto &table = *widget->callback_table;
 
     // Search the table for all callbacks with this name and invoke
     // the functions.

@@ -16,15 +16,15 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 
-#include "txt_desktop.hpp"
-#include "txt_gui.hpp"
-#include "txt_io.hpp"
-#include "txt_main.hpp"
-#include "txt_separator.hpp"
-#include "txt_strut.hpp"
-#include "txt_table.hpp"
+#include "txt_desktop.h"
+#include "txt_gui.h"
+#include "txt_io.h"
+#include "txt_main.h"
+#include "txt_separator.h"
+#include "txt_strut.h"
+#include "txt_table.h"
 
 txt_widget_t txt_table_overflow_right;
 txt_widget_t txt_table_overflow_down;

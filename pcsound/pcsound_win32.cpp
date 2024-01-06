@@ -21,8 +21,8 @@
 #include "SDL_thread.h"
 #include <windows.h>
 
-#include "pcsound.hpp"
-#include "pcsound_internal.hpp"
+#include "pcsound.h"
+#include "pcsound_internal.h"
 
 static SDL_Thread *sound_thread_handle;
 static int sound_thread_running;

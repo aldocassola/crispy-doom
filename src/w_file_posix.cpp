@@ -26,9 +26,9 @@
 #include <sys/mman.h>
 #include <cstring>
 
-#include "m_misc.hpp"
-#include "w_file.hpp"
-#include "z_zone.hpp"
+#include "m_misc.h"
+#include "w_file.h"
+#include "z_zone.h"
 
 typedef struct
 {

@@ -23,22 +23,22 @@
 
 
 #include "doomdef.hpp"
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 #include "dstrings.hpp"
 
 #include "d_main.hpp"
-#include "deh_main.hpp"
+#include "deh_main.h"
 
-#include "i_input.hpp"
+#include "i_input.h"
 #include "i_joystick.hpp"
 #include "i_swap.hpp"
-#include "i_system.hpp"
+#include "i_system.h"
 #include "i_timer.hpp"
 #include "i_video.hpp"
 #include "m_misc.hpp"
-#include "v_video.hpp"
+#include "v_video.h"
 #include "w_wad.hpp"
-#include "z_zone.hpp"
+#include "z_zone.h"
 
 #include "r_local.hpp"
 

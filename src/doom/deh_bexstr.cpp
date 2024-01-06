@@ -19,9 +19,9 @@
 #include <cstdio>
 #include <cstring>
 
-#include "deh_defs.hpp"
-#include "deh_io.hpp"
-#include "deh_main.hpp"
+#include "deh_defs.h"
+#include "deh_io.h"
+#include "deh_main.h"
 
 #include "dstrings.hpp"
 

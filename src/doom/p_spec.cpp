@@ -26,10 +26,10 @@
 #include "doomdef.hpp"
 #include "doomstat.hpp"
 
-#include "deh_main.hpp"
-#include "i_system.hpp"
+#include "deh_main.h"
+#include "i_system.h"
 #include "i_swap.hpp" // [crispy] LONG()
-#include "z_zone.hpp"
+#include "z_zone.h"
 #include "m_argv.hpp"
 #include "m_misc.hpp"
 #include "m_random.hpp"

@@ -20,11 +20,11 @@
 #include <cstring>
 #include <cassert>
 
-#include "doomtype.hpp"
-#include "i_swap.hpp"
-#include "i_system.hpp"
-#include "m_misc.hpp"
-#include "midifile.hpp"
+#include "doomtype.h"
+#include "i_swap.h"
+#include "i_system.h"
+#include "m_misc.h"
+#include "midifile.h"
 
 #define HEADER_CHUNK_ID "MThd"
 #define TRACK_CHUNK_ID  "MTrk"

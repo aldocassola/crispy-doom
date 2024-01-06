@@ -21,7 +21,7 @@
 #include <cstdlib>
 
 
-#include "doomtype.hpp"
+#include "doomtype.h"
 #include "sounds.hpp"
 
 //

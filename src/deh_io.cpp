@@ -21,12 +21,12 @@
 #include <cstring>
 #include <cctype>
 
-#include "m_misc.hpp"
-#include "w_wad.hpp"
-#include "z_zone.hpp"
+#include "m_misc.h"
+#include "w_wad.h"
+#include "z_zone.h"
 
-#include "deh_defs.hpp"
-#include "deh_io.hpp"
+#include "deh_defs.h"
+#include "deh_io.h"
 
 typedef enum
 {

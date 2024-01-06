@@ -18,10 +18,10 @@
 
 #include <cstdio>
 
-#include "i_system.hpp"
-#include "net_defs.hpp"
-#include "net_io.hpp"
-#include "z_zone.hpp"
+#include "i_system.h"
+#include "net_defs.h"
+#include "net_io.h"
+#include "z_zone.h"
 
 #define MAX_MODULES 16
 

@@ -22,12 +22,12 @@
 #include <cstdlib>
 
 // Functions.
-#include "deh_main.hpp"
-#include "i_system.hpp"
-#include "i_swap.hpp"
-#include "z_zone.hpp"
-#include "v_video.hpp"
-#include "w_wad.hpp"
+#include "deh_main.h"
+#include "i_system.h"
+#include "i_swap.h"
+#include "z_zone.h"
+#include "v_video.h"
+#include "w_wad.h"
 #include "s_sound.hpp"
 
 // Data.

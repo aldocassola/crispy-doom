@@ -19,8 +19,8 @@
 
 #include "SDL.h"
 
-#include "opl_timer.hpp"
-#include "opl_queue.hpp"
+#include "opl_timer.h"
+#include "opl_queue.h"
 
 typedef enum
 {

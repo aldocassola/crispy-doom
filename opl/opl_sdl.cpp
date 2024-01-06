@@ -28,12 +28,12 @@
 #include "SDL_mixer.h"
 #endif  // DISABLE_SDL2MIXER
 
-#include "opl3.hpp"
+#include "opl3.h"
 
-#include "opl.hpp"
-#include "opl_internal.hpp"
+#include "opl.h"
+#include "opl_internal.h"
 
-#include "opl_queue.hpp"
+#include "opl_queue.h"
 
 
 #ifndef DISABLE_SDL2MIXER

@@ -16,14 +16,14 @@
 #include <cstring>
 #include <cctype>
 
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 
-#include "txt_window_action.hpp"
-#include "txt_gui.hpp"
-#include "txt_io.hpp"
-#include "txt_main.hpp"
-#include "txt_utf8.hpp"
-#include "txt_window.hpp"
+#include "txt_window_action.h"
+#include "txt_gui.h"
+#include "txt_io.h"
+#include "txt_main.h"
+#include "txt_utf8.h"
+#include "txt_window.h"
 
 static void TXT_WindowActionSizeCalc(TXT_UNCAST_ARG(action))
 {

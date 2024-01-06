@@ -34,20 +34,20 @@
 
 #include "config.h"
 
-#include "deh_str.hpp"
-#include "doomtype.hpp"
-#include "m_argv.hpp"
-#include "m_config.hpp"
-#include "m_misc.hpp"
-#include "i_joystick.hpp"
-#include "i_sound.hpp"
-#include "i_timer.hpp"
-#include "i_video.hpp"
+#include "deh_str.h"
+#include "doomtype.h"
+#include "m_argv.h"
+#include "m_config.h"
+#include "m_misc.h"
+#include "i_joystick.h"
+#include "i_sound.h"
+#include "i_timer.h"
+#include "i_video.h"
 
-#include "i_system.hpp"
+#include "i_system.h"
 
-#include "w_wad.hpp"
-#include "z_zone.hpp"
+#include "w_wad.h"
+#include "z_zone.h"
 
 #define DEFAULT_RAM 16*2 /* MiB [crispy] */
 #define MIN_RAM     4*4  /* MiB [crispy] */

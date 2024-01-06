@@ -17,8 +17,9 @@
 
 #include <cstdlib>
 #include <ctime>
-#include "doomtype.hpp"
-#include "m_misc.hpp"
+#include "doomtype.h"
+#include "m_misc.h"
+#include "net_petname.h"
 
 static const char * const adjectives [] = {
     "Grumpy",

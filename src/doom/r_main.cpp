@@ -33,7 +33,7 @@
 #include "m_bbox.hpp"
 #include "m_menu.hpp"
 
-#include "i_system.hpp" // [crispy] I_Realloc()
+#include "i_system.h" // [crispy] I_Realloc()
 #include "p_local.hpp" // [crispy] MLOOKUNIT
 #include "r_local.hpp"
 #include "r_sky.hpp"

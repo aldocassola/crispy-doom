@@ -24,7 +24,7 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "i_system.hpp"
+#include "i_system.h"
 
 #include "doomdef.hpp"
 #include "doomstat.hpp"

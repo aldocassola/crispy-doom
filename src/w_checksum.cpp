@@ -20,11 +20,11 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "i_system.hpp"
-#include "m_misc.hpp"
-#include "sha1.hpp"
-#include "w_checksum.hpp"
-#include "w_wad.hpp"
+#include "i_system.h"
+#include "m_misc.h"
+#include "sha1.h"
+#include "w_checksum.h"
+#include "w_wad.h"
 
 static wad_file_t **open_wadfiles = NULL;
 static int num_open_wadfiles = 0;

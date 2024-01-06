@@ -20,12 +20,12 @@
 
 #include "config.h"
 
-#include "m_argv.hpp"
-#include "net_defs.hpp"
+#include "m_argv.h"
+#include "net_defs.h"
 
-#include "net_dedicated.hpp"
-#include "net_server.hpp"
-#include "z_zone.hpp"
+#include "net_dedicated.h"
+#include "net_server.h"
+#include "z_zone.h"
 
 void NET_CL_Run(void)
 {
