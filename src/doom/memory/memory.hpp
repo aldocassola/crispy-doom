@@ -48,15 +48,16 @@ template <typename T>
 using z_static_vector = std::vector<T, z_allocator<T, PU_STATIC>>;
 
 template <typename T>
-struct z_mem_free {
+struct zone_free {
     void operator()(T *ptr) {}
 };
 
 template <typename T>
 class z_unique_ptr {
-    std::unique_ptr<T, z_mem_free<T>> ptr;
+    std::unique_ptr<T, zone_free<T>> ptr;
 public:
     z_unique_ptr() = default;
+    explicit z_unique_ptr(T *p) : ptr(p) {}
     z_unique_ptr(const z_unique_ptr &) = delete;
     z_unique_ptr(z_unique_ptr &&other) : ptr(std::move(other.ptr)) {}
     T *get() { return ptr.get(); }
@@ -64,9 +65,6 @@ public:
     auto release() {
         return ptr.release();
     }
-
-    T &operator[](std::size_t index) { return ptr.get()[index]; }
-    const T &operator[](std::size_t index) const { return ptr.get()[index]; }
 
     operator bool() const { return ptr.get() != nullptr; }
     bool operator==(const z_unique_ptr<T> &other) const { return ptr.get() == other.get(); }

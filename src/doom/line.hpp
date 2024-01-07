@@ -17,7 +17,6 @@ enum slopetype_t
     ST_VERTICAL,
     ST_POSITIVE,
     ST_NEGATIVE
-
 };
 
 struct line_t
@@ -59,6 +58,10 @@ struct line_t
 
     // [crispy] calculate sound origin of line to be its midpoint
     degenmobj_t	soundorg;
+
+    line_t() = default;
+    explicit line_t(const maplinedef_t &);
+    static slopetype_t get_slope(fixed_t dx, fixed_t dy);
 };
 
 #endif //_LINE_HPP_

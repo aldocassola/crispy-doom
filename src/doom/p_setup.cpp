@@ -357,6 +357,10 @@ void P_LoadSectors (int lump)
     while(sectors.size() < sectors.capacity()) {
         sectors.emplace_back(ms[sectors.size()]);
     }
+
+    for(auto &s: ms) {
+        s.ceilingheight++;
+    }
 }
 
 
@@ -504,22 +508,19 @@ void P_LoadLineDefs (int lump)
 
     numlines = W_LumpLength (lump) / sizeof(maplinedef_t);
     lines = static_cast<decltype(lines)>(Z_Malloc (numlines*sizeof(line_t),PU_LEVEL,0));
-    memset (lines, 0, numlines*sizeof(line_t));
     auto mld = cache_lump_num<maplinedef_t>(lump,PU_STATIC);
 
     ld = lines;
     warn = warn2 = 0; // [crispy] warn about invalid linedefs
     for (i=0 ; i<numlines ; i++, ld++)
     {
-	ld->flags = (unsigned short)SHORT(mld[i].flags); // [crispy] extended nodes
-	ld->special = SHORT(mld[i].special);
+        ::new (ld) line_t(mld[i]);
 	// [crispy] warn about unknown linedef types
 	if ((unsigned short) ld->special > 141 && ld->special != 271 && ld->special != 272)
 	{
 	    fprintf(stderr, "P_LoadLineDefs: Unknown special %d at line %d.\n", ld->special, i);
 	    warn++;
 	}
-	ld->tag = SHORT(mld[i].tag);
 	// [crispy] warn about special linedefs without tag
 	if (ld->special && !ld->tag)
 	{
@@ -550,51 +551,6 @@ void P_LoadLineDefs (int lump)
 		    break;
 	    }
 	}
-	v1 = ld->v1 = &vertexes[(unsigned short)SHORT(mld[i].v1)]; // [crispy] extended nodes
-	v2 = ld->v2 = &vertexes[(unsigned short)SHORT(mld[i].v2)]; // [crispy] extended nodes
-	ld->dx = v2->x - v1->x;
-	ld->dy = v2->y - v1->y;
-
-	if (!ld->dx)
-	    ld->slopetype = ST_VERTICAL;
-	else if (!ld->dy)
-	    ld->slopetype = ST_HORIZONTAL;
-	else
-	{
-	    if (FixedDiv (ld->dy , ld->dx) > 0)
-		ld->slopetype = ST_POSITIVE;
-	    else
-		ld->slopetype = ST_NEGATIVE;
-	}
-
-	if (v1->x < v2->x)
-	{
-	    ld->bbox[BOXLEFT] = v1->x;
-	    ld->bbox[BOXRIGHT] = v2->x;
-	}
-	else
-	{
-	    ld->bbox[BOXLEFT] = v2->x;
-	    ld->bbox[BOXRIGHT] = v1->x;
-	}
-
-	if (v1->y < v2->y)
-	{
-	    ld->bbox[BOXBOTTOM] = v1->y;
-	    ld->bbox[BOXTOP] = v2->y;
-	}
-	else
-	{
-	    ld->bbox[BOXBOTTOM] = v2->y;
-	    ld->bbox[BOXTOP] = v1->y;
-	}
-
-	// [crispy] calculate sound origin of line to be its midpoint
-	ld->soundorg.x = ld->bbox[BOXLEFT] / 2 + ld->bbox[BOXRIGHT] / 2;
-	ld->soundorg.y = ld->bbox[BOXTOP] / 2 + ld->bbox[BOXBOTTOM] / 2;
-
-	ld->sidenum[0] = SHORT(mld[i].sidenum[0]);
-	ld->sidenum[1] = SHORT(mld[i].sidenum[1]);
 
 	// [crispy] substitute dummy sidedef for missing right side
 	if (ld->sidenum[0] == NO_INDEX)
