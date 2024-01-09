@@ -358,9 +358,6 @@ void P_LoadSectors (int lump)
         sectors.emplace_back(ms[sectors.size()]);
     }
 
-    for(auto &s: ms) {
-        s.ceilingheight++;
-    }
 }
 
 
