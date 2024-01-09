@@ -995,10 +995,10 @@ ST_Responder (event_t* ev)
 
 	    for (i = 0; i < NUMWEAPONS; i++)
 	    {
-		oldweaponsowned[i] = plyr->weaponowned[i] = false;
+		oldweaponsowned[i] = (plyr->weaponowned[i] = false);
 	    }
-	    oldweaponsowned[wp_fist] = plyr->weaponowned[wp_fist] = true;
-	    oldweaponsowned[wp_pistol] = plyr->weaponowned[wp_pistol] = true;
+	    oldweaponsowned[wp_fist] = (plyr->weaponowned[wp_fist] = true);
+	    oldweaponsowned[wp_pistol] = (plyr->weaponowned[wp_pistol] = true);
 
 	    for (i = 0; i < NUMAMMO; i++)
 	    {
@@ -1054,7 +1054,7 @@ ST_Responder (event_t* ev)
 	    else
 	    {
 		// [crispy] no reason for evil grin
-		oldweaponsowned[w] = plyr->weaponowned[w] = false;
+		oldweaponsowned[w] = (plyr->weaponowned[w] = false);
 
 		// [crispy] removed current weapon, select another one
 		if (w == plyr->readyweapon)

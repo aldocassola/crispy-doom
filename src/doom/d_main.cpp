@@ -25,7 +25,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime> // [crispy] time_t, time(), struct tm, localtime()
+#include <string>
 
+#include "memory/memory.hpp"
 #include "config.h"
 #include "deh_main.hpp"
 #include "doomdef.hpp"
@@ -1351,24 +1353,19 @@ static void LoadIwadDeh(void)
     // and installed next to the IWAD.
     if (gameversion == exe_chex)
     {
-        char *chex_deh = NULL;
-        char *dirname;
 
         // Look for chex.deh in the same directory as the IWAD file.
-        dirname = M_DirName(iwadfile);
-        chex_deh = M_StringJoin(dirname, DIR_SEPARATOR_S, "chex.deh", NULL);
-        free(dirname);
-
+        auto dirname = str_ptr(M_DirName(iwadfile));
+        auto chex_deh = str_ptr(M_StringJoin(dirname.get(), DIR_SEPARATOR_S, "chex.deh"));
         // If the dehacked patch isn't found, try searching the WAD
         // search path instead.  We might find it...
-        if (!M_FileExists(chex_deh))
+        if (!M_FileExists(chex_deh.get()))
         {
-            free(chex_deh);
-            chex_deh = D_FindWADByName("chex.deh");
+            chex_deh = str_ptr(D_FindWADByName("chex.deh"));
         }
 
         // Still not found?
-        if (chex_deh == NULL)
+        if (chex_deh.get() == NULL)
         {
             I_Error("Unable to find Chex Quest dehacked file (chex.deh).\n"
                     "The dehacked file is required in order to emulate\n"
@@ -1377,7 +1374,7 @@ static void LoadIwadDeh(void)
                     "   themes/chex/chexdeh.zip");
         }
 
-        if (!DEH_LoadFile(chex_deh))
+        if (!DEH_LoadFile(chex_deh.get()))
         {
             I_Error("Failed to load chex.deh needed for emulating chex.exe.");
         }
@@ -1390,25 +1387,20 @@ static void LoadIwadDeh(void)
 
     if (IsFrenchIWAD())
     {
-        char *french_deh = NULL;
-        char *dirname;
-
         // Look for french.deh in the same directory as the IWAD file.
-        dirname = M_DirName(iwadfile);
-        french_deh = M_StringJoin(dirname, DIR_SEPARATOR_S, "french.deh", NULL);
+        auto dirname = str_ptr(iwadfile);
+        auto french_deh = str_ptr(M_StringJoin(dirname.get(), DIR_SEPARATOR_S, "french.deh"));
         printf("French version\n");
-        free(dirname);
 
         // If the dehacked patch isn't found, try searching the WAD
         // search path instead.  We might find it...
-        if (!M_FileExists(french_deh))
+        if (!M_FileExists(french_deh.get()))
         {
-            free(french_deh);
-            french_deh = D_FindWADByName("french.deh");
+            french_deh = str_ptr(D_FindWADByName("french.deh"));
         }
 
         // Still not found?
-        if (french_deh == NULL)
+        if (french_deh.get())
         {
             I_Error("Unable to find French Doom II dehacked file\n"
                     "(french.deh).  The dehacked file is required in order to\n"
@@ -1417,7 +1409,7 @@ static void LoadIwadDeh(void)
                     "   utils/exe_edit/patches/french.zip");
         }
 
-        if (!DEH_LoadFile(french_deh))
+        if (!DEH_LoadFile(french_deh.get()))
         {
             I_Error("Failed to load french.deh needed for emulating French\n"
                     "doom2.exe.");
@@ -1770,28 +1762,26 @@ void D_DoomMain (void)
     //
     if (!M_ParmExists("-noautoload") && gamemode != shareware)
     {
-        char *autoload_dir;
+        str_ptr autoload_dir;
 
         // common auto-loaded files for all Doom flavors
 
         if (gamemission < pack_chex && gamevariant != freedoom)
         {
-            autoload_dir = M_GetAutoloadDir("doom-all", true);
-            if (autoload_dir != NULL)
+            autoload_dir.reset(M_GetAutoloadDir("doom-all", true));
+            if (autoload_dir.get() != NULL)
             {
-                DEH_AutoLoadPatches(autoload_dir);
-                W_AutoLoadWADs(autoload_dir);
-                free(autoload_dir);
+                DEH_AutoLoadPatches(autoload_dir.get());
+                W_AutoLoadWADs(autoload_dir.get());
             }
         }
 
         // auto-loaded files per IWAD
-        autoload_dir = M_GetAutoloadDir(D_SaveGameIWADName(gamemission, gamevariant), true);
-        if (autoload_dir != NULL)
+        autoload_dir.reset(M_GetAutoloadDir(D_SaveGameIWADName(gamemission, gamevariant), true));
+        if (autoload_dir.get() != NULL)
         {
-            DEH_AutoLoadPatches(autoload_dir);
-            W_AutoLoadWADs(autoload_dir);
-            free(autoload_dir);
+            DEH_AutoLoadPatches(autoload_dir.get());
+            W_AutoLoadWADs(autoload_dir.get());
         }
     }
 
@@ -1895,11 +1885,10 @@ void D_DoomMain (void)
             {
                 while (++p != myargc && myargv[p][0] != '-')
                 {
-                    char *autoload_dir;
-                    if ((autoload_dir = M_GetAutoloadDir(M_BaseName(myargv[p]), false)))
+                    auto autoload_dir = str_ptr(M_GetAutoloadDir(M_BaseName(myargv[p]), false));
+                    if (autoload_dir)
                     {
-                        W_AutoLoadWADs(autoload_dir);
-                        free(autoload_dir);
+                        W_AutoLoadWADs(autoload_dir.get());
                     }
                 }
             }
@@ -1932,12 +1921,12 @@ void D_DoomMain (void)
 
     if (p)
     {
-        char *uc_filename = strdup(myargv[p + 1]);
-        M_ForceUppercase(uc_filename);
+        std::string uc_filename(myargv[p + 1]);
+        M_ForceUppercase(uc_filename.data());
 
         // With Vanilla you have to specify the file without extension,
         // but make that optional.
-        if (M_StringEndsWith(uc_filename, ".LMP"))
+        if (M_StringEndsWith(uc_filename.c_str(), ".LMP"))
         {
             M_StringCopy(file, myargv[p + 1], sizeof(file));
         }
@@ -1945,8 +1934,6 @@ void D_DoomMain (void)
         {
             DEH_snprintf(file, sizeof(file), "%s.lmp", myargv[p+1]);
         }
-
-        free(uc_filename);
 
         if (D_AddFile(file))
         {
@@ -2051,11 +2038,10 @@ void D_DoomMain (void)
             {
                 while (++p != myargc && myargv[p][0] != '-')
                 {
-                    char *autoload_dir;
-                    if ((autoload_dir = M_GetAutoloadDir(M_BaseName(myargv[p]), false)))
+                    auto autoload_dir = str_ptr(M_GetAutoloadDir(M_BaseName(myargv[p]), false));
+                    if (autoload_dir)
                     {
-                        DEH_AutoLoadPatches(autoload_dir);
-                        free(autoload_dir);
+                        DEH_AutoLoadPatches(autoload_dir.get());
                     }
                 }
             }

@@ -344,8 +344,7 @@ void P_LoadSectors (int lump)
 	I_Error("P_LoadSectors: No sectors in map!");
 
     auto numsectors = W_LumpLength (lump) / sizeof(mapsector_t);
-    sectors.clear();
-    sectors.shrink_to_fit();
+    vector_clear(sectors);
     sectors.reserve(numsectors);
 
     auto ms = cache_lump_num<mapsector_t>(lump, PU_STATIC);

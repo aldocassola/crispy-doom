@@ -415,7 +415,6 @@ boolean M_FileExists(const char *filename)
 
 // Check if a file exists by probing for common case variation of its filename.
 // Returns a newly allocated string that the caller is responsible for freeing.
-
 char *M_FileCaseExists(const char *path)
 {
     char *path_dup, *filename, *ext;
@@ -758,7 +757,6 @@ const char *M_StrCaseStr(const char *haystack, const char *needle)
 // Safe version of strdup() that checks the string was successfully
 // allocated.
 //
-
 char *M_StringDuplicate(const char *orig)
 {
     char *result;
@@ -892,7 +890,6 @@ boolean M_StringEndsWith(const char *s, const char *suffix)
 
 // Return a newly-malloced string with all the strings given as arguments
 // concatenated together.
-
 char *M_StringJoin(const char *s, ...)
 {
     char *result;

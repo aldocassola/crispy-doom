@@ -44,7 +44,6 @@ EV_Teleport
   int		side,
   mobj_t*	thing )
 {
-    int		i;
     int		tag;
     mobj_t*	m;
     mobj_t*	fog;

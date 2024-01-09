@@ -411,7 +411,7 @@ constexpr char *mapnames_commercial[] =
 
 static void CrispyReplaceColor (const char *str, const int cr, const char *col)
 {
-    char *str_replace, col_replace[16];
+    char col_replace[16];
 
     if (DEH_HasStringReplacement(str))
     {
@@ -420,9 +420,8 @@ static void CrispyReplaceColor (const char *str, const int cr, const char *col)
 
     M_snprintf(col_replace, sizeof(col_replace),
                "%s%s%s", crstr[cr], col, crstr[CR_NONE]);
-    str_replace = M_StringReplace(str, col, col_replace);
-    DEH_AddStringReplacement(str, str_replace);
-    free(str_replace);
+    auto str_replace = str_ptr(M_StringReplace(str, col, col_replace));
+    DEH_AddStringReplacement(str, str_replace.get());
 }
 
 static const char *cr_stat, *cr_stat2, *kills;
@@ -597,7 +596,7 @@ void HU_Start(void)
     int		i;
     const char *s;
     // [crispy] string buffers for map title and WAD file name
-    char	buf[8], *ptr;
+    char	buf[8];
 
     if (headsupactive)
 	HU_Stop();
@@ -731,13 +730,12 @@ void HU_Start(void)
     {
 	char *m;
 
-	ptr = M_StringJoin(crstr[CR_GOLD], W_WadNameForLump(maplumpinfo), ": ", crstr[CR_GRAY], maplumpinfo->name, NULL);
-	m = ptr;
+	auto ptr = std::string(crstr[CR_GOLD]) + W_WadNameForLump(maplumpinfo) + ": " + crstr[CR_GRAY] + maplumpinfo->name;
+	m = ptr.data();
 
 	while (*m)
 	    HUlib_addCharToTextLine(&w_map, *(m++));
 
-	free(ptr);
     }
 
     // dehacked substitution to get modified level name
@@ -746,13 +744,11 @@ void HU_Start(void)
 
     // [crispy] print the map title in white from the first colon onward
     M_snprintf(buf, sizeof(buf), "%s%s", ":", crstr[CR_GRAY]);
-    ptr = M_StringReplace(s, ":", buf);
-    s = ptr;
+    std::string ptr = str_ptr(M_StringReplace(s, ":", buf)).get();
+    s = ptr.data();
 
     while (*s)
 	HUlib_addCharToTextLine(&w_title, *(s++));
-
-    free(ptr);
 
     // create the chat widget
     HUlib_initIText(&w_chat,

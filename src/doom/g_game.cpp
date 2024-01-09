@@ -2734,13 +2734,12 @@ void G_ReadDemoTiccmd (ticcmd_t* cmd)
     if (gamekeydown[key_demo_quit] && singledemo && !netgame)
     {
 	byte *actualbuffer = demobuffer;
-	char *actualname = M_StringDuplicate(defdemoname);
+	std::string actualname(defdemoname);
 
 	gamekeydown[key_demo_quit] = false;
 
 	// [crispy] find a new name for the continued demo
-	G_RecordDemo(actualname);
-	free(actualname);
+	G_RecordDemo(actualname.c_str());
 
 	// [crispy] discard the newly allocated demo buffer
 	Z_Free(demobuffer);
@@ -3206,15 +3205,14 @@ static size_t WriteCmdLineLump(MEMFILE *stream)
 {
     int i;
     long pos;
-    char *tmp, **filenames;
+    char **filenames;
 
     filenames = W_GetWADFileNames();
 
     pos = mem_ftell(stream);
 
-    tmp = M_StringJoin("-iwad \"", M_BaseName(filenames[0]), "\"", NULL);
-    mem_fputs(tmp, stream);
-    free(tmp);
+    auto tmp = std::string("-iwad \"") + M_BaseName(filenames[0]) + "\"";
+    mem_fputs(tmp.c_str(), stream);
 
     if (filenames[1])
     {
@@ -3222,9 +3220,8 @@ static size_t WriteCmdLineLump(MEMFILE *stream)
 
         for (i = 1; filenames[i]; i++)
         {
-            tmp = M_StringJoin(" \"", M_BaseName(filenames[i]), "\"", NULL);
-            mem_fputs(tmp, stream);
-            free(tmp);
+            auto tmp = std::string(" \"") + M_BaseName(filenames[i]) + "\"";
+            mem_fputs(tmp.c_str(), stream);
         }
     }
 
@@ -3236,9 +3233,8 @@ static size_t WriteCmdLineLump(MEMFILE *stream)
 
         for (i = 0; filenames[i]; i++)
         {
-            tmp = M_StringJoin(" \"", M_BaseName(filenames[i]), "\"", NULL);
-            mem_fputs(tmp, stream);
-            free(tmp);
+            auto tmp = std::string(" \"") + M_BaseName(filenames[i]) + "\"";
+            mem_fputs(tmp.c_str(), stream);
         }
     }
 

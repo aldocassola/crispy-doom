@@ -20,6 +20,9 @@
 
 #include <cstdlib>
 #include <string>
+#include <memory>
+
+#include "memory/memory.hpp"
 
 #include "doomstat.hpp"
 #include "deh_main.hpp"
@@ -37,9 +40,7 @@ extern char *iwadfile;
 static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 {
 	int i, j;
-	char *sigil_shreds = NULL;
 	const char *sigil_basename;
-	char *autoload_dir;
 
 	const char *const sigil_wads[] = {
 		"SIGIL_v1_21.wad",
@@ -87,8 +88,6 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 		return false;
 	}
 
-	sigil_shreds = M_StringJoin(iwaddir, DIR_SEPARATOR_S, "SIGIL_SHREDS.WAD", NULL);
-
 	// [crispy] load SIGIL.WAD
 	for (i = 0; i < arrlen(sigil_wads); i++)
 	{
@@ -110,7 +109,6 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 
 	if (crispy->havesigil == NULL)
 	{
-		free(sigil_shreds);
 		return false;
 	}
 
@@ -118,18 +116,18 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 	W_AddFile(crispy->havesigil);
 	sigil_basename = M_BaseName(crispy->havesigil);
 
+	auto sigil_shreds = std::string(iwaddir) + DIR_SEPARATOR_S + "SIGIL_SHREDS.WAD";
+
 	// [crispy] load SIGIL_SHREDS.WAD
-	if (!M_FileExists(sigil_shreds))
+	if (!M_FileExists(sigil_shreds.c_str()))
 	{
-		free(sigil_shreds);
-		sigil_shreds = D_FindWADByName("SIGIL_SHREDS.WAD");
+		sigil_shreds = str_ptr(D_FindWADByName("SIGIL_SHREDS.WAD")).get();
 	}
 
-	if (sigil_shreds != NULL)
+	if (!sigil_shreds.empty())
 	{
-		printf(" [Sigil Shreds] adding %s\n", sigil_shreds);
-		W_AddFile(sigil_shreds);
-		free(sigil_shreds);
+		printf(" [Sigil Shreds] adding %s\n", sigil_shreds.c_str());
+		W_AddFile(sigil_shreds.c_str());
 	}
 
 	// [crispy] rename intrusive SIGIL_SHREDS.WAD music lumps out of the way
@@ -163,11 +161,10 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 	// [crispy] load WAD and DEH files from autoload directories
 	if (!M_ParmExists("-noautoload"))
 	{
-		if ((autoload_dir = M_GetAutoloadDir(sigil_basename, false)))
+		if (auto autoload_dir = str_ptr(M_GetAutoloadDir(sigil_basename, false)))
 		{
-			W_AutoLoadWADs(autoload_dir);
-			DEH_AutoLoadPatches(autoload_dir);
-			free(autoload_dir);
+			W_AutoLoadWADs(autoload_dir.get());
+			DEH_AutoLoadPatches(autoload_dir.get());
 		}
 	}
 
@@ -179,7 +176,6 @@ static boolean LoadSigil2Wad (const char *iwaddir, boolean pwadtexture)
 {
     int i, j;
     const char *sigil2_basename;
-    char *autoload_dir;
 
     const char *const sigil2_wads[] = {
         "SIGIL_II_MP3_V1_0.WAD",
@@ -267,11 +263,10 @@ static boolean LoadSigil2Wad (const char *iwaddir, boolean pwadtexture)
     // [crispy] load WAD and DEH files from autoload directories
     if (!M_ParmExists("-noautoload"))
     {
-        if ((autoload_dir = M_GetAutoloadDir(sigil2_basename, false)))
+        if (auto autoload_dir = str_ptr(M_GetAutoloadDir(sigil2_basename, false)); autoload_dir)
         {
-            W_AutoLoadWADs(autoload_dir);
-            DEH_AutoLoadPatches(autoload_dir);
-            free(autoload_dir);
+            W_AutoLoadWADs(autoload_dir.get());
+            DEH_AutoLoadPatches(autoload_dir.get());
         }
     }
 
@@ -284,7 +279,6 @@ void D_LoadSigilWads (void)
     int i, j;
     boolean sigilloaded, sigil2loaded;
     boolean pwadtexture = false;
-    char *iwaddir;
 
     const char *const texture_file[] = {
         "PNAMES",
@@ -305,9 +299,9 @@ void D_LoadSigilWads (void)
         }
     }
 
-    iwaddir = M_DirName(iwadfile);
-    sigilloaded = LoadSigilWad(iwaddir, pwadtexture);
-    sigil2loaded = LoadSigil2Wad(iwaddir, pwadtexture);
+    auto iwaddir = str_ptr(M_DirName(iwadfile));
+    sigilloaded = LoadSigilWad(iwaddir.get(), pwadtexture);
+    sigil2loaded = LoadSigil2Wad(iwaddir.get(), pwadtexture);
 
     if (sigilloaded || sigil2loaded)
     {
@@ -315,7 +309,6 @@ void D_LoadSigilWads (void)
         W_GenerateHashTable();
     }
 
-    free(iwaddir);
 }
 
 // [crispy] check if NERVE.WAD is already loaded as a PWAD
@@ -349,7 +342,6 @@ static boolean CheckNerveLoaded (void)
 static void CheckLoadNerve (void)
 {
 	const char *nerve_basename;
-	char *autoload_dir;
 	int i, j;
 
 	static const struct {
@@ -372,7 +364,6 @@ static void CheckLoadNerve (void)
 		char *dir;
 		dir = M_DirName(iwadfile);
 		crispy->havenerve = M_StringJoin(dir, DIR_SEPARATOR_S, "NERVE.WAD", NULL);
-		free(dir);
 	}
 	else
 	{
@@ -422,11 +413,10 @@ static void CheckLoadNerve (void)
 	// [crispy] load WAD and DEH files from autoload directories
 	if (!M_ParmExists("-noautoload"))
 	{
-		if ((autoload_dir = M_GetAutoloadDir(nerve_basename, false)))
+		if (auto autoload_dir = str_ptr(M_GetAutoloadDir(nerve_basename, false)); autoload_dir)
 		{
-			W_AutoLoadWADs(autoload_dir);
-			DEH_AutoLoadPatches(autoload_dir);
-			free(autoload_dir);
+			W_AutoLoadWADs(autoload_dir.get());
+			DEH_AutoLoadPatches(autoload_dir.get());
 		}
 	}
 
@@ -468,7 +458,6 @@ static boolean CheckMasterlevelsLoaded (void)
 static boolean CheckLoadMasterlevels (void)
 {
 	const char *master_basename;
-	char *autoload_dir;
 	int i, j;
 
 	// [crispy] don't load if another PWAD already provides MAP01
@@ -480,10 +469,8 @@ static boolean CheckLoadMasterlevels (void)
 
 	if (strrchr(iwadfile, DIR_SEPARATOR) != NULL)
 	{
-		char *dir;
-		dir = M_DirName(iwadfile);
-		crispy->havemaster = M_StringJoin(dir, DIR_SEPARATOR_S, "MASTERLEVELS.WAD", NULL);
-		free(dir);
+		auto dir = str_ptr(M_DirName(iwadfile));
+		crispy->havemaster = M_StringJoin(dir.get(), DIR_SEPARATOR_S, "MASTERLEVELS.WAD", NULL);
 	}
 	else
 	{
@@ -531,11 +518,10 @@ static boolean CheckLoadMasterlevels (void)
 	// [crispy] load WAD and DEH files from autoload directories
 	if (!M_ParmExists("-noautoload"))
 	{
-		if ((autoload_dir = M_GetAutoloadDir(master_basename, false)))
+		if (auto autoload_dir = str_ptr(M_GetAutoloadDir(master_basename, false)); autoload_dir)
 		{
-			W_AutoLoadWADs(autoload_dir);
-			DEH_AutoLoadPatches(autoload_dir);
-			free(autoload_dir);
+			W_AutoLoadWADs(autoload_dir.get());
+			DEH_AutoLoadPatches(autoload_dir.get());
 		}
 	}
 
@@ -580,7 +566,6 @@ static struct {
 static boolean CheckMasterlevelsAvailable (void)
 {
 	int i;
-	char *dir;
 
 	// [crispy] don't load if another PWAD already provides MAP01
 	i = W_CheckNumForName("MAP01");
@@ -589,28 +574,27 @@ static boolean CheckMasterlevelsAvailable (void)
 		return false;
 	}
 
-	dir = M_DirName(iwadfile);
+	auto dir = str_ptr(M_DirName(iwadfile));
 
 	for (i = 0; masterlevels_wads[i].wad_name; i++)
 	{
-		char *havemaster;
+		str_ptr havemaster;
 
 		if (strrchr(iwadfile, DIR_SEPARATOR) != NULL)
 		{
-			havemaster = M_StringJoin(dir, DIR_SEPARATOR_S, masterlevels_wads[i].wad_name, NULL);
+			havemaster = str_ptr(M_StringJoin(dir.get(), DIR_SEPARATOR_S, masterlevels_wads[i].wad_name, NULL));
 		}
 		else
 		{
-			havemaster = M_StringDuplicate(masterlevels_wads[i].wad_name);
+			havemaster = str_ptr(M_StringDuplicate(masterlevels_wads[i].wad_name));
 		}
 
-		if (!M_FileExists(havemaster))
+		if (!M_FileExists(havemaster.get()))
 		{
-			free(havemaster);
-			havemaster = D_FindWADByName(masterlevels_wads[i].wad_name);
+			havemaster = str_ptr(D_FindWADByName(masterlevels_wads[i].wad_name));
 		}
 
-		if (havemaster == NULL)
+		if (!havemaster)
 		{
 			int j;
 
@@ -619,14 +603,12 @@ static boolean CheckMasterlevelsAvailable (void)
 				free(masterlevels_wads[i].file_path);
 			}
 
-			free(dir);
 			return false;
 		}
 
-		masterlevels_wads[i].file_path = havemaster;
+		masterlevels_wads[i].file_path = havemaster.release();
 	}
 
-	free(dir);
 	return true;
 }
 

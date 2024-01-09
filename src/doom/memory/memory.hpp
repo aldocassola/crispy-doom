@@ -47,35 +47,17 @@ using z_level_vector = std::vector<T, z_allocator<T, PU_LEVEL>>;
 template <typename T>
 using z_static_vector = std::vector<T, z_allocator<T, PU_STATIC>>;
 
+template <typename T, typename Alloc>
+void vector_clear(std::vector<T, Alloc> &v) {
+    std::vector<T, Alloc>().swap(v);
+}
 template <typename T>
 struct zone_free {
     void operator()(T *ptr) {}
 };
 
 template <typename T>
-class z_unique_ptr {
-    std::unique_ptr<T, zone_free<T>> ptr;
-public:
-    z_unique_ptr() = default;
-    explicit z_unique_ptr(T *p) : ptr(p) {}
-    z_unique_ptr(const z_unique_ptr &) = delete;
-    z_unique_ptr(z_unique_ptr &&other) : ptr(std::move(other.ptr)) {}
-    T *get() { return ptr.get(); }
-    const T *get() const { return ptr.get(); };
-    auto release() {
-        return ptr.release();
-    }
-
-    operator bool() const { return ptr.get() != nullptr; }
-    bool operator==(const z_unique_ptr<T> &other) const { return ptr.get() == other.get(); }
-    bool operator!=(const z_unique_ptr<T> &other) const { return !(*this == other); }
-
-    z_unique_ptr<T> &operator=(const z_unique_ptr<T>&) = delete;
-    z_unique_ptr<T> &operator=(z_unique_ptr<T> &&other) {
-        std::swap(this->ptr, other->ptr);
-    };
-
-};
+using z_unique_ptr = std::unique_ptr<T, zone_free<T>>;
 
 template <typename T>
 auto make_z_ptr(int size, int tag, void *user) {
@@ -86,7 +68,7 @@ template <typename T>
 class lump_ptr {
     lumpindex_t lumpnum;
     std::size_t size_;
-    T *data;
+    z_unique_ptr<T> data;
 public:
     using iterator = T *;
     using const_iterator = const T *;
@@ -110,14 +92,14 @@ public:
     const T *get() const { return data; }
     T* get() { return data; }
     std::size_t size() { return size_; }
-    T &operator[](std::size_t i) { return data[i]; }
-    const T &operator[](std::size_t i) const { return data[i]; }
+    T &operator[](std::size_t i) { return data.get()[i]; }
+    const T &operator[](std::size_t i) const { return data.get[i]; }
 
-    iterator begin() { return data; }
-    iterator end() { return data + size() + 1; }
+    iterator begin() { return data.get(); }
+    iterator end() { return data.get() + size() + 1; }
 
-    const_iterator cbegin() const { return data; }
-    const_iterator end() const { return data + size() + 1; }
+    const_iterator cbegin() const { return data.get(); }
+    const_iterator end() const { return data.get() + size() + 1; }
 
     ~lump_ptr() {
         W_ReleaseLumpNum(lumpnum);
@@ -140,5 +122,14 @@ template <typename T>
 auto cache_lump_name(const std::string &name, int tag) {
     return lump_ptr<T>(name, tag);
 }
+
+template <typename T>
+struct FreeDeleter {
+    void operator()(T *p) {
+        free(p);
+    }
+};
+
+using str_ptr = std::unique_ptr<char, FreeDeleter<char>>;
 
 #endif //_MEMORY_HPP_
