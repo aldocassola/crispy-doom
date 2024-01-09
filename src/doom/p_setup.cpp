@@ -498,8 +498,6 @@ void P_LoadLineDefs (int lump)
 {
     int			i;
     line_t*		ld;
-    vertex_t*		v1;
-    vertex_t*		v2;
     int warn, warn2; // [crispy] warn about invalid linedefs
 
     numlines = W_LumpLength (lump) / sizeof(maplinedef_t);
@@ -1103,21 +1101,17 @@ P_SetupLevel
 	extern int savedleveltime;
 	const int ltime = savedleveltime / TICRATE,
 	          ttime = (totalleveltimes + savedleveltime) / TICRATE;
-	char *rfn_str;
 
-	rfn_str = M_StringJoin(
-	    respawnparm ? " -respawn" : "",
-	    fastparm ? " -fast" : "",
-	    nomonsters ? " -nomonsters" : "",
-	    NULL);
+	std::string rfn_str = std::string(respawnparm ? " -respawn" : "") +
+	    std::string(fastparm ? " -fast" : "") +
+	    std::string(nomonsters ? " -nomonsters" : "");
 
 	fprintf(stderr, "P_SetupLevel: %s (%s) %s%s %d:%02d:%02d/%d:%02d:%02d ",
 	    maplumpinfo->name, W_WadNameForLump(maplumpinfo),
-	    skilltable[BETWEEN(0,5,(int) skill+1)], rfn_str,
+	    skilltable[BETWEEN(0,5,(int) skill+1)], rfn_str.c_str(),
 	    ltime/3600, (ltime%3600)/60, ltime%60,
 	    ttime/3600, (ttime%3600)/60, ttime%60);
 
-	free(rfn_str);
     }
     // [crispy] check and log map and nodes format
     crispy_mapformat = P_CheckMapFormat(lumpnum);

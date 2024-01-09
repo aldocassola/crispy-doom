@@ -1007,18 +1007,12 @@ static void SetDefaultSaveName(int slot)
     }
     else
     {
-        char *wadname = M_StringDuplicate(W_WadNameForLump(maplumpinfo));
-        char *ext = strrchr(wadname, '.');
-
-        if (ext != NULL)
-        {
-            *ext = '\0';
-        }
+        auto wadname = std::string(W_WadNameForLump(maplumpinfo));
+        wadname = wadname.erase(wadname.rfind('.'));
 
         M_snprintf(savegamestrings[itemOn], SAVESTRINGSIZE,
                    "%s (%s)", maplumpinfo->name,
-                   wadname);
-        free(wadname);
+                   wadname.c_str());
     }
     M_ForceUppercase(savegamestrings[itemOn]);
     joypadSave = false;
@@ -3461,33 +3455,30 @@ void M_Init (void)
     if (!M_ParmExists("-nodeh"))
     {
 	const char *string;
-	char *replace;
+    std::string replace;
 
 	// [crispy] "i wouldn't leave if i were you.\ndos is much worse."
 	string = doom1_endmsg[3];
 	if (!DEH_HasStringReplacement(string))
 	{
-		replace = M_StringReplace(string, "dos", crispy->platform);
-		DEH_AddStringReplacement(string, replace);
-		free(replace);
+		std::string replace = str_ptr(M_StringReplace(string, "dos", crispy->platform)).get();
+		DEH_AddStringReplacement(string, replace.c_str());
 	}
 
 	// [crispy] "you're trying to say you like dos\nbetter than me, right?"
 	string = doom1_endmsg[4];
 	if (!DEH_HasStringReplacement(string))
 	{
-		replace = M_StringReplace(string, "dos", crispy->platform);
-		DEH_AddStringReplacement(string, replace);
-		free(replace);
+		replace = str_ptr(M_StringReplace(string, "dos", crispy->platform)).get();
+		DEH_AddStringReplacement(string, replace.c_str());
 	}
 
 	// [crispy] "don't go now, there's a \ndimensional shambler waiting\nat the dos prompt!"
 	string = doom2_endmsg[2];
 	if (!DEH_HasStringReplacement(string))
 	{
-		replace = M_StringReplace(string, "dos", "command");
-		DEH_AddStringReplacement(string, replace);
-		free(replace);
+		replace = str_ptr(M_StringReplace(string, "dos", "command")).get();
+		DEH_AddStringReplacement(string, replace.c_str());
 	}
     }
 
