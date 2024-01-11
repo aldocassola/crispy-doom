@@ -25,7 +25,7 @@
 #include "vertex.hpp"
 #include "line.hpp"
 // Screenwidth.
-#include "doomtype.hpp"
+#include "doomtype.h"
 
 // Some more or less basic data types
 // we depend on.

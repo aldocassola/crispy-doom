@@ -2,8 +2,8 @@
 #ifndef _VERTEX_HPP_
 #define _VERTEX_HPP_
 
-#include "m_fixed.hpp"
-#include "doomtype.hpp"
+#include "m_fixed.h"
+#include "doomtype.h"
 
 struct mapvertex_t;
 

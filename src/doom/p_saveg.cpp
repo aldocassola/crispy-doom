@@ -30,7 +30,7 @@
 // State.
 #include "doomstat.hpp"
 #include "g_game.hpp"
-#include "m_misc.hpp"
+#include "m_misc.h"
 #include "r_state.hpp"
 
 FILE *save_stream;

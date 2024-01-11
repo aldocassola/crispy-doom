@@ -22,7 +22,7 @@
 #include "doomtype.h"
 #include "doomstat.hpp"
 #include "r_data.hpp"
-#include "w_wad.hpp"
+#include "w_wad.h"
 
 // [crispy] brightmap data
 

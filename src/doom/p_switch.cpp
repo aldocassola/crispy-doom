@@ -23,8 +23,8 @@
 #include "deh_main.h"
 #include "doomdef.hpp"
 #include "p_local.hpp"
-#include "i_swap.hpp" // [crispy] SHORT()
-#include "w_wad.hpp" // [crispy] W_CheckNumForName()
+#include "i_swap.h" // [crispy] SHORT()
+#include "w_wad.h" // [crispy] W_CheckNumForName()
 #include "z_zone.h" // [crispy] PU_STATIC
 
 #include "g_game.hpp"

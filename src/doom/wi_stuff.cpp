@@ -21,15 +21,15 @@
 
 #include "z_zone.h"
 
-#include "m_misc.hpp"
+#include "m_misc.h"
 #include "m_random.hpp"
 
 #include "deh_main.h"
 #include "deh_bexpars.hpp" // [crispy] bex_pars[]
-#include "i_swap.hpp"
+#include "i_swap.h"
 #include "i_system.h"
 
-#include "w_wad.hpp"
+#include "w_wad.h"
 
 #include "g_game.hpp"
 

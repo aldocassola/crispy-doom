@@ -26,16 +26,16 @@
 #include "deh_main.h"
 #include "doomdef.hpp"
 
-#include "i_swap.hpp"
+#include "i_swap.h"
 #include "i_system.h"
 #include "z_zone.h"
-#include "w_wad.hpp"
+#include "w_wad.h"
 
 #include "r_local.hpp"
 
 #include "doomstat.hpp"
 
-#include "v_trans.hpp" // [crispy] colored blood sprites
+#include "v_trans.h" // [crispy] colored blood sprites
 #include "p_local.hpp" // [crispy] MLOOKUNIT
 #include "r_bmaps.hpp" // [crispy] R_BrightmapForTexName()
 

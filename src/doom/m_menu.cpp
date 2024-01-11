@@ -30,14 +30,14 @@
 #include "deh_main.h"
 
 #include "i_input.h"
-#include "i_joystick.hpp"
-#include "i_swap.hpp"
+#include "i_joystick.h"
+#include "i_swap.h"
 #include "i_system.h"
-#include "i_timer.hpp"
-#include "i_video.hpp"
-#include "m_misc.hpp"
+#include "i_timer.h"
+#include "i_video.h"
+#include "m_misc.h"
 #include "v_video.h"
-#include "w_wad.hpp"
+#include "w_wad.h"
 #include "z_zone.h"
 
 #include "r_local.hpp"
@@ -47,8 +47,8 @@
 
 #include "g_game.hpp"
 
-#include "m_argv.hpp"
-#include "m_controls.hpp"
+#include "m_argv.h"
+#include "m_controls.h"
 #include "p_saveg.hpp"
 #include "p_setup.hpp"
 #include "p_extsaveg.hpp" // [crispy] savewadfilename
@@ -63,7 +63,7 @@
 #include "m_menu.hpp"
 #include "m_crispy.hpp" // [crispy] Crispness menu
 
-#include "v_trans.hpp" // [crispy] colored "invert mouse" message
+#include "v_trans.h" // [crispy] colored "invert mouse" message
 
 //
 // defaulted values

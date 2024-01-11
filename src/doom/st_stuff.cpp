@@ -23,22 +23,22 @@
 #include <cstdio>
 #include <cctype>
 
-#include "i_swap.hpp" // [crispy] SHORT()
+#include "i_swap.h" // [crispy] SHORT()
 #include "i_system.h"
-#include "i_video.hpp"
+#include "i_video.h"
 #include "z_zone.h"
-#include "m_argv.hpp" // [crispy] M_ParmExists()
-#include "m_misc.hpp"
+#include "m_argv.h" // [crispy] M_ParmExists()
+#include "m_misc.h"
 #include "m_random.hpp"
-#include "w_wad.hpp"
+#include "w_wad.h"
 
 #include "deh_main.h"
 #include "deh_misc.hpp"
 #include "doomdef.hpp"
-#include "doomkeys.hpp"
+#include "doomkeys.h"
 
 #include "g_game.hpp"
-#include "a11y.hpp" // [crispy] A11Y
+#include "a11y.h" // [crispy] A11Y
 
 #include "st_stuff.hpp"
 #include "st_lib.hpp"
@@ -48,7 +48,7 @@
 #include "p_inter.hpp"
 
 #include "am_map.hpp"
-#include "m_cheat.hpp"
+#include "m_cheat.h"
 
 #include "s_sound.hpp"
 
@@ -62,7 +62,7 @@
 #include "dstrings.hpp"
 #include "sounds.hpp"
 
-#include "v_trans.hpp" // [crispy] colored cheat messages
+#include "v_trans.h" // [crispy] colored cheat messages
 
 extern int screenblocks; // [crispy] for the Crispy HUD
 extern boolean inhelpscreens; // [crispy] prevent palette changes

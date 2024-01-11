@@ -21,7 +21,7 @@
 
 #include "doomdef.hpp"
 
-#include "m_bbox.hpp"
+#include "m_bbox.h"
 
 #include "i_system.h"
 

@@ -19,7 +19,7 @@
 #include <iostream>
 
 #include "doomdef.hpp"
-#include "d_event.hpp"
+#include "d_event.h"
 
 #include "deh_misc.hpp"
 
@@ -34,7 +34,7 @@
 #include "sounds.hpp"
 
 #include "p_pspr.hpp"
-#include "a11y.hpp" // [crispy] A11Y
+#include "a11y.h" // [crispy] A11Y
 
 #define LOWERSPEED		FRACUNIT*6
 #define RAISESPEED		FRACUNIT*6

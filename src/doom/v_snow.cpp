@@ -19,7 +19,7 @@
 //
 
 #include "v_snow.hpp"
-#include "i_video.hpp"
+#include "i_video.h"
 #include "i_system.h"
 #include "r_main.hpp"
 #include "m_random.hpp"

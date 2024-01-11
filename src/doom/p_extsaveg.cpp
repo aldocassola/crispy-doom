@@ -24,7 +24,7 @@
 #include "doomstat.hpp"
 #include "doomtype.h"
 #include "deh_main.h"
-#include "m_misc.hpp"
+#include "m_misc.h"
 #include "p_extsaveg.hpp"
 #include "p_local.hpp"
 #include "p_saveg.hpp"

@@ -25,15 +25,15 @@
 #include "z_zone.h"
 
 #include "deh_main.h"
-#include "i_swap.hpp"
-#include "m_argv.hpp"
-#include "m_bbox.hpp"
-#include "m_misc.hpp" // [crispy] M_StringJoin()
+#include "i_swap.h"
+#include "m_argv.h"
+#include "m_bbox.h"
+#include "m_misc.h" // [crispy] M_StringJoin()
 
 #include "g_game.hpp"
 
 #include "i_system.h"
-#include "w_wad.hpp"
+#include "w_wad.h"
 
 #include "doomdef.hpp"
 #include "p_local.hpp"

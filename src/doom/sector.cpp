@@ -2,8 +2,8 @@
 
 #include "sector.hpp"
 #include "r_data.hpp"
-#include "i_system.hpp"
-#include "i_swap.hpp"
+#include "i_system.h"
+#include "i_swap.h"
 
 sector_t::sector_t() {
     I_GetMemoryValue( 0, &floorheight, 4 );

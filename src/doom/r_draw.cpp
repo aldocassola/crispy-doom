@@ -26,13 +26,13 @@
 
 #include "i_system.h"
 #include "z_zone.h"
-#include "w_wad.hpp"
+#include "w_wad.h"
 
 #include "r_local.hpp"
 
 // Needs access to LFB (guess what).
 #include "v_video.h"
-#include "v_trans.hpp"
+#include "v_trans.h"
 
 // State.
 #include "doomstat.hpp"

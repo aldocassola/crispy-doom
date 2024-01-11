@@ -27,10 +27,10 @@
 #include <cstdlib>
 #include "doomstat.hpp"
 #include "i_system.h"
-#include "m_misc.hpp"
+#include "m_misc.h"
 #include "r_defs.hpp"
 #include "s_sound.hpp"
-#include "w_wad.hpp"
+#include "w_wad.h"
 #include "z_zone.h"
 
 #include "s_musinfo.hpp"

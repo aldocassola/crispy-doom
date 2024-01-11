@@ -26,16 +26,16 @@
 
 #include "deh_main.h"
 #include "i_input.h"
-#include "i_swap.hpp"
-#include "i_video.hpp"
+#include "i_swap.h"
+#include "i_video.h"
 
 #include "hu_stuff.hpp"
 #include "hu_lib.hpp"
-#include "m_controls.hpp"
-#include "m_misc.hpp"
+#include "m_controls.h"
+#include "m_misc.h"
 #include "m_menu.hpp"
-#include "w_wad.hpp"
-#include "m_argv.hpp" // [crispy] M_ParmExists()
+#include "w_wad.h"
+#include "m_argv.h" // [crispy] M_ParmExists()
 #include "st_stuff.hpp" // [crispy] ST_HEIGHT, ST_WIDESCREENDELTA
 #include "p_setup.hpp" // maplumpinfo
 
@@ -49,7 +49,7 @@
 
 #include "r_state.hpp" // [crispy] colormaps
 #include "v_video.h" // [crispy] V_DrawPatch() et al.
-#include "v_trans.hpp" // [crispy] colored kills/items/secret/etc. messages
+#include "v_trans.h" // [crispy] colored kills/items/secret/etc. messages
 
 //
 // Locally used constants, shortcuts.

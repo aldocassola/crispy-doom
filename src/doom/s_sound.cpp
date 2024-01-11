@@ -18,10 +18,10 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "i_sound.hpp"
+#include "i_sound.h"
 #include "i_system.h"
 
-#include "deh_str.hpp"
+#include "deh_str.h"
 
 #include "doomstat.hpp"
 #include "doomtype.h"
@@ -30,12 +30,12 @@
 #include "s_sound.hpp"
 #include "s_musinfo.hpp" // [crispy] struct musinfo
 
-#include "m_misc.hpp"
+#include "m_misc.h"
 #include "m_random.hpp"
-#include "m_argv.hpp"
+#include "m_argv.h"
 
 #include "p_local.hpp"
-#include "w_wad.hpp"
+#include "w_wad.h"
 #include "z_zone.h"
 #include "g_game.hpp" // [crispy] demo_gotonextlvl
 

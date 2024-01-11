@@ -21,15 +21,15 @@
 #include <cstdlib> // [crispy] calloc()
 
 #include "deh_main.h"
-#include "i_swap.hpp"
+#include "i_swap.h"
 #include "i_system.h"
 #include "z_zone.h"
 
 
-#include "w_wad.hpp"
+#include "w_wad.h"
 
 #include "doomdef.hpp"
-#include "m_misc.hpp"
+#include "m_misc.h"
 #include "r_local.hpp"
 #include "p_local.hpp"
 
@@ -38,7 +38,7 @@
 
 
 #include "r_data.hpp"
-#include "v_trans.hpp" // [crispy] tranmap, CRMAX
+#include "v_trans.h" // [crispy] tranmap, CRMAX
 #include "r_bmaps.hpp" // [crispy] R_BrightmapForTexName()
 
 //

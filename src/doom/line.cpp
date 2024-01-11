@@ -3,9 +3,9 @@
 #include "line.hpp"
 #include "vertex.hpp"
 #include "doomdata.hpp"
-#include "i_swap.hpp"
-#include "m_fixed.hpp"
-#include "m_bbox.hpp"
+#include "i_swap.h"
+#include "m_fixed.h"
+#include "m_bbox.h"
 #include "r_state.hpp"
 
 slopetype_t line_t::get_slope( fixed_t dx, fixed_t dy ) {

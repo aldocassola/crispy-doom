@@ -2,7 +2,7 @@
 #ifndef _SECTOR_HPP_
 #define _SECTOR_HPP_
 
-#include "m_fixed.hpp"
+#include "m_fixed.h"
 #include "p_mobj.hpp"
 
 struct line_t;

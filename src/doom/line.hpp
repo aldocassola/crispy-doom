@@ -2,7 +2,7 @@
 #ifndef _LINE_HPP_
 #define _LINE_HPP_
 
-#include "m_fixed.hpp"
+#include "m_fixed.h"
 #include "p_mobj.hpp"
 
 struct vertex_t;

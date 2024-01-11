@@ -7,8 +7,8 @@
 #include <algorithm>
 #include <string>
 
-#include "z_zone.hpp"
-#include "w_wad.hpp"
+#include "z_zone.h"
+#include "w_wad.h"
 
 template <typename T, int tag>
 struct z_allocator {

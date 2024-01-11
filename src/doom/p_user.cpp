@@ -23,12 +23,12 @@
 
 #include <cstdlib> // [crispy] abs()
 #include "doomdef.hpp"
-#include "d_event.hpp"
+#include "d_event.h"
 
 #include "p_local.hpp"
 
 #include "doomstat.hpp"
-#include "a11y.hpp" // [crispy] A11Y
+#include "a11y.h" // [crispy] A11Y
 
 #include "s_sound.hpp" // [NS] Jump sound etc.
 

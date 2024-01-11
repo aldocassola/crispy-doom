@@ -1,6 +1,6 @@
 #include "vertex.hpp"
 #include "doomdata.hpp"
-#include "i_swap.hpp"
+#include "i_swap.h"
 
 
 vertex_t::vertex_t(const mapvertex_t &ms)

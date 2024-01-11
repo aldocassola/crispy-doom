@@ -71,9 +71,9 @@
 #include "wi_stuff.hpp"
 #include "st_stuff.hpp"
 #include "am_map.hpp"
-#include "net_client.hpp"
-#include "net_dedicated.hpp"
-#include "net_query.hpp"
+#include "net_client.h"
+#include "net_dedicated.h"
+#include "net_query.h"
 
 #include "p_setup.hpp"
 #include "r_local.hpp"

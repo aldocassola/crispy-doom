@@ -26,10 +26,10 @@
 #include "z_zone.h"
 #include "v_video.h"
 
-#include "i_swap.hpp"
+#include "i_swap.h"
 #include "i_system.h"
 
-#include "w_wad.hpp"
+#include "w_wad.h"
 
 #include "st_stuff.hpp"
 #include "st_lib.hpp"
@@ -37,7 +37,7 @@
 
 #include "doomstat.hpp" // [crispy] automapactive
 #include "m_menu.hpp" // [crispy] screenblocks
-#include "v_trans.hpp" // [crispy] colored status bar widgets
+#include "v_trans.h" // [crispy] colored status bar widgets
 
 //
 // Hack display negative frags.

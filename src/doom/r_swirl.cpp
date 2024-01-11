@@ -19,10 +19,10 @@
 
 // [crispy] adapted from smmu/r_ripple.c, by Simon Howard
 
-#include "tables.hpp"
+#include "tables.h"
 
 #include "i_system.h"
-#include "w_wad.hpp"
+#include "w_wad.h"
 #include "z_zone.h"
 
 #include "doomstat.hpp"

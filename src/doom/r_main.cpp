@@ -28,9 +28,9 @@
 
 #include "doomdef.hpp"
 #include "doomstat.hpp" // [AM] leveltime, paused, menuactive
-#include "d_loop.hpp"
+#include "d_loop.h"
 
-#include "m_bbox.hpp"
+#include "m_bbox.h"
 #include "m_menu.hpp"
 
 #include "i_system.h" // [crispy] I_Realloc()
@@ -38,7 +38,7 @@
 #include "r_local.hpp"
 #include "r_sky.hpp"
 #include "st_stuff.hpp" // [crispy] ST_refreshBackground()
-#include "a11y.hpp" // [crispy] A11Y
+#include "a11y.h" // [crispy] A11Y
 
 
 

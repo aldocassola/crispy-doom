@@ -28,7 +28,7 @@
 
 // State.
 #include "r_state.hpp"
-#include "a11y.hpp" // [crispy] A11Y
+#include "a11y.h" // [crispy] A11Y
 
 //
 // FIRELIGHT FLICKER

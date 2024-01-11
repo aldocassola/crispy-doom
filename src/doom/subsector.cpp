@@ -1,6 +1,6 @@
 #include "subsector.hpp"
 #include "doomdata.hpp"
-#include "i_swap.hpp"
+#include "i_swap.h"
 
 subsector_t::subsector_t(const mapsubsector_t &ms)
     : sector(nullptr),

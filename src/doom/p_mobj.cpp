@@ -32,8 +32,8 @@
 
 #include "s_sound.hpp"
 #include "s_musinfo.hpp" // [crispy] S_ParseMusInfo()
-#include "i_swap.hpp" // [crispy] SHORT()
-#include "w_wad.hpp" // [crispy] W_CacheLumpNum()
+#include "i_swap.h" // [crispy] SHORT()
+#include "w_wad.h" // [crispy] W_CacheLumpNum()
 #include "g_game.hpp" // [crispy] demo_gotonextlvl
 
 #include "doomstat.hpp"

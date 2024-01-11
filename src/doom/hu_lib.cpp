@@ -23,12 +23,12 @@
 #include "doomstat.hpp"
 
 #include "v_video.h"
-#include "i_swap.hpp"
+#include "i_swap.h"
 
 #include "hu_lib.hpp"
 #include "r_local.hpp"
 #include "r_draw.hpp"
-#include "v_trans.hpp" // [crispy] colored HUlib_drawTextLine()
+#include "v_trans.h" // [crispy] colored HUlib_drawTextLine()
 
 // boolean : whether the screen is always erased
 #define noterased viewwindowx
