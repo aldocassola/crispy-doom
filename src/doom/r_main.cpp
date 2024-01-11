@@ -39,6 +39,7 @@
 #include "r_sky.hpp"
 #include "st_stuff.hpp" // [crispy] ST_refreshBackground()
 #include "a11y.h" // [crispy] A11Y
+#include "v_video.h"
 
 
 

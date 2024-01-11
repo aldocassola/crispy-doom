@@ -42,6 +42,7 @@
 #include "z_zone.h"
 #include "w_main.h"
 #include "w_wad.h"
+#include "w_merge.h"
 #include "s_sound.hpp"
 #include "v_diskicon.h"
 #include "v_video.h"

@@ -23,7 +23,13 @@
 #include "doomdef.hpp"
 
 
-
+#ifdef __cplusplus
+extern "C" {
+#endif
+void D_DoomMain(void);
+#ifdef __cplusplus
+}
+#endif
 
 // Read events from all input devices
 

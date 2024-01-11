@@ -44,6 +44,9 @@ void W_NWTDashMerge(const char *filename);
 
 void W_PrintDirectory(void);
 
+int W_MergeDump (const char *file);
+int W_LumpDump (const char *lumpname);
+
 #ifdef __cplusplus
 }
 #endif

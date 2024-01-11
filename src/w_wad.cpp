@@ -34,6 +34,7 @@
 #include "z_zone.h"
 
 #include "w_wad.h"
+#include "w_merge.h"
 
 //
 // GLOBALS
