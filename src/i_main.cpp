@@ -37,7 +37,7 @@
 // calls all startup code, parses command line options.
 //
 
-extern "C" void D_DoomMain (void);
+extern "C" void D_DoomMain ();
 
 int main(int argc, char **argv)
 {

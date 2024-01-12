@@ -47,6 +47,7 @@
 #include "v_video.h"
 #include "am_map.h"
 #include "v_trans.h" // [crispy] dp_translation
+#include "crispy.h"
 
 #include "heretic_icon.c"
 
