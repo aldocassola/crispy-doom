@@ -885,7 +885,7 @@ static void R_DrawLSprite (void)
     P_LineLaser(viewplayer->mo, viewangle,
                 16*64*FRACUNIT, PLAYER_SLOPE(viewplayer));
 
-    if (!*std::get_if<bool>(&laserspot->thinker.function))
+    if (auto ptr(std::get_if<bool>(&laserspot->thinker.function)); ptr && !*ptr)
 	return;
 
     tz = FixedMul(laserspot->x - viewx, viewcos) +

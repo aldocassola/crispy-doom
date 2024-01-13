@@ -1933,7 +1933,7 @@ void P_UnArchiveSpecials (void)
             saveg_read_ceiling_t(ceiling);
 	    ceiling->sector->specialdata = ceiling;
 
-	    if (*std::get_if<actionf_ceiling>(&ceiling->thinker.function))
+	    if (auto ptr(std::get_if<actionf_ceiling>(&ceiling->thinker.function)); ptr && *ptr)
 		    ceiling->thinker.function = T_MoveCeiling;
 
 	    P_AddThinker (&ceiling->thinker);
