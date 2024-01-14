@@ -230,7 +230,7 @@ typedef enum
 } bwhere_e;
 
 
-typedef struct
+struct button_t
 {
     line_t*	line;
     bwhere_e	where;
@@ -238,7 +238,7 @@ typedef struct
     int		btimer;
     degenmobj_t *soundorg;
 
-} button_t;
+};
 
 
 

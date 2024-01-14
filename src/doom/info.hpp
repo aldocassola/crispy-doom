@@ -1233,7 +1233,7 @@ typedef enum
 } statenum_t;
 
 
-typedef struct
+struct state_t
 {
     spritenum_t sprite;
     int frame;
@@ -1243,7 +1243,7 @@ typedef struct
     statenum_t nextstate;
     int misc1;
     int misc2;
-} state_t;
+};
 
 extern state_t	states[NUMSTATES];
 extern const char *sprnames[];
@@ -1422,7 +1422,7 @@ typedef enum {
 
 } mobjtype_t;
 
-typedef struct
+struct mobjinfo_t
 {
     int	doomednum;
     statenum_t	spawnstate;
@@ -1460,7 +1460,7 @@ typedef struct
     // [crispy] multiplier for likelihood of a missile attack (generaliz. for various)
     int missilechancemult;
 
-} mobjinfo_t;
+};
 
 extern mobjinfo_t mobjinfo[NUMMOBJTYPES];
 

@@ -63,13 +63,13 @@ unsigned int finalecount;
 #define	TEXTSPEED	3
 #define	TEXTWAIT	250
 
-typedef struct
+struct textscreen_t
 {
     GameMission_t mission;
     int episode, level;
     const char *background;
     const char *text;
-} textscreen_t;
+};
 
 static textscreen_t textscreens[] =
 {
@@ -343,11 +343,11 @@ void F_TextWrite (void)
 // Casting by id Software.
 //   in order of appearance
 //
-typedef struct
+struct castinfo_t
 {
     const char	*name;
     mobjtype_t	type;
-} castinfo_t;
+};
 
 castinfo_t	castorder[] = {
     {CC_ZOMBIE, MT_POSSESSED},

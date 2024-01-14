@@ -144,38 +144,38 @@ static int revealedsecretwallcolors = -1;
 // the following is crap
 #define LINE_NEVERSEE ML_DONTDRAW
 
-typedef struct
+struct fpoint_t
 {
     int x, y;
-} fpoint_t;
+};
 
-typedef struct
+struct fline_t
 {
     fpoint_t a, b;
-} fline_t;
+};
 
-typedef struct
+struct mpoint_t
 {
     int64_t		x,y;
-} mpoint_t;
+};
 
-typedef struct
+struct mline_t
 {
     mpoint_t a, b;
-} mline_t;
+};
 
-typedef struct
+struct islope_t
 {
     fixed_t slp, islp;
-} islope_t;
+};
 
-typedef enum
+enum keycolor_t
 {
     no_key,
     red_key,
     yellow_key,
     blue_key
-} keycolor_t;
+};
 
 
 //

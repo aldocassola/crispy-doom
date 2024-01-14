@@ -28,10 +28,10 @@
 
 #include "actions.hpp"
 
-typedef struct {
+struct bex_codeptr_t {
     const char *mnemonic;
     actionf_t pointer;
-} bex_codeptr_t;
+};
 
 static constexpr bex_codeptr_t bex_codeptrtable[] = {
     {"Light0", {A_Light0}},

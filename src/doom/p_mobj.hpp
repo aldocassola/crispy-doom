@@ -305,6 +305,7 @@ struct mobj_t
     fixed_t		oldz;
     angle_t		oldangle;
 
+    mobj_t() = default;
 };
 
 

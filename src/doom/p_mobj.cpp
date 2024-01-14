@@ -673,7 +673,7 @@ P_SpawnMobjSafe
     mobjinfo_t*	info;
 
     mobj = static_cast<decltype(mobj)>(Z_Malloc (sizeof(*mobj), PU_LEVEL, NULL));
-    memset (mobj, 0, sizeof (*mobj));
+    new (mobj) mobj_t();
     info = &mobjinfo[type];
 
     mobj->type = type;

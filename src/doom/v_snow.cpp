@@ -24,10 +24,10 @@
 #include "r_main.hpp"
 #include "m_random.hpp"
 
-typedef struct snowflake_t
+struct snowflake_t
 {
     int x, y;
-} snowflake_t;
+};
 
 static snowflake_t *snowflakes = NULL;
 static size_t snowflakes_num;

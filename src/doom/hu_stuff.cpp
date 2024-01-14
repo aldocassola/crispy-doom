@@ -525,14 +525,14 @@ void HU_Stop(void)
 // These are single, non-consecutive, (semi-)official levels
 // without their own music or par times and thus do not need
 // to be handled as distinct pack_* game missions.
-typedef struct
+struct speciallevel_t
 {
     GameMission_t mission;
     int episode;
     int map;
     const char *wad;
     const char *name;
-} speciallevel_t;
+};
 
 static constexpr speciallevel_t speciallevels[] = {
     // [crispy] ExM0

@@ -200,7 +200,7 @@ struct player_t
 // INTERMISSION
 // Structure passed e.g. to WI_Start(wb)
 //
-typedef struct
+struct wbplayerstruct_t
 {
     boolean	in;	// whether the player is in game
 
@@ -212,9 +212,9 @@ typedef struct
     int		frags[4];
     int		score;	// current score on entry, modified on return
 
-} wbplayerstruct_t;
+};
 
-typedef struct
+struct wbstartstruct_t
 {
     int		epsd;	// episode # (0-2)
 
@@ -240,7 +240,7 @@ typedef struct
 
     // [crispy] CPhipps - total game time for completed levels so far
     int		totaltimes;
-} wbstartstruct_t;
+};
 
 
 #endif

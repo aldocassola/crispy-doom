@@ -168,7 +168,7 @@ typedef pixel_t		lighttable_t;
 //
 // ?
 //
-typedef struct drawseg_s
+struct drawseg_t
 {
     seg_t*		curline;
     int			x1;
@@ -193,18 +193,18 @@ typedef struct drawseg_s
     int*		sprbottomclip; // [crispy] 32-bit integer math
     int*		maskedtexturecol; // [crispy] 32-bit integer math
 
-} drawseg_t;
+};
 
 
 
 // A vissprite_t is a thing
 //  that will be drawn during a refresh.
 // I.e. a sprite object that is partly visible.
-typedef struct vissprite_s
+struct vissprite_t
 {
     // Doubly linked list.
-    struct vissprite_s*	prev;
-    struct vissprite_s*	next;
+    vissprite_t*	prev;
+    vissprite_t*	next;
 
     int			x1;
     int			x2;
@@ -241,7 +241,7 @@ typedef struct vissprite_s
     const pixel_t	(*blendfunc)(const pixel_t fg, const pixel_t bg);
 #endif
 
-} vissprite_t;
+};
 
 
 //
@@ -259,7 +259,7 @@ typedef struct vissprite_s
 // Some sprites will only have one picture used
 // for all views: NNNNF0
 //
-typedef struct
+struct spriteframe_t
 {
     // If false use 0 for any position.
     // Note: as eight entries are available,
@@ -272,7 +272,7 @@ typedef struct
     // Flip bit (1 = flip) to use for view angles 0-7.
     byte	flip[16]; // [crispy] support 16 sprite rotations
 
-} spriteframe_t;
+};
 
 
 
@@ -292,7 +292,7 @@ struct spritedef_t
 //
 // Now what is a visplane, anyway?
 //
-typedef struct
+struct visplane_t
 {
   fixed_t		height;
   int			picnum;
@@ -312,14 +312,14 @@ typedef struct
   unsigned int		bottom[MAXWIDTH]; // [crispy] hires / 32-bit integer math
   unsigned int		pad4; // [crispy] hires / 32-bit integer math
 
-} visplane_t;
+};
 
-typedef struct
+struct laserpatch_t
 {
 	char c;
 	char a[9];
 	int l, w, h;
-} laserpatch_t;
+};
 extern laserpatch_t *laserpatch;
 #define NUM_CROSSHAIRTYPES 3
 
