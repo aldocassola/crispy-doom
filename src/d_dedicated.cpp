@@ -25,7 +25,10 @@
 
 #include "net_dedicated.h"
 #include "net_server.h"
+#include "net_client.h"
 #include "z_zone.h"
+
+extern "C" void D_DoomMain(void);
 
 void NET_CL_Run(void)
 {
