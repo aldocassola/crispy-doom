@@ -542,7 +542,8 @@ void P_LoadLineDefs_Hexen (int lump)
 
     numlines = W_LumpLength(lump) / sizeof(maplinedef_hexen_t);
     lines = static_cast<decltype(lines)>(Z_Malloc(numlines * sizeof(line_t), PU_LEVEL, 0));
-    memset(lines, 0, numlines * sizeof(line_t));
+    //memset(lines, 0, numlines * sizeof(line_t)); //TODO
+	new (lines) line_t[numlines]{};
     data = static_cast<byte *>(W_CacheLumpNum(lump, PU_STATIC));
 
     mld = (maplinedef_hexen_t *) data;

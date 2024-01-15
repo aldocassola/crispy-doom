@@ -39,7 +39,7 @@ extern char *iwadfile;
 // [crispy] auto-load SIGIL.WAD (and SIGIL_SHREDS.WAD) if available
 static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 {
-	int i, j;
+	int j;
 	const char *sigil_basename;
 
 	const char *const sigil_wads[] = {
@@ -65,7 +65,7 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 	};
 
 	// [crispy] don't load SIGIL.WAD if another PWAD already provides E5M1
-	i = W_CheckNumForName("E5M1");
+	auto i = W_CheckNumForName("E5M1");
 	if (i != -1)
 	{
 		// [crispy] indicate that SIGIL_*.WAD is already loaded as a PWAD
@@ -89,7 +89,7 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 	}
 
 	// [crispy] load SIGIL.WAD
-	for (i = 0; i < arrlen(sigil_wads); i++)
+	for (unsigned int i = 0; i < arrlen(sigil_wads); i++)
 	{
 		crispy->havesigil = M_StringJoin(iwaddir, DIR_SEPARATOR_S, sigil_wads[i], NULL);
 
@@ -131,7 +131,7 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 	}
 
 	// [crispy] rename intrusive SIGIL_SHREDS.WAD music lumps out of the way
-	for (i = 0; i < arrlen(sigil_lumps); i++)
+	for (unsigned i = 0; i < arrlen(sigil_lumps); i++)
 	{
 		// [crispy] skip non-music lumps
 		if (strncasecmp(sigil_lumps[i].name, "D_", 2))
@@ -148,7 +148,7 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 	}
 
 	// [crispy] rename intrusive SIGIL.WAD graphics, demos and music lumps out of the way
-	for (i = 0; i < arrlen(sigil_lumps); i++)
+	for (unsigned int i = 0; i < arrlen(sigil_lumps); i++)
 	{
 		j = W_CheckNumForName(sigil_lumps[i].name);
 
@@ -174,7 +174,7 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 // [crispy] auto-load Sigil II
 static boolean LoadSigil2Wad (const char *iwaddir, boolean pwadtexture)
 {
-    int i, j;
+    int j;
     const char *sigil2_basename;
 
     const char *const sigil2_wads[] = {
@@ -200,7 +200,7 @@ static boolean LoadSigil2Wad (const char *iwaddir, boolean pwadtexture)
     };
 
     // [crispy] don't load Sigil II if another PWAD already provides E6M1
-    i = W_CheckNumForName("E6M1");
+    auto i = W_CheckNumForName("E6M1");
     if (i != -1)
     {
         // [crispy] indicate that SIGIL_II_*.WAD is already loaded as a PWAD
@@ -220,7 +220,7 @@ static boolean LoadSigil2Wad (const char *iwaddir, boolean pwadtexture)
     }
 
     // [crispy] load Sigil II
-    for (i = 0; i < arrlen(sigil2_wads); i++)
+    for (unsigned int i = 0; i < arrlen(sigil2_wads); i++)
     {
         crispy->havesigil2 = M_StringJoin(iwaddir, DIR_SEPARATOR_S,
                                          sigil2_wads[i], NULL);
@@ -250,7 +250,7 @@ static boolean LoadSigil2Wad (const char *iwaddir, boolean pwadtexture)
 
     // [crispy] rename intrusive Sigil II graphics, demos and music lumps out
     // of the way
-    for (i = 0; i < arrlen(sigil2_lumps); i++)
+    for (unsigned int i = 0; i < arrlen(sigil2_lumps); i++)
     {
         j = W_CheckNumForName(sigil2_lumps[i].name);
 
@@ -276,7 +276,7 @@ static boolean LoadSigil2Wad (const char *iwaddir, boolean pwadtexture)
 // [crispy] auto-load Sigil and Sigil II if available
 void D_LoadSigilWads (void)
 {
-    int i, j;
+    int j;
     boolean sigilloaded, sigil2loaded;
     boolean pwadtexture = false;
 
@@ -288,7 +288,7 @@ void D_LoadSigilWads (void)
 
     // [crispy] don't load Sigils if another PWAD already modifies the texture
     // files
-    for (i = 0; i < arrlen(texture_file); i++)
+    for (unsigned int i = 0; i < arrlen(texture_file); i++)
     {
         j = W_CheckNumForName(texture_file[i]);
 
@@ -400,7 +400,7 @@ static void CheckLoadNerve (void)
 	}
 
 	// [crispy] if NERVE.WAD contains TITLEPIC and INTERPIC, rename them
-	for (i = 0; i < arrlen(nerve_lumps); i++)
+	for (unsigned int i = 0; i < arrlen(nerve_lumps); i++)
 	{
 		j = W_CheckNumForName(nerve_lumps[i].name);
 
@@ -615,7 +615,6 @@ static boolean CheckMasterlevelsAvailable (void)
 // [crispy] auto-load the 20 individual separate Mater Levels PWADs as if the were the single MASTERLEVELS.WAD
 static void LoadMasterlevelsWads (void)
 {
-	int i, j;
 	char lumpname[9];
 
 	const char *const sky_lumps[] = {
@@ -624,7 +623,7 @@ static void LoadMasterlevelsWads (void)
 		"TEXTURE1",
 	};
 
-	for (i = 0; i < arrlen(masterlevels_wads); i++)
+	for (unsigned int i = 0; i < arrlen(masterlevels_wads); i++)
 	{
 		// [crispy] add TEETH.WAD only once
 		if (masterlevels_wads[i].wad_name)
@@ -636,7 +635,7 @@ static void LoadMasterlevelsWads (void)
 			// [crispy] rename lumps changing the SKY texture out of the way
 			if (masterlevels_wads[i].custom_sky)
 			{
-				for (j = 0; j < arrlen(sky_lumps); j++)
+				for (unsigned int j = 0; j < arrlen(sky_lumps); j++)
 				{
 					int k;
 
@@ -651,7 +650,7 @@ static void LoadMasterlevelsWads (void)
 		}
 
 		M_snprintf(lumpname, 9, "MAP%02d", masterlevels_wads[i].pc_slot);
-		j = W_GetNumForName(lumpname);
+		auto j = W_GetNumForName(lumpname);
 		lumpinfo[j]->name[3] = '0' + (masterlevels_wads[i].psn_slot / 10);
 		lumpinfo[j]->name[4] = '0' + (masterlevels_wads[i].psn_slot % 10);
 		lumpinfo[j]->name[5] = 'M';

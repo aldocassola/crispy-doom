@@ -176,7 +176,6 @@ extern void AM_LevelInit (boolean reinit);
 extern void EnableLoadingDisk (void);
 extern void P_SegLengths (boolean contrast_only);
 extern void R_InitLightTables (void);
-extern void I_ReInitGraphics (int reinit);
 
 static void ChangeSettingEnum(int *setting, int choice, int num_values)
 {

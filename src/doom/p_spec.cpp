@@ -505,7 +505,6 @@ P_FindSectorFromLineTag
 ( line_t*	line,
   int		start )
 {
-    int	i;
 
 #if 0
     // [crispy] linedefs without tags apply locally
@@ -1562,9 +1561,9 @@ int EV_DoDonut(line_t*	line)
 
 static unsigned int NumScrollers()
 {
-    unsigned int i, scrollers = 0;
+    unsigned int scrollers = 0;
 
-    for (i = 0; i < numlines; i++)
+    for (int i = 0; i < numlines; i++)
     {
         if (48 == lines[i].special)
         {
@@ -1577,7 +1576,6 @@ static unsigned int NumScrollers()
 // Parses command line parameters.
 void P_SpawnSpecials (void)
 {
-    sector_t*	sector;
     int		i;
 
     // See if -TIMER was specified.
@@ -1683,7 +1681,6 @@ void P_SpawnSpecials (void)
 	  case 271:
 	  case 272:
 	    {
-		int secnum;
 
 		for (auto &sector: sectors)
 		{

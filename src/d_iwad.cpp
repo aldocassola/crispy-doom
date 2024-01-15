@@ -20,6 +20,7 @@
 #include <cstdlib>
 #include <cctype>
 #include <cstring>
+#include <string>
 
 #include "deh_str.h"
 #include "doomkeys.h"
@@ -237,7 +238,7 @@ static registry_value_t root_path_keys[] =
 
 // Subdirectories of the above install path, where IWADs are installed.
 
-static char *root_path_subdirs[] =
+static constexpr const char *root_path_subdirs[] =
 {
     ".",
     "Doom2",
@@ -259,7 +260,7 @@ static registry_value_t steam_install_location =
 
 // Subdirs of the steam install directory where IWADs are found
 
-static char *steam_install_subdirs[] =
+static constexpr const char *steam_install_subdirs[] =
 {
     "steamapps\\common\\doom 2\\base",
     "steamapps\\common\\doom 2\\finaldoombase",
@@ -997,9 +998,8 @@ const char *D_SaveGameIWADName(GameMission_t gamemission, GameVariant_t gamevari
 
 const char *D_SuggestIWADName(GameMission_t mission, GameMode_t mode)
 {
-    int i;
 
-    for (i = 0; i < arrlen(iwads); ++i)
+    for (unsigned int i = 0; i < arrlen(iwads); ++i)
     {
         if (iwads[i].mission == mission && iwads[i].mode == mode)
         {
@@ -1012,9 +1012,8 @@ const char *D_SuggestIWADName(GameMission_t mission, GameMode_t mode)
 
 const char *D_SuggestGameName(GameMission_t mission, GameMode_t mode)
 {
-    int i;
 
-    for (i = 0; i < arrlen(iwads); ++i)
+    for (unsigned int i = 0; i < arrlen(iwads); ++i)
     {
         if (iwads[i].mission == mission
          && (mode == indetermined || iwads[i].mode == mode))

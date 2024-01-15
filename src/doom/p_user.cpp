@@ -24,6 +24,7 @@
 #include <cstdlib> // [crispy] abs()
 #include "doomdef.hpp"
 #include "d_event.h"
+#include "d_player.hpp"
 
 #include "p_local.hpp"
 
@@ -49,6 +50,18 @@ static const fixed_t crispy_bobfactor[3] = {4, 3, 0};
 
 boolean		onground;
 
+
+
+// [crispy] update weapon sound source coordinates
+void player_t::update_weapon_sound_source() {
+    if(mo == so)
+        return;
+
+    so->thinker = mo->thinker;
+    so->x = mo->x;
+    so->y = mo->y;
+    so->z = mo->z;
+}
 
 //
 // P_Thrust
@@ -290,10 +303,7 @@ void P_PlayerThink (player_t* player)
     player->oldrecoilpitch = player->recoilpitch;
 
     // [crispy] update weapon sound source coordinates
-    if (player->so != player->mo)
-    {
-	memcpy(player->so, player->mo, sizeof(degenmobj_t));
-    }
+    player->update_weapon_sound_source();
 
     // fixme: do this in the cheat code
     if (player->cheats & CF_NOCLIP)

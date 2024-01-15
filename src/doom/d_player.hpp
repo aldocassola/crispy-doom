@@ -193,6 +193,9 @@ struct player_t
 
     // [crispy] "use" button timer
     int			btuse, btuse_tics;
+
+    // [crispy] update weapon sound source coordinates
+    void update_weapon_sound_source();
 };
 
 

@@ -227,8 +227,8 @@ struct mobj_t
     fixed_t		z;
 
     // More list: links in sector (if needed)
-    struct mobj_t*	snext;
-    struct mobj_t*	sprev;
+    mobj_t*	snext;
+    mobj_t*	sprev;
 
     //More drawing info: to determine current sprite.
     angle_t		angle;	// orientation
@@ -237,8 +237,8 @@ struct mobj_t
 
     // Interaction info, by BLOCKMAP.
     // Links in blocks (if needed).
-    struct mobj_t*	bnext;
-    struct mobj_t*	bprev;
+    mobj_t*	bnext;
+    mobj_t*	bprev;
 
     struct subsector_t*	subsector;
 
@@ -272,7 +272,7 @@ struct mobj_t
 
     // Thing being chased/attacked (or NULL),
     // also the originator for missiles.
-    struct mobj_t*	target;
+    mobj_t*	target;
 
     // Reaction time: if non 0, don't attack yet.
     // Used by player to freeze a bit after teleporting.
@@ -293,7 +293,7 @@ struct mobj_t
     mapthing_t		spawnpoint;
 
     // Thing being chased/attacked for tracers.
-    struct mobj_t*	tracer;
+    mobj_t*	tracer;
 
     // [AM] If true, ok to interpolate this tic.
     int                 interp;

@@ -105,9 +105,11 @@
 // Wrap the bool type with compatibility with C-enum
 
 struct boolean {
-    int val_;
+    unsigned int val_;
     boolean() = default;
     constexpr boolean(bool bv) : val_(bv ? !0 : 0) {}
+    constexpr boolean(int iv) : val_(iv) {}
+    constexpr boolean(unsigned int uv) : val_(uv) {}
 
     constexpr operator bool() const { return val_ != 0; }
     constexpr bool operator!() const { return !val_; }

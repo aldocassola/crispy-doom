@@ -1552,7 +1552,6 @@ void P_ArchiveWorld (void)
 {
     int			i;
     int			j;
-    sector_t*		sec;
     line_t*		li;
     side_t*		si;
 
@@ -1600,7 +1599,6 @@ void P_UnArchiveWorld (void)
 {
     int			i;
     int			j;
-    sector_t*		sec;
     line_t*		li;
     side_t*		si;
 

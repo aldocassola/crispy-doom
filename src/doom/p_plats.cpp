@@ -137,7 +137,6 @@ EV_DoPlat
     plat_t*	plat;
     int		secnum;
     int		rtn;
-    sector_t*	sec;
 
     secnum = -1;
     rtn = 0;

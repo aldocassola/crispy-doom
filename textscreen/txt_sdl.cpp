@@ -270,8 +270,8 @@ int TXT_Init(void)
         int render_w, render_h;
 
         if (SDL_GetRendererOutputSize(renderer, &render_w, &render_h) == 0
-         && render_w >= TXT_SCREEN_W * large_font.w
-         && render_h >= TXT_SCREEN_H * large_font.h)
+         && render_w >= TXT_SCREEN_W * static_cast<int>(large_font.w)
+         && render_h >= TXT_SCREEN_H * static_cast<int>(large_font.h))
         {
             font = &large_font;
             // Note that we deliberately do not update screen_image_{w,h}
@@ -316,7 +316,7 @@ void TXT_Shutdown(void)
 
 void TXT_SetColor(txt_color_t color, int r, int g, int b)
 {
-    SDL_Color c = {r, g, b, 0xff};
+    SDL_Color c = {static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b), 0xff};
 
     SDL_LockSurface(screenbuffer);
     SDL_SetPaletteColors(screenbuffer->format->palette, &c, color, 1);
@@ -968,7 +968,7 @@ int TXT_vsnprintf(char *buf, size_t buf_len, const char *s, va_list args)
 
     // If truncated, change the final char in the buffer to a \0.
     // A negative result indicates a truncated buffer on Windows.
-    if (result < 0 || result >= buf_len)
+    if (result < 0 || static_cast<size_t>(result) >= buf_len)
     {
         buf[buf_len - 1] = '\0';
         result = buf_len - 1;
