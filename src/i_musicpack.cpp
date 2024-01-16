@@ -21,6 +21,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <cctype>
+#include <string>
 
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -439,7 +440,6 @@ static void ParseVorbisComments(file_metadata_t *metadata, FILE *fs)
 {
     uint32_t buf;
     unsigned int num_comments, i, comment_len;
-    char *comment;
 
     // We must have read the sample rate already from an earlier header.
     if (metadata->samplerate_hz == 0)
@@ -474,19 +474,15 @@ static void ParseVorbisComments(file_metadata_t *metadata, FILE *fs)
 	}
 
         comment_len = LONG(buf);
-
+        std::string comment(comment_len+1, '\0');
         // Read actual comment data into string buffer.
-        comment = calloc(1, comment_len + 1);
-        if (comment == NULL
-         || fread(comment, 1, comment_len, fs) < comment_len)
+        if (fread(comment.data(), 1, comment_len, fs) < comment_len)
         {
-            free(comment);
             break;
         }
 
         // Parse comment string.
-        ParseVorbisComment(metadata, comment);
-        free(comment);
+        ParseVorbisComment(metadata, comment.data());
     }
 }
 

@@ -45,6 +45,7 @@
 
 #include "p_extnodes.hpp" // [crispy] support extended node formats
 #include "memory/memory.hpp"
+#include "memory/lump.hpp"
 
 void	P_SpawnMapThing (mapthing_t*	mthing);
 

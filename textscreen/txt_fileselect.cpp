@@ -19,6 +19,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <vector>
+#include <string>
 
 #include "doomkeys.h"
 
@@ -28,6 +30,7 @@
 #include "txt_io.h"
 #include "txt_main.h"
 #include "txt_widget.h"
+#include "memory/memory.hpp"
 
 struct txt_fileselect_s {
     txt_widget_t widget;
@@ -48,12 +51,17 @@ const char *TXT_DIRECTORY[] = { "__directory__", NULL };
 #include <cerrno>
 #include <sys/wait.h>
 
-static char *ExecReadOutput(char **argv)
+static char *ExecReadOutput(const std::vector<std::string> &argv)
 {
     char *result;
     int completed;
     int pid, status, result_len;
     int pipefd[2];
+    std::vector<char *> exec_argv;
+
+    std::for_each(argv.begin(), argv.end(), [&exec_argv](auto arg) {
+        exec_argv.push_back(arg.data());
+    });
 
     if (pipe(pipefd) != 0)
     {
@@ -65,7 +73,7 @@ static char *ExecReadOutput(char **argv)
     if (pid == 0)
     {
         dup2(pipefd[1], fileno(stdout));
-        execv(argv[0], argv);
+        execv(argv[0].c_str(), exec_argv.data());
         exit(-1);
     }
 
@@ -102,7 +110,7 @@ static char *ExecReadOutput(char **argv)
         }
         else
         {
-            char *new_result = realloc(result, result_len + bytes + 1);
+            char *new_result = static_cast<char *>(realloc(result, result_len + bytes + 1));
             if (new_result == NULL)
             {
                 break;
@@ -585,11 +593,11 @@ int TXT_CanSelectFiles(void)
 static char *ExpandExtension(const char *orig)
 {
     int oldlen, newlen, i;
-    char *c, *newext = NULL;
+    char *c;
 
     oldlen = strlen(orig);
     newlen = oldlen * 4; // pathological case: 'w' => '[Ww]'
-    newext = malloc(newlen+1);
+    char *newext = static_cast<char *>(malloc(newlen+1));
 
     if (newext == NULL)
     {
@@ -617,65 +625,45 @@ static char *ExpandExtension(const char *orig)
 
 char *TXT_SelectFile(const char *window_title, const char **extensions)
 {
-    unsigned int i;
     size_t len;
     char *result;
-    char **argv;
-    int argc;
 
     if (!ZenityAvailable())
     {
         return NULL;
     }
 
-    argv = calloc(5 + NumExtensions(extensions), sizeof(char *));
-    argv[0] = strdup(ZENITY_BINARY);
-    argv[1] = strdup("--file-selection");
-    argc = 2;
+    std::vector<std::string> argv;
+    argv.push_back(ZENITY_BINARY);
+    argv.push_back("--file-selection");
 
     if (window_title != NULL)
     {
-        len = 10 + strlen(window_title);
-        argv[argc] = malloc(len);
-        TXT_snprintf(argv[argc], len, "--title=%s", window_title);
-        ++argc;
+        argv.push_back(std::string("--title=") + window_title);
     }
 
     if (extensions == TXT_DIRECTORY)
     {
-        argv[argc] = strdup("--directory");
-        ++argc;
+        argv.push_back("--directory");
     }
     else if (extensions != NULL)
     {
-        for (i = 0; extensions[i] != NULL; ++i)
+        for (int i = 0; extensions[i] != NULL; ++i)
         {
-            char * newext = ExpandExtension(extensions[i]);
+            str_ptr newext(ExpandExtension(extensions[i]));
             if (newext)
             {
-                len = 30 + strlen(extensions[i]) + strlen(newext);
-                argv[argc] = malloc(len);
-                TXT_snprintf(argv[argc], len, "--file-filter=.%s | *.%s",
-                             extensions[i], newext);
-                ++argc;
-                free(newext);
+                len = 30 + strlen(extensions[i]) + strlen(newext.get());
+                argv.push_back(std::string("--file-filter=.") + extensions[i] + " | *." + newext.get());
             }
         }
 
-        argv[argc] = strdup("--file-filter=*.* | *.*");
-        ++argc;
+        argv.push_back("--file-filter=*.* | *.*");
     }
 
-    argv[argc] = NULL;
+    argv.push_back(std::string());
 
     result = ExecReadOutput(argv);
-
-    for (i = 0; i < argc; ++i)
-    {
-        free(argv[i]);
-    }
-
-    free(argv);
 
     return result;
 }

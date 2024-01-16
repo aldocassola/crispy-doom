@@ -105,7 +105,9 @@ set(GAME_SOURCE_FILES
     w_file_posix.cpp
     w_file_win32.cpp
     w_merge.cpp           w_merge.h
-    z_zone.cpp            z_zone.h)
+    z_zone.cpp            z_zone.h
+                        memory/memory.hpp
+                        memory/lump.hpp)
 
 set(GAME_INCLUDE_DIRS "${CMAKE_CURRENT_BINARY_DIR}/../")
 
@@ -246,7 +248,7 @@ if(MSVC)
                           LINK_FLAGS "/MANIFEST:NO")
 endif()
 
-add_executable(midiread midifile.cpp z_native.cpp i_system.cpp m_argv.cPP m_misc.cpp d_iwad.cpp deh_str.cpp m_config.cpp)
+add_executable(midiread midifile.cpp z_native.cpp i_system.cpp m_argv.cpp m_misc.cpp d_iwad.cpp deh_str.cpp m_config.cpp)
 target_compile_definitions(midiread PRIVATE "-DTEST")
 target_include_directories(midiread PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../")
 target_link_libraries(midiread SDL2::SDL2)
