@@ -133,7 +133,7 @@ static int TranslateKey(SDL_Keysym *sym)
             return KEY_RALT;
 
         default:
-            if (scancode >= 0 && scancode < arrlen(scancode_translate_table))
+            if (scancode >= 0 && scancode < static_cast<int>(arrlen(scancode_translate_table)))
             {
                 return scancode_translate_table[scancode];
             }
@@ -188,7 +188,7 @@ static int GetTypedChar(SDL_Keysym *sym)
         // If shift is held down, apply the original uppercase
         // translation table used under DOS.
         if ((SDL_GetModState() & KMOD_SHIFT) != 0
-         && result >= 0 && result < arrlen(shiftxform))
+         && result >= 0 && result < static_cast<int>(arrlen(shiftxform)))
         {
             result = shiftxform[result];
         }

@@ -240,10 +240,9 @@ static const struct
 
 void W_CheckCorrectIWAD(GameMission_t mission)
 {
-    int i;
     lumpindex_t lumpnum;
 
-    for (i = 0; i < arrlen(unique_lumps); ++i)
+    for (int i = 0; i < static_cast<int>(arrlen(unique_lumps)); ++i)
     {
         if (mission != unique_lumps[i].mission)
         {

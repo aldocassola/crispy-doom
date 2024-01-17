@@ -393,7 +393,7 @@ void S_Start(void)
         };
 
         if ((gameepisode == 2 || gamemission == pack_nerve) &&
-            gamemap <= arrlen(nmus))
+            gamemap <= static_cast<int>(arrlen(nmus)))
         {
             char name[9];
 

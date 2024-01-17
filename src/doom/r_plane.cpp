@@ -176,7 +176,8 @@ R_MapPlane
     {
 	index = distance >> LIGHTZSHIFT;
 
-	if (index >= static_cast<unsigned int>(MAXLIGHTZ) )
+	if (static_cast<int>(index) >= MAXLIGHTZ
+		|| static_cast<int>(index) < 0)
 	    index = MAXLIGHTZ-1;
 
 	ds_colormap[0] = planezlight[index];
@@ -494,7 +495,8 @@ void R_DrawPlanes (void)
 		dc_yl = pl->top[x];
 		dc_yh = pl->bottom[x];
 
-		if (static_cast<unsigned int>(dc_yl) <= dc_yh) // [crispy] 32-bit integer math
+		if (dc_yl >= 0
+			&& dc_yl <= dc_yh) // [crispy] 32-bit integer math
 		{
 		    angle = ((an + xtoviewangle[x])^flip)>>ANGLETOSKYSHIFT;
 		    dc_x = x;

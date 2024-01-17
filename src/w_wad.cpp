@@ -104,7 +104,6 @@ unsigned int W_LumpNameHash(const char *s)
 wad_file_t *W_AddFile (const char *filename)
 {
     wadinfo_t header;
-    lumpindex_t i;
     wad_file_t *wad_file;
     int length;
     int startlump;
@@ -211,7 +210,7 @@ wad_file_t *W_AddFile (const char *filename)
     lumpinfo = static_cast<decltype(lumpinfo)>(I_Realloc(lumpinfo, numlumps * sizeof(lumpinfo_t *)));
     filerover = fileinfo;
 
-    for (i = startlump; i < numlumps; ++i)
+    for (int i = startlump; i < static_cast<int>(numlumps); ++i)
     {
         lumpinfo_t *lump_p = &filelumps[i - startlump];
         lump_p->wad_file = wad_file;
@@ -346,7 +345,7 @@ lumpindex_t W_CheckNumForNameFromTo(const char *name, int from, int to)
 //
 int W_LumpLength(lumpindex_t lump)
 {
-    if (lump >= numlumps)
+    if (lump >= static_cast<int>(numlumps))
     {
 	I_Error ("W_LumpLength: %i >= numlumps", lump);
     }
@@ -366,7 +365,7 @@ void W_ReadLump(lumpindex_t lump, void *dest)
     int c;
     lumpinfo_t *l;
 
-    if (lump >= numlumps)
+    if (lump >= static_cast<int>(numlumps))
     {
         I_Error ("W_ReadLump: %i >= numlumps", lump);
     }
@@ -557,8 +556,6 @@ void W_Profile (void)
 
 void W_GenerateHashTable(void)
 {
-    lumpindex_t i;
-
     // Free the old hash table, if there is one:
     if (lumphash != NULL)
     {
@@ -570,12 +567,12 @@ void W_GenerateHashTable(void)
     {
         lumphash = static_cast<decltype(lumphash)>(Z_Malloc(sizeof(lumpindex_t) * numlumps, PU_STATIC, NULL));
 
-        for (i = 0; i < numlumps; ++i)
+        for (int i = 0; i < static_cast<int>(numlumps); ++i)
         {
             lumphash[i] = -1;
         }
 
-        for (i = 0; i < numlumps; ++i)
+        for (int i = 0; i < static_cast<int>(numlumps); ++i)
         {
             unsigned int hash;
 
@@ -600,7 +597,6 @@ void W_GenerateHashTable(void)
 void W_Reload(void)
 {
     char *filename;
-    lumpindex_t i;
 
     if (reloadname == NULL)
     {
@@ -608,7 +604,7 @@ void W_Reload(void)
     }
 
     // We must free any lumps being cached from the PWAD we're about to reload:
-    for (i = reloadlump; i < numlumps; ++i)
+    for (int i = reloadlump; i < static_cast<int>(numlumps); ++i)
     {
         if (lumpinfo[i]->cache != NULL)
         {

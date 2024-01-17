@@ -869,7 +869,6 @@ static char *GetGameName(const char *gamename)
 
 static void SetMissionForPackName(const char *pack_name)
 {
-    int i;
     static const struct
     {
         const char *name;
@@ -880,7 +879,7 @@ static void SetMissionForPackName(const char *pack_name)
         { "plutonia", pack_plut },
     };
 
-    for (i = 0; i < arrlen(packs); ++i)
+    for (int i = 0; i < static_cast<int>(arrlen(packs)); ++i)
     {
         if (!strcasecmp(pack_name, packs[i].name))
         {
@@ -891,7 +890,7 @@ static void SetMissionForPackName(const char *pack_name)
 
     printf("Valid mission packs are:\n");
 
-    for (i = 0; i < arrlen(packs); ++i)
+    for (int i = 0; i < static_cast<int>(arrlen(packs)); ++i)
     {
         printf("\t%s\n", packs[i].name);
     }
@@ -2005,7 +2004,7 @@ void D_DoomMain (void)
     //
     if (!M_ParmExists("-nodehlump") && !M_ParmExists("-nodeh"))
     {
-        int i, loaded = 0;
+        int loaded = 0;
         int numiwadlumps = numlumps;
 
         while (!W_IsIWADLump(lumpinfo[numiwadlumps - 1]))
@@ -2013,7 +2012,7 @@ void D_DoomMain (void)
             numiwadlumps--;
         }
 
-        for (i = numiwadlumps; i < numlumps; ++i)
+        for (int i = numiwadlumps; i < static_cast<int>(numlumps); ++i)
         {
             if (!strncmp(lumpinfo[i]->name, "DEHACKED", 8))
             {
@@ -2029,9 +2028,7 @@ void D_DoomMain (void)
 
     if (!M_ParmExists("-noautoload") && gamemode != shareware)
     {
-        int i;
-
-        for (i = 0; loadparms[i]; i++)
+        for (int i = 0; loadparms[i]; i++)
         {
             int p;
             p = M_CheckParmWithArgs(loadparms[i], 1);

@@ -688,15 +688,13 @@ void R_InitTextureMapping (void)
 
 void R_InitLightTables (void)
 {
-    int		i;
-    int		j;
     int		level;
     int		startmap;
     int		scale;
 
     if (scalelight)
     {
-	for (i = 0; i < LIGHTLEVELS; i++)
+	for (int i = 0; i < LIGHTLEVELS; i++)
 	{
 		free(scalelight[i]);
 	}
@@ -710,7 +708,7 @@ void R_InitLightTables (void)
 
     if (zlight)
     {
-	for (i = 0; i < LIGHTLEVELS; i++)
+	for (int i = 0; i < LIGHTLEVELS; i++)
 	{
 		free(zlight[i]);
 	}
@@ -745,12 +743,12 @@ void R_InitLightTables (void)
 
     // Calculate the light levels to use
     //  for each level / distance combination.
-    for (i=0 ; i< LIGHTLEVELS ; i++)
+    for (int i=0 ; i< LIGHTLEVELS ; i++)
     {
 	zlight[i] = static_cast<lighttable_t **>(malloc(MAXLIGHTZ * sizeof(**zlight)));
 
 	startmap = ((LIGHTLEVELS-LIGHTBRIGHT-i)*2)*NUMCOLORMAPS/LIGHTLEVELS;
-	for (j=0 ; j<MAXLIGHTZ ; j++)
+	for (int j=0 ; j<MAXLIGHTZ ; j++)
 	{
 	    scale = FixedDiv ((ORIGWIDTH/2*FRACUNIT), (j+1)<<LIGHTZSHIFT);
 	    scale >>= LIGHTSCALESHIFT;

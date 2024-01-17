@@ -571,9 +571,7 @@ static constexpr speciallevel_t speciallevels[] = {
 
 static void HU_SetSpecialLevelName (const char *wad, const char **name)
 {
-    int i;
-
-    for (i = 0; i < arrlen(speciallevels); i++)
+    for (int i = 0; i < static_cast<int>(arrlen(speciallevels)); i++)
     {
 	const speciallevel_t speciallevel = speciallevels[i];
 

@@ -1672,7 +1672,7 @@ static void M_CrispnessCur(int choice)
 
 static void M_CrispnessNext(int choice)
 {
-    if (static_cast<unsigned int>(++crispness_cur) > arrlen(CrispnessMenus) - 1)
+    if (++crispness_cur > static_cast<int>(arrlen(CrispnessMenus)) - 1)
     {
 	crispness_cur = 0;
     }

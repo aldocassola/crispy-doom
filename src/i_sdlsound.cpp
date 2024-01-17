@@ -192,7 +192,7 @@ static void ReserveCacheSpace(size_t len)
     // Keep freeing sound effects that aren't currently being played,
     // until there is enough space for the new sound.
 
-    while (allocated_sounds_size + len > snd_cachesize)
+    while (static_cast<int>(allocated_sounds_size + len) > snd_cachesize)
     {
         // Free a sound.  If there is nothing more to free, stop.
 
@@ -414,7 +414,7 @@ static boolean ExpandSoundData_SRC(sfxinfo_t *sfxinfo,
 {
     SRC_DATA src_data;
     float *data_in;
-    uint32_t i, abuf_index=0, clipped=0;
+    uint32_t abuf_index=0, clipped=0;
 //    uint32_t alen;
     int retn;
     int16_t *expanded;
@@ -437,7 +437,7 @@ static boolean ExpandSoundData_SRC(sfxinfo_t *sfxinfo,
     // [crispy] Handle 16 bit audio data
     if (bits == 16)
     {
-        for (i=0; i<samplecount; ++i)
+        for (uint32_t i=0; i<samplecount; ++i)
         {
             // Code below uses 32767, so use it here too and trust it to clip.
             data_in[i] = (int16_t)(data[i*2] | (data[i*2+1] << 8)) / 32767.0;
@@ -445,7 +445,7 @@ static boolean ExpandSoundData_SRC(sfxinfo_t *sfxinfo,
     }
     else
     {
-        for (i=0; i<length; ++i)
+        for (int i=0; i<length; ++i)
         {
             // Unclear whether 128 should be interpreted as "zero" or whether a
             // symmetrical range should be assumed.  The following assumes a
@@ -475,7 +475,7 @@ static boolean ExpandSoundData_SRC(sfxinfo_t *sfxinfo,
 
     // Convert the result back into 16-bit integers.
 
-    for (i=0; i<src_data.output_frames_gen; ++i)
+    for (long i=0; i<src_data.output_frames_gen; ++i)
     {
         // libsamplerate does not limit itself to the -1.0 .. 1.0 range on
         // output, so a multiplier less than INT16_MAX (32767) is required

@@ -688,7 +688,7 @@ void R_DrawTLColumnLow (void)
     x = dc_x << 1;
 
 #ifdef RANGECHECK
-    if ((unsigned)x >= SCREENWIDTH
+    if ((unsigned)x >= static_cast<unsigned>(SCREENWIDTH)
 	|| dc_yl < 0
 	|| dc_yh >= SCREENHEIGHT)
     {

@@ -40,7 +40,6 @@ static wad_file_class_t *wad_file_classes[] =
 wad_file_t *W_OpenFile(const char *path)
 {
     wad_file_t *result;
-    int i;
 
     //!
     // @category obscure
@@ -58,7 +57,7 @@ wad_file_t *W_OpenFile(const char *path)
 
     result = NULL;
 
-    for (i=0; i<arrlen(wad_file_classes); ++i)
+    for (int i=0; i<static_cast<int>(arrlen(wad_file_classes)); ++i)
     {
         result = wad_file_classes[i]->OpenFile(path);
 

@@ -999,7 +999,7 @@ const char *D_SaveGameIWADName(GameMission_t gamemission, GameVariant_t gamevari
 const char *D_SuggestIWADName(GameMission_t mission, GameMode_t mode)
 {
 
-    for (unsigned int i = 0; i < arrlen(iwads); ++i)
+    for (int i = 0; i < static_cast<int>(arrlen(iwads)); ++i)
     {
         if (iwads[i].mission == mission && iwads[i].mode == mode)
         {
@@ -1013,7 +1013,7 @@ const char *D_SuggestIWADName(GameMission_t mission, GameMode_t mode)
 const char *D_SuggestGameName(GameMission_t mission, GameMode_t mode)
 {
 
-    for (unsigned int i = 0; i < arrlen(iwads); ++i)
+    for (int i = 0; i < static_cast<int>(arrlen(iwads)); ++i)
     {
         if (iwads[i].mission == mission
          && (mode == indetermined || iwads[i].mode == mode))

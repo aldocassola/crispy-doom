@@ -1616,7 +1616,7 @@ static void NET_SV_PumpSendQueue(net_client_t *client)
     // and never stopping. Don't let the server get too far ahead
     // of the client.
 
-    if (num_players == 0 && client->sendseq > recvwindow_start + 10)
+    if (num_players == 0 && client->sendseq > static_cast<int>(recvwindow_start + 10))
     {
         return;
     }
@@ -1733,7 +1733,7 @@ void NET_SV_CheckDeadlock(net_client_t *client)
         // client is blocked waiting on tics from us that have been lost.
         // This fixes deadlock with some older clients which do not send
         // resends to break deadlock.
-        if (i < BACKUPTICS && client->sendseq > client->acknowledged)
+        if (i < BACKUPTICS && client->sendseq > static_cast<int>(client->acknowledged))
         {
             NET_Log("server: also resending tics %d-%d to break deadlock",
                     client->acknowledged, client->sendseq - 1);

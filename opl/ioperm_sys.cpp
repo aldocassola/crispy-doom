@@ -63,7 +63,7 @@ static SC_HANDLE (WINAPI *MyCreateServiceW)(SC_HANDLE hSCManager,
                                             wchar_t *lpServiceStartName,
                                             wchar_t *lpPassword);
 static SC_HANDLE (WINAPI *MyOpenServiceW)(SC_HANDLE hSCManager,
-                                          wchar_t *lpServiceName,
+                                          const wchar_t *lpServiceName,
                                           DWORD dwDesiredAccess);
 static BOOL (WINAPI *MyStartServiceW)(SC_HANDLE hService,
                                       DWORD dwNumServiceArgs,

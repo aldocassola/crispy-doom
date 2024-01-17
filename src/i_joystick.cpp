@@ -23,6 +23,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
+#include <string>
 
 #include "doomtype.h"
 #include "d_event.h"
@@ -49,7 +50,8 @@ static int use_gamepad = 0;
 static int gamepad_type = 0;
 
 // SDL GUID and index of the joystick to use.
-static char *joystick_guid = "";
+static std::string joystick_guid_str(GUID_STRING_BUF_SIZE, '\0');
+static const char *joystick_guid = joystick_guid_str.c_str();
 static int joystick_index = -1;
 
 // Which joystick axis to use for horizontal movement, and whether to
@@ -146,7 +148,7 @@ static int DeviceIndexGamepad(void)
 
     if (strcmp(joystick_guid, ""))
     {
-        guid = SDL_JoystickGetGUIDFromString(joystick_guid);
+        guid = SDL_JoystickGetGUIDFromString(joystick_guid_str.c_str());
 
         // First, look for the gamepad at the previously-used index.
         if (joystick_index >= 0 && joystick_index < SDL_NumJoysticks())
@@ -210,11 +212,13 @@ void I_InitGamepad(void)
 
     if (strcmp(joystick_guid, ""))
     {
-        joystick_guid = static_cast<decltype(joystick_guid)>(malloc(GUID_STRING_BUF_SIZE));
+        for(auto &c: joystick_guid_str) {
+            c = '\0';
+        }
     }
 
     guid = SDL_JoystickGetDeviceGUID(joystick_index);
-    SDL_JoystickGetGUIDString(guid, joystick_guid, GUID_STRING_BUF_SIZE);
+    SDL_JoystickGetGUIDString(guid, joystick_guid_str.data(), GUID_STRING_BUF_SIZE);
 
     // GameController events do not fire if Joystick events are disabled.
     SDL_JoystickEventState(SDL_ENABLE);
@@ -484,7 +488,7 @@ static int DeviceIndex(void)
     SDL_JoystickGUID guid, dev_guid;
     int i;
 
-    guid = SDL_JoystickGetGUIDFromString(joystick_guid);
+    guid = SDL_JoystickGetGUIDFromString(joystick_guid_str.c_str());
 
     // GUID identifies a class of device rather than a specific device.
     // Check if joystick_index has the expected GUID, as this can act
@@ -539,7 +543,7 @@ void I_InitJoystick(void)
     {
         printf("I_InitJoystick: Couldn't find joystick with GUID \"%s\": "
                "device not found or not connected?\n",
-               joystick_guid);
+               joystick_guid_str.c_str());
         SDL_QuitSubSystem(SDL_INIT_JOYSTICK);
         return;
     }
@@ -798,7 +802,7 @@ void I_BindJoystickVariables(void)
     M_BindIntVariable("use_joystick",          &usejoystick);
     M_BindIntVariable("use_gamepad",           &use_gamepad);
     M_BindIntVariable("gamepad_type",          &gamepad_type);
-    M_BindStringVariable("joystick_guid",      const_cast<const char **>(&joystick_guid));
+    M_BindStringVariable("joystick_guid",      &joystick_guid);
     M_BindIntVariable("joystick_index",        &joystick_index);
     M_BindIntVariable("joystick_x_axis",       &joystick_x_axis);
     M_BindIntVariable("joystick_y_axis",       &joystick_y_axis);

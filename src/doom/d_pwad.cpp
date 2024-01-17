@@ -89,7 +89,7 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 	}
 
 	// [crispy] load SIGIL.WAD
-	for (unsigned int i = 0; i < arrlen(sigil_wads); i++)
+	for (int i = 0; i < static_cast<int>(arrlen(sigil_wads)); i++)
 	{
 		crispy->havesigil = M_StringJoin(iwaddir, DIR_SEPARATOR_S, sigil_wads[i], NULL);
 
@@ -131,7 +131,7 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 	}
 
 	// [crispy] rename intrusive SIGIL_SHREDS.WAD music lumps out of the way
-	for (unsigned i = 0; i < arrlen(sigil_lumps); i++)
+	for (int i = 0; i < static_cast<int>(arrlen(sigil_lumps)); i++)
 	{
 		// [crispy] skip non-music lumps
 		if (strncasecmp(sigil_lumps[i].name, "D_", 2))
@@ -148,7 +148,7 @@ static boolean LoadSigilWad (const char *iwaddir, boolean pwadtexture)
 	}
 
 	// [crispy] rename intrusive SIGIL.WAD graphics, demos and music lumps out of the way
-	for (unsigned int i = 0; i < arrlen(sigil_lumps); i++)
+	for (int i = 0; i < static_cast<int>(arrlen(sigil_lumps)); i++)
 	{
 		j = W_CheckNumForName(sigil_lumps[i].name);
 
@@ -220,7 +220,7 @@ static boolean LoadSigil2Wad (const char *iwaddir, boolean pwadtexture)
     }
 
     // [crispy] load Sigil II
-    for (unsigned int i = 0; i < arrlen(sigil2_wads); i++)
+    for (int i = 0; i < static_cast<int>(arrlen(sigil2_wads)); i++)
     {
         crispy->havesigil2 = M_StringJoin(iwaddir, DIR_SEPARATOR_S,
                                          sigil2_wads[i], NULL);
@@ -250,7 +250,7 @@ static boolean LoadSigil2Wad (const char *iwaddir, boolean pwadtexture)
 
     // [crispy] rename intrusive Sigil II graphics, demos and music lumps out
     // of the way
-    for (unsigned int i = 0; i < arrlen(sigil2_lumps); i++)
+    for (int i = 0; i < static_cast<int>(arrlen(sigil2_lumps)); i++)
     {
         j = W_CheckNumForName(sigil2_lumps[i].name);
 
@@ -288,7 +288,7 @@ void D_LoadSigilWads (void)
 
     // [crispy] don't load Sigils if another PWAD already modifies the texture
     // files
-    for (unsigned int i = 0; i < arrlen(texture_file); i++)
+    for (int i = 0; i < static_cast<int>(arrlen(texture_file)); i++)
     {
         j = W_CheckNumForName(texture_file[i]);
 
@@ -400,7 +400,7 @@ static void CheckLoadNerve (void)
 	}
 
 	// [crispy] if NERVE.WAD contains TITLEPIC and INTERPIC, rename them
-	for (unsigned int i = 0; i < arrlen(nerve_lumps); i++)
+	for (int i = 0; i < static_cast<int>(arrlen(nerve_lumps)); i++)
 	{
 		j = W_CheckNumForName(nerve_lumps[i].name);
 
@@ -623,7 +623,7 @@ static void LoadMasterlevelsWads (void)
 		"TEXTURE1",
 	};
 
-	for (unsigned int i = 0; i < arrlen(masterlevels_wads); i++)
+	for (int i = 0; i < static_cast<int>(arrlen(masterlevels_wads)); i++)
 	{
 		// [crispy] add TEETH.WAD only once
 		if (masterlevels_wads[i].wad_name)
@@ -635,7 +635,7 @@ static void LoadMasterlevelsWads (void)
 			// [crispy] rename lumps changing the SKY texture out of the way
 			if (masterlevels_wads[i].custom_sky)
 			{
-				for (unsigned int j = 0; j < arrlen(sky_lumps); j++)
+				for (int j = 0; j < static_cast<int>(arrlen(sky_lumps)); j++)
 				{
 					int k;
 

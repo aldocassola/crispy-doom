@@ -48,7 +48,7 @@
 
 const char *configdir;
 
-static char *autoload_path = "";
+static const char *autoload_path = "";
 
 // Default filenames for configuration files.
 

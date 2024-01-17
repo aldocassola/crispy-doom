@@ -45,7 +45,7 @@ mapformat_t P_CheckMapFormat (int lumpnum)
     byte *nodes = NULL;
     int b;
 
-    if ((b = lumpnum+ML_BLOCKMAP+1) < numlumps &&
+    if ((b = lumpnum+ML_BLOCKMAP+1) < static_cast<int>(numlumps) &&
         !strncasecmp(lumpinfo[b]->name, "BEHAVIOR", 8))
     {
 	fprintf(stderr, "Hexen (");
@@ -54,7 +54,7 @@ mapformat_t P_CheckMapFormat (int lumpnum)
     else
 	fprintf(stderr, "Doom (");
 
-    if (!((b = lumpnum+ML_NODES) < numlumps &&
+    if (!((b = lumpnum+ML_NODES) < static_cast<int>(numlumps) &&
         (nodes = static_cast<byte *>(W_CacheLumpNum(b, PU_CACHE))) &&
         W_LumpLength(b) > 0))
 	fprintf(stderr, "no nodes");
@@ -244,7 +244,6 @@ void P_LoadNodes_DeePBSP (int lump)
 void P_LoadNodes_ZDBSP (int lump, boolean compressed)
 {
     byte *data;
-    unsigned int i;
 #ifdef HAVE_LIBZ
     byte *output = NULL;
 #endif
@@ -335,7 +334,7 @@ void P_LoadNodes_ZDBSP (int lump, boolean compressed)
 	memset(newvertarray + orgVerts, 0, newVerts * sizeof(vertex_t));
     }
 
-    for (i = 0; i < newVerts; i++)
+    for (unsigned int i = 0; i < newVerts; i++)
     {
 	newvertarray[i + orgVerts].r_x =
 	newvertarray[i + orgVerts].x = LONG(*((unsigned int*)data));
@@ -348,7 +347,7 @@ void P_LoadNodes_ZDBSP (int lump, boolean compressed)
 
     if (vertexes != newvertarray)
     {
-	for (i = 0; i < (unsigned int)numlines; i++)
+	for (int i = 0; i < numlines; i++)
 	{
 	    lines[i].v1 = lines[i].v1 - vertexes + newvertarray;
 	    lines[i].v2 = lines[i].v2 - vertexes + newvertarray;
@@ -370,7 +369,7 @@ void P_LoadNodes_ZDBSP (int lump, boolean compressed)
     numsubsectors = numSubs;
     subsectors = static_cast<decltype(subsectors)>(Z_Malloc(numsubsectors * sizeof(subsector_t), PU_LEVEL, 0));
 
-    for (i = currSeg = 0; i < numsubsectors; i++)
+    for (int i = currSeg = 0; i < numsubsectors; i++)
     {
 	mapsubsector_zdbsp_t *mseg = (mapsubsector_zdbsp_t*) data + i;
 
@@ -395,7 +394,7 @@ void P_LoadNodes_ZDBSP (int lump, boolean compressed)
     numsegs = numSegs;
     segs = static_cast<decltype(segs)>(Z_Malloc(numsegs * sizeof(seg_t), PU_LEVEL, 0));
 
-    for (i = 0; i < numsegs; i++)
+    for (int i = 0; i < numsegs; i++)
     {
 	line_t *ldef;
 	unsigned int linedef;
@@ -464,9 +463,8 @@ void P_LoadNodes_ZDBSP (int lump, boolean compressed)
     numnodes = numNodes;
     nodes = static_cast<decltype(nodes)>(Z_Malloc(numnodes * sizeof(node_t), PU_LEVEL, 0));
 
-    for (i = 0; i < numnodes; i++)
+    for (int i = 0; i < numnodes; i++)
     {
-	int j, k;
 	node_t *no = nodes + i;
 	mapnode_zdbsp_t *mn = (mapnode_zdbsp_t *) data + i;
 
@@ -475,11 +473,11 @@ void P_LoadNodes_ZDBSP (int lump, boolean compressed)
 	no->dx = SHORT(mn->dx)<<FRACBITS;
 	no->dy = SHORT(mn->dy)<<FRACBITS;
 
-	for (j = 0; j < 2; j++)
+	for (int j = 0; j < 2; j++)
 	{
 	    no->children[j] = LONG(mn->children[j]);
 
-	    for (k = 0; k < 4; k++)
+	    for (int k = 0; k < 4; k++)
 		no->bbox[j][k] = SHORT(mn->bbox[j][k])<<FRACBITS;
 	}
     }

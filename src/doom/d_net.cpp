@@ -106,8 +106,6 @@ static loop_interface_t doom_loop_interface = {
 
 static void LoadGameSettings(net_gamesettings_t *settings)
 {
-    unsigned int i;
-
     deathmatch = settings->deathmatch;
     startepisode = settings->episode;
     startmap = settings->map;
@@ -126,9 +124,9 @@ static void LoadGameSettings(net_gamesettings_t *settings)
                "because there is a client recording a Vanilla demo.\n");
     }
 
-    for (i = 0; i < MAXPLAYERS; ++i)
+    for (int i = 0; i < MAXPLAYERS; ++i)
     {
-        playeringame[i] = i < static_cast<unsigned int>(settings->num_players);
+        playeringame[i] = i < settings->num_players;
     }
 }
 

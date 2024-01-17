@@ -151,8 +151,7 @@ static boolean CachePCSLump(sfxinfo_t *sfxinfo)
 
 static boolean IsDisabledSound(sfxinfo_t *sfxinfo)
 {
-    int i;
-    const char *disabled_sounds[] = {
+    constexpr const char *disabled_sounds[] = {
         "posact",
         "bgact",
         "dmact",
@@ -168,7 +167,7 @@ static boolean IsDisabledSound(sfxinfo_t *sfxinfo)
         return false;
     }
 
-    for (i=0; i<arrlen(disabled_sounds); ++i)
+    for (int i=0; i<static_cast<int>(arrlen(disabled_sounds)); ++i)
     {
         if (!strcmp(sfxinfo->name, disabled_sounds[i]))
         {

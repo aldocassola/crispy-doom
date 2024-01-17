@@ -44,6 +44,7 @@
 #include "sha1.h"
 #include "w_wad.h"
 #include "z_zone.h"
+#include "memory/memory.hpp"
 
 
 const char *music_pack_path = "";
@@ -749,24 +750,21 @@ static char *GetFullPath(const char *musicdir, const char *path)
 static char *ExpandFileExtension(const char *musicdir, const char *filename)
 {
     static const char *extns[] = {".flac", ".ogg", ".mp3"};
-    char *replaced, *result;
-    int i;
+    char *result;
 
     if (!M_StringEndsWith(filename, ".{ext}"))
     {
         return GetFullPath(musicdir, filename);
     }
 
-    for (i = 0; i < arrlen(extns); ++i)
+    for (int i = 0; i < static_cast<int>(arrlen(extns)); ++i)
     {
-        replaced = M_StringReplace(filename, ".{ext}", extns[i]);
-        result = GetFullPath(musicdir, replaced);
-        free(replaced);
-        if (M_FileExists(result))
+        auto replaced = str_ptr(M_StringReplace(filename, ".{ext}", extns[i]));
+        auto result = str_ptr(GetFullPath(musicdir, replaced.get()));
+        if (M_FileExists(result.get()))
         {
-            return result;
+            return result.release();
         }
-        free(result);
     }
 
     return NULL;

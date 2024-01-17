@@ -109,7 +109,7 @@ set(GAME_SOURCE_FILES
                         memory/memory.hpp
                         memory/lump.hpp)
 
-set(GAME_INCLUDE_DIRS "${CMAKE_CURRENT_BINARY_DIR}/../")
+set(GAME_INCLUDE_DIRS "${CMAKE_CURRENT_BINARY_DIR}/../" "${CMAKE_CURRENT_SOURCE_DIR}")
 
 if(MSVC)
     list(APPEND GAME_SOURCE_FILES

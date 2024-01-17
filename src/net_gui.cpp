@@ -118,7 +118,6 @@ static void UpdateGUI(void)
 {
     txt_window_action_t *startgame;
     char buf[50];
-    unsigned int i;
 
     // If the value of max_players changes, we must rebuild the
     // contents of the window. This includes when the first
@@ -136,11 +135,11 @@ static void UpdateGUI(void)
         return;
     }
 
-    for (i = 0; i < net_client_wait_data.max_players; ++i)
+    for (int i = 0; i < net_client_wait_data.max_players; ++i)
     {
         txt_color_t color = TXT_COLOR_BRIGHT_WHITE;
 
-        if ((signed) i == net_client_wait_data.consoleplayer)
+        if (i == net_client_wait_data.consoleplayer)
         {
             color = TXT_COLOR_YELLOW;
         }
@@ -274,7 +273,7 @@ static void CheckSHA1Sums(void)
     correct_deh = memcmp(net_local_deh_sha1sum,
                          net_client_wait_data.deh_sha1sum,
                          sizeof(sha1_digest_t)) == 0;
-    same_freedoom = net_client_wait_data.is_freedoom == net_local_is_freedoom;
+    same_freedoom = net_client_wait_data.is_freedoom == static_cast<int>(net_local_is_freedoom);
 
     if (correct_wad && correct_deh && same_freedoom)
     {

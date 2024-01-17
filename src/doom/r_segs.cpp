@@ -260,7 +260,8 @@ R_RenderMaskedSegRange
 	    {
 		index = spryscale>>(LIGHTSCALESHIFT + crispy->hires);
 
-		if (index >=  MAXLIGHTSCALE )
+		if (static_cast<int>(index) >=  MAXLIGHTSCALE
+			|| static_cast<int>(index) < 0)
 		    index = MAXLIGHTSCALE-1;
 
 		// [crispy] brightmaps for mid-textures
@@ -386,7 +387,8 @@ void R_RenderSegLoop (void)
 	    // calculate lighting
 	    index = rw_scale>>(LIGHTSCALESHIFT + crispy->hires);
 
-	    if (index >=  MAXLIGHTSCALE )
+	    if (static_cast<int>(index) >=  MAXLIGHTSCALE
+			|| static_cast<int>(index) < 0 )
 		index = MAXLIGHTSCALE-1;
 
 	    // [crispy] optional brightmaps

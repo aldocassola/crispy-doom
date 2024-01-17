@@ -77,7 +77,6 @@ static void DEH_CheatParseLine(deh_context_t *context, char *line, void *tag)
     char *variable_name;
     char *value;
     unsigned char *unsvalue;
-    unsigned int i;
 
     if (!DEH_ParseAssignment(line, &variable_name, &value))
     {
@@ -99,7 +98,7 @@ static void DEH_CheatParseLine(deh_context_t *context, char *line, void *tag)
 
     // write the value into the cheat sequence
 
-    i = 0;
+    unsigned int i = 0;
 
     while (unsvalue[i] != 0 && unsvalue[i] != 0xff)
     {
@@ -121,7 +120,7 @@ static void DEH_CheatParseLine(deh_context_t *context, char *line, void *tag)
 
         // Absolute limit - don't exceed
 
-        if (i >= MAX_CHEAT_LEN - cheat->seq->parameter_chars)
+        if (static_cast<int>(i) >= MAX_CHEAT_LEN - cheat->seq->parameter_chars)
         {
             DEH_Error(context, "Cheat sequence too long!");
             return;

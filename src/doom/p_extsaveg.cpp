@@ -510,9 +510,7 @@ static void P_ReadKeyValuePairs (int pass)
 	{
 		if (sscanf(line, "%s", string) == 1)
 		{
-			int i;
-
-			for (i = 1; i < arrlen(extsavegdata); i++)
+			for (int i = 1; i < static_cast<int>(arrlen(extsavegdata)); i++)
 			{
 				if (extsavegdata[i].extsavegreadfn &&
 				    extsavegdata[i].pass == pass &&
