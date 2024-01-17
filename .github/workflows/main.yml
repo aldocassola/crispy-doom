@@ -70,7 +70,7 @@ jobs:
             libsamplerate0-dev \
             libfluidsynth-dev \
             cmake \
-            ninja
+            ninja-build
 
       - name: Install dependencies (macOS)
         if: runner.os == 'macOS'
@@ -85,7 +85,7 @@ jobs:
             libsamplerate \
             fluid-synth \
             cmake \
-            ninja
+            ninja-build
 
       - name: Install dependencies (MSYS2)
         if: runner.os == 'Windows'
@@ -97,7 +97,6 @@ jobs:
           install: >-
             autotools
             cmake
-            ninja
             zip
             ${{ matrix.config.msys-env }}-gcc
             ${{ matrix.config.msys-env }}-SDL2
@@ -106,6 +105,7 @@ jobs:
             ${{ matrix.config.msys-env }}-libpng
             ${{ matrix.config.msys-env }}-libsamplerate
             ${{ matrix.config.msys-env }}-fluidsynth
+            ${{ matrix.config.msys-env }}-ninja
 
       - uses: actions/checkout@v4
         with:
