@@ -85,7 +85,7 @@ jobs:
             libsamplerate \
             fluid-synth \
             cmake \
-            ninja-build
+            ninja
 
       - name: Install dependencies (MSYS2)
         if: runner.os == 'Windows'
@@ -96,7 +96,6 @@ jobs:
           path-type: inherit
           install: >-
             autotools
-            cmake
             zip
             ${{ matrix.config.msys-env }}-gcc
             ${{ matrix.config.msys-env }}-SDL2
@@ -106,6 +105,7 @@ jobs:
             ${{ matrix.config.msys-env }}-libsamplerate
             ${{ matrix.config.msys-env }}-fluidsynth
             ${{ matrix.config.msys-env }}-ninja
+            ${{ matrix.config.msys-env }}-cmake
 
       - uses: actions/checkout@v4
         with:
