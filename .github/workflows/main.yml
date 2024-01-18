@@ -125,7 +125,7 @@ jobs:
         run: |
           BUILDDIR="${PWD}/build/${{ matrix.config.os }}"
           PREFIX=`sed -n '/PROGRAM_PREFIX/p' ${BUILDDIR}/config.h | cut -d '"' -f 2`
-          echo make -j4 -C quickcheck check SOURCE_PORT=$BUILDDIR/src/${PREFIX}doom
+          make -j4 -C quickcheck check SOURCE_PORT=$BUILDDIR/src/${PREFIX}doom
 
       # - name: Package (macOS)
       #   if: runner.os == 'macOS'
