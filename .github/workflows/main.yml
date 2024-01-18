@@ -116,15 +116,16 @@ jobs:
           CC: ${{ matrix.config.compiler }}
           CXX: ${{ matrix.config.cxxcompiler }}
         run: |
-          cmake -S. -Bbuild/${{ matrix.config.os }} -GNinja
+          cmake -S. -Bbuild/${{ matrix.config.os }} -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -GNinja
 
       - name: Build
         run: cmake --build build/${{ matrix.config.os }} --clean-first --target all
 
       - name: Test
         run: |
-          PREFIX=`sed -n '/PROGRAM_PREFIX/p' ${PWD}/config.h | cut -d '"' -f 2`
-          echo make -j4 -C quickcheck check SOURCE_PORT=$PWD/src/${PREFIX}doom
+          BUILDDIR="${PWD}/build/${{ matrix.config.os }}"
+          PREFIX=`sed -n '/PROGRAM_PREFIX/p' ${BUILDDIR}/config.h | cut -d '"' -f 2`
+          echo make -j4 -C quickcheck check SOURCE_PORT=$BUILDDIR/src/${PREFIX}doom
 
       # - name: Package (macOS)
       #   if: runner.os == 'macOS'
