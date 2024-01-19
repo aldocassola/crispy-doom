@@ -11,6 +11,14 @@ set(COMMON_SOURCE_FILES
     m_argv.cpp             m_argv.h
     m_misc.cpp             m_misc.h)
 
+add_library(common)
+target_sources(common PRIVATE ${COMMON_SOURCE_FILES})
+target_include_directories(common PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_BINARY_DIR}
+)
+target_link_libraries(common PUBLIC SDL2::SDL2)
+
 # Dedicated server (chocolate-server):
 
 set(DEDSERV_FILES
@@ -30,10 +38,10 @@ set(DEDSERV_FILES
     net_structrw.cpp      net_structrw.h
     z_native.cpp          z_zone.h)
 
-add_executable("${PROGRAM_PREFIX}server" WIN32 ${COMMON_SOURCE_FILES} ${DEDSERV_FILES})
+add_executable("${PROGRAM_PREFIX}server" WIN32 ${DEDSERV_FILES})
 target_include_directories("${PROGRAM_PREFIX}server"
                            PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../")
-target_link_libraries("${PROGRAM_PREFIX}server" SDL2::SDL2main SDL2::SDL2)
+target_link_libraries("${PROGRAM_PREFIX}server" common SDL2::SDL2main SDL2::SDL2)
 if(ENABLE_SDL2_NET)
     target_link_libraries("${PROGRAM_PREFIX}server" SDL2_net::SDL2_net)
 endif()
@@ -98,7 +106,6 @@ set(GAME_SOURCE_FILES
                         v_patch.h
     v_trans.cpp           v_trans.h
     w_checksum.cpp        w_checksum.h
-    w_main.cpp            w_main.h
     w_wad.cpp             w_wad.h
     w_file.cpp            w_file.h
     w_file_stdc.cpp
@@ -111,11 +118,16 @@ set(GAME_SOURCE_FILES
 
 set(GAME_INCLUDE_DIRS "${CMAKE_CURRENT_BINARY_DIR}/../" "${CMAKE_CURRENT_SOURCE_DIR}")
 
+add_library(game)
+target_sources(game PRIVATE ${GAME_SOURCE_FILES})
+target_include_directories(game PUBLIC "${CMAKE_BINARY_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
+target_link_libraries(game PUBLIC SDL2::SDL2 textscreen pcsound opl)
+
 if(MSVC)
-    list(APPEND GAME_SOURCE_FILES
+    target_sources(game
          "../win32/win_opendir.c" "../win32/win_opendir.h")
 
-    list(APPEND GAME_INCLUDE_DIRS
+    target_include_directories(game PUBLIC
          "${PROJECT_SOURCE_DIR}/win32/")
 endif()
 
@@ -125,6 +137,10 @@ set(DEHACKED_SOURCE_FILES
     deh_main.cpp          deh_main.h
     deh_mapping.cpp       deh_mapping.h
     deh_text.cpp)
+
+add_library(dehacked OBJECT)
+target_sources(dehacked PRIVATE ${DEHACKED_SOURCE_FILES})
+target_include_directories(dehacked PUBLIC "${CMAKE_BINARY_DIR}")
 
 # Some games support dehacked patches, some don't:
 
@@ -152,13 +168,15 @@ if(WIN32)
 endif()
 
 if(WIN32)
-    add_executable("${PROGRAM_PREFIX}doom" WIN32 ${SOURCE_FILES_WITH_DEH} "${CMAKE_CURRENT_BINARY_DIR}/doom-res.rc")
+    add_executable("${PROGRAM_PREFIX}doom" WIN32 "${CMAKE_CURRENT_BINARY_DIR}/doom-res.rc")
 else()
-    add_executable("${PROGRAM_PREFIX}doom" ${SOURCE_FILES_WITH_DEH})
+    add_executable("${PROGRAM_PREFIX}doom")
 endif()
 
-target_include_directories("${PROGRAM_PREFIX}doom" PRIVATE ${GAME_INCLUDE_DIRS})
-target_link_libraries("${PROGRAM_PREFIX}doom" doom ${EXTRA_LIBS})
+target_sources("${PROGRAM_PREFIX}doom" PRIVATE
+    w_main.cpp            w_main.h)
+
+target_link_libraries("${PROGRAM_PREFIX}doom" PRIVATE common $<TARGET_OBJECTS:dehacked> doom game ${EXTRA_LIBS})
 
 if(MSVC)
     set_target_properties("${PROGRAM_PREFIX}doom" PROPERTIES
@@ -166,13 +184,14 @@ if(MSVC)
 endif()
 
 if(WIN32)
-    add_executable("${PROGRAM_PREFIX}heretic" WIN32 ${SOURCE_FILES_WITH_DEH} "${CMAKE_CURRENT_BINARY_DIR}/heretic-res.rc")
+    add_executable("${PROGRAM_PREFIX}heretic" WIN32 "${CMAKE_CURRENT_BINARY_DIR}/heretic-res.rc")
 else()
-    add_executable("${PROGRAM_PREFIX}heretic" ${SOURCE_FILES_WITH_DEH})
+    add_executable("${PROGRAM_PREFIX}heretic")
 endif()
 
-target_include_directories("${PROGRAM_PREFIX}heretic" PRIVATE ${GAME_INCLUDE_DIRS})
-target_link_libraries("${PROGRAM_PREFIX}heretic" heretic ${EXTRA_LIBS})
+target_sources("${PROGRAM_PREFIX}heretic" PRIVATE
+    w_main.cpp            w_main.h)
+target_link_libraries("${PROGRAM_PREFIX}heretic" PRIVATE common $<TARGET_OBJECTS:dehacked> heretic game ${EXTRA_LIBS})
 
 if(MSVC)
     set_target_properties("${PROGRAM_PREFIX}heretic" PROPERTIES
@@ -180,13 +199,14 @@ if(MSVC)
 endif()
 
 if(WIN32)
-    add_executable("${PROGRAM_PREFIX}hexen" WIN32 ${SOURCE_FILES} "${CMAKE_CURRENT_BINARY_DIR}/hexen-res.rc")
+    add_executable("${PROGRAM_PREFIX}hexen" WIN32 "${CMAKE_CURRENT_BINARY_DIR}/hexen-res.rc")
 else()
-    add_executable("${PROGRAM_PREFIX}hexen" ${SOURCE_FILES})
+    add_executable("${PROGRAM_PREFIX}hexen")
 endif()
 
-target_include_directories("${PROGRAM_PREFIX}hexen" PRIVATE ${GAME_INCLUDE_DIRS})
-target_link_libraries("${PROGRAM_PREFIX}hexen" hexen ${EXTRA_LIBS})
+target_sources("${PROGRAM_PREFIX}hexen" PRIVATE
+    w_main.cpp            w_main.h)
+target_link_libraries("${PROGRAM_PREFIX}hexen" common hexen game ${EXTRA_LIBS})
 
 if(MSVC)
     set_target_properties("${PROGRAM_PREFIX}hexen" PROPERTIES
@@ -194,13 +214,14 @@ if(MSVC)
 endif()
 
 if(WIN32)
-    add_executable("${PROGRAM_PREFIX}strife" WIN32 ${SOURCE_FILES_WITH_DEH} "${CMAKE_CURRENT_BINARY_DIR}/strife-res.rc")
+    add_executable("${PROGRAM_PREFIX}strife" WIN32 "${CMAKE_CURRENT_BINARY_DIR}/strife-res.rc")
 else()
-    add_executable("${PROGRAM_PREFIX}strife" ${SOURCE_FILES_WITH_DEH})
+    add_executable("${PROGRAM_PREFIX}strife")
 endif()
 
-target_include_directories("${PROGRAM_PREFIX}strife" PRIVATE ${GAME_INCLUDE_DIRS})
-target_link_libraries("${PROGRAM_PREFIX}strife" strife ${EXTRA_LIBS})
+target_sources("${PROGRAM_PREFIX}strife" PRIVATE
+    w_main.cpp            w_main.h)
+target_link_libraries("${PROGRAM_PREFIX}strife" common $<TARGET_OBJECTS:dehacked> strife game ${EXTRA_LIBS})
 
 if(MSVC)
     set_target_properties("${PROGRAM_PREFIX}strife" PROPERTIES
@@ -225,14 +246,13 @@ set(SETUP_FILES
     z_native.cpp          z_zone.h)
 
 if(WIN32)
-    add_executable("${PROGRAM_PREFIX}setup" WIN32 ${SETUP_FILES} ${COMMON_SOURCE_FILES} "${CMAKE_CURRENT_BINARY_DIR}/setup-res.rc")
+    add_executable("${PROGRAM_PREFIX}setup" WIN32 "${CMAKE_CURRENT_BINARY_DIR}/setup-res.rc")
 else()
-    add_executable("${PROGRAM_PREFIX}setup" ${SETUP_FILES} ${COMMON_SOURCE_FILES})
+    add_executable("${PROGRAM_PREFIX}setup")
 endif()
 
-target_include_directories("${PROGRAM_PREFIX}setup"
-                           PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../")
-target_link_libraries("${PROGRAM_PREFIX}setup" SDL2::SDL2main SDL2::SDL2 setup textscreen)
+target_sources("${PROGRAM_PREFIX}setup" PRIVATE ${SETUP_FILES})
+target_link_libraries("${PROGRAM_PREFIX}setup" common SDL2::SDL2main SDL2::SDL2 setup textscreen)
 if(ENABLE_SDL2_MIXER)
     target_link_libraries("${PROGRAM_PREFIX}setup" SDL2_mixer::SDL2_mixer)
 endif()
