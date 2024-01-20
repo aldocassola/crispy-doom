@@ -57,10 +57,8 @@ add_library(hexen STATIC
                                 xddefs.h)
 
 target_include_directories(hexen PRIVATE "../" "${CMAKE_CURRENT_BINARY_DIR}/../../")
-target_link_libraries(hexen SDL2::SDL2)
-if(ENABLE_SDL2_MIXER)
-    target_link_libraries(hexen SDL2_mixer::SDL2_mixer)
-endif()
-if(ENABLE_SDL2_NET)
-    target_link_libraries(hexen SDL2_net::SDL2_net)
-endif()
+target_link_libraries(hexen PUBLIC SDL2::SDL2 SDL2::SDL2main
+    $<$<BOOL:${ENABLE_SDL2_MIXER}>:SDL2_mixer::SDL2_mixer>
+    $<$<BOOL:${ENABLE_SDL2_NET}>:SDL2_net::SDL2_net>
+    game
+)

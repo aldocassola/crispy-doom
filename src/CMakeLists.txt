@@ -41,7 +41,7 @@ set(DEDSERV_FILES
 add_executable("${PROGRAM_PREFIX}server" WIN32 ${DEDSERV_FILES})
 target_include_directories("${PROGRAM_PREFIX}server"
                            PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../")
-target_link_libraries("${PROGRAM_PREFIX}server" common SDL2::SDL2main SDL2::SDL2)
+target_link_libraries("${PROGRAM_PREFIX}server" SDL2::SDL2main SDL2::SDL2 common)
 if(ENABLE_SDL2_NET)
     target_link_libraries("${PROGRAM_PREFIX}server" SDL2_net::SDL2_net)
 endif()
@@ -121,7 +121,12 @@ set(GAME_INCLUDE_DIRS "${CMAKE_CURRENT_BINARY_DIR}/../" "${CMAKE_CURRENT_SOURCE_
 add_library(game)
 target_sources(game PRIVATE ${GAME_SOURCE_FILES})
 target_include_directories(game PUBLIC "${CMAKE_BINARY_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
-target_link_libraries(game PUBLIC SDL2::SDL2 textscreen pcsound opl)
+target_link_libraries(game PUBLIC common SDL2::SDL2 textscreen pcsound opl
+    $<$<BOOL:${WIN32}>:winmm>
+    $<$<BOOL:${PNG_FOUND}>:PNG::PNG>
+    $<$<BOOL:${FluidSynth_FOUND}>:FluidSynth::libfluidsynth>
+    $<$<BOOL:${SampleRate_FOUND}>:SampleRate::samplerate>
+)
 
 if(MSVC)
     target_sources(game
@@ -144,29 +149,6 @@ target_include_directories(dehacked PUBLIC "${CMAKE_BINARY_DIR}")
 
 # Some games support dehacked patches, some don't:
 
-set(SOURCE_FILES ${COMMON_SOURCE_FILES} ${GAME_SOURCE_FILES})
-set(SOURCE_FILES_WITH_DEH ${SOURCE_FILES} ${DEHACKED_SOURCE_FILES})
-
-set(EXTRA_LIBS SDL2::SDL2main SDL2::SDL2 textscreen pcsound opl)
-if(ENABLE_SDL2_MIXER)
-    list(APPEND EXTRA_LIBS SDL2_mixer::SDL2_mixer)
-endif()
-if(ENABLE_SDL2_NET)
-    list(APPEND EXTRA_LIBS SDL2_net::SDL2_net)
-endif()
-if(SampleRate_FOUND)
-    list(APPEND EXTRA_LIBS SampleRate::samplerate)
-endif()
-if(PNG_FOUND)
-    list(APPEND EXTRA_LIBS PNG::PNG)
-endif()
-if(FluidSynth_FOUND)
-    list(APPEND EXTRA_LIBS FluidSynth::libfluidsynth)
-endif()
-if(WIN32)
-	list(APPEND EXTRA_LIBS winmm)
-endif()
-
 if(WIN32)
     add_executable("${PROGRAM_PREFIX}doom" WIN32 "${CMAKE_CURRENT_BINARY_DIR}/doom-res.rc")
 else()
@@ -176,7 +158,7 @@ endif()
 target_sources("${PROGRAM_PREFIX}doom" PRIVATE
     w_main.cpp            w_main.h)
 
-target_link_libraries("${PROGRAM_PREFIX}doom" PRIVATE common $<TARGET_OBJECTS:dehacked> doom game ${EXTRA_LIBS})
+target_link_libraries("${PROGRAM_PREFIX}doom" PRIVATE $<TARGET_OBJECTS:dehacked> doom game)
 
 if(MSVC)
     set_target_properties("${PROGRAM_PREFIX}doom" PROPERTIES
@@ -191,7 +173,7 @@ endif()
 
 target_sources("${PROGRAM_PREFIX}heretic" PRIVATE
     w_main.cpp            w_main.h)
-target_link_libraries("${PROGRAM_PREFIX}heretic" PRIVATE common $<TARGET_OBJECTS:dehacked> heretic game ${EXTRA_LIBS})
+target_link_libraries("${PROGRAM_PREFIX}heretic" PRIVATE $<TARGET_OBJECTS:dehacked> heretic game)
 
 if(MSVC)
     set_target_properties("${PROGRAM_PREFIX}heretic" PROPERTIES
@@ -206,7 +188,7 @@ endif()
 
 target_sources("${PROGRAM_PREFIX}hexen" PRIVATE
     w_main.cpp            w_main.h)
-target_link_libraries("${PROGRAM_PREFIX}hexen" common hexen game ${EXTRA_LIBS})
+target_link_libraries("${PROGRAM_PREFIX}hexen" PRIVATE SDL2::SDL2main game hexen)
 
 if(MSVC)
     set_target_properties("${PROGRAM_PREFIX}hexen" PROPERTIES
@@ -221,7 +203,7 @@ endif()
 
 target_sources("${PROGRAM_PREFIX}strife" PRIVATE
     w_main.cpp            w_main.h)
-target_link_libraries("${PROGRAM_PREFIX}strife" common $<TARGET_OBJECTS:dehacked> strife game ${EXTRA_LIBS})
+target_link_libraries("${PROGRAM_PREFIX}strife" $<TARGET_OBJECTS:dehacked> strife game)
 
 if(MSVC)
     set_target_properties("${PROGRAM_PREFIX}strife" PROPERTIES
@@ -252,7 +234,7 @@ else()
 endif()
 
 target_sources("${PROGRAM_PREFIX}setup" PRIVATE ${SETUP_FILES})
-target_link_libraries("${PROGRAM_PREFIX}setup" common SDL2::SDL2main SDL2::SDL2 setup textscreen)
+target_link_libraries("${PROGRAM_PREFIX}setup" SDL2::SDL2main SDL2::SDL2 common setup textscreen)
 if(ENABLE_SDL2_MIXER)
     target_link_libraries("${PROGRAM_PREFIX}setup" SDL2_mixer::SDL2_mixer)
 endif()
