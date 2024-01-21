@@ -128,7 +128,7 @@ static statenum_t P_LatestSafeState(statenum_t state)
 	    safestate = state;
 	}
 
-	if (auto fptr(std::get_if<actionf_p3>(&states[state].action)); fptr)
+	if (!std::get_if<std::monostate>(&states[state].action))
 	{
 	    safestate = S_NULL;
 	}
@@ -606,7 +606,7 @@ void P_MobjThinker (mobj_t* mobj)
 	P_XYMovement (mobj);
 
 	// FIXME: decent NOP/NULL/Nil function pointer please.
-	if (std::get_if<std::monostate>(&mobj->thinker.function))
+	if (auto ptr{std::get_if<int>(&mobj->thinker.function)}; ptr && *ptr == -1)
 	    return;		// mobj was removed
     }
     if ( (mobj->z != mobj->floorz)
@@ -615,7 +615,7 @@ void P_MobjThinker (mobj_t* mobj)
 	P_ZMovement (mobj);
 
 	// FIXME: decent NOP/NULL/Nil function pointer please.
-	if (std::get_if<std::monostate>(&mobj->thinker.function))
+	if (auto ptr{std::get_if<int>(&mobj->thinker.function)}; ptr && *ptr == -1)
 	    return;		// mobj was removed
     }
 

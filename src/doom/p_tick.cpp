@@ -74,7 +74,7 @@ void P_AddThinker (thinker_t* thinker)
 void P_RemoveThinker (thinker_t* thinker)
 {
   // FIXME: NOP.
-  thinker->function = {};
+  thinker->function = -1;
 }
 
 
@@ -99,7 +99,7 @@ void P_RunThinkers (void)
     currentthinker = thinkercap.next;
     while (currentthinker != &thinkercap)
     {
-	if (std::get_if<std::monostate>(&currentthinker->function) )
+	if (auto ptr{std::get_if<int>(&currentthinker->function)}; ptr && *ptr == -1)
 	{
 	    // time to remove it
             nextthinker = currentthinker->next;

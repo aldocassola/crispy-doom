@@ -72,7 +72,8 @@ using actionf_t = std::variant<
     actionf_glow,
     actionf_fireflicker,
     actionf_thinker,
-    bool
+    bool,
+    int
     >;
 
 

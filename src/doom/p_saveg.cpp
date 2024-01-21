@@ -1931,7 +1931,7 @@ void P_UnArchiveSpecials (void)
             saveg_read_ceiling_t(ceiling);
 	    ceiling->sector->specialdata = ceiling;
 
-	    if (auto ptr(std::get_if<actionf_ceiling>(&ceiling->thinker.function)); ptr && *ptr)
+	    if (!std::get_if<std::monostate>(&ceiling->thinker.function))
 		    ceiling->thinker.function = T_MoveCeiling;
 
 	    P_AddThinker (&ceiling->thinker);
@@ -1962,7 +1962,7 @@ void P_UnArchiveSpecials (void)
             saveg_read_plat_t(plat);
 	    plat->sector->specialdata = plat;
 
-	    if (std::get_if<actionf_plat>(&plat->thinker.function))
+	    if (!std::get_if<std::monostate>(&plat->thinker.function))
 		    plat->thinker.function = T_PlatRaise;
 
 	    P_AddThinker (&plat->thinker);
