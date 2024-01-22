@@ -763,9 +763,8 @@ static const char *MIDI_EventTypeToString(midi_event_type_t event_type)
 void PrintTrack(midi_track_t *track)
 {
     midi_event_t *event;
-    unsigned int i;
 
-    for (i=0; i<track->num_events; ++i)
+    for (int i=0; i<track->num_events; ++i)
     {
         event = &track->events[i];
 

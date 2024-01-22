@@ -29,10 +29,13 @@
 
 // These are deliberately cast to signed values; this is the behaviour
 // of the macros in the original source and some code relies on it.
-
+#ifdef __cplusplus
+#define SHORT(x)  (static_cast<signed short>(SDL_SwapLE16(x)))
+#define LONG(x)   (static_cast<signed int>(SDL_SwapLE32(x)))
+#else
 #define SHORT(x)  ((signed short)(SDL_SwapLE16(x)))
 #define LONG(x)   ((signed int)(SDL_SwapLE32(x)))
-
+#endif
 // Defines for checking the endianness of the system.
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN

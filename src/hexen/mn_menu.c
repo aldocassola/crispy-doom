@@ -106,7 +106,6 @@ typedef struct
 } multiitem_t;
 
 // EXTERNAL FUNCTION PROTOTYPES --------------------------------------------
-extern void I_ReInitGraphics(int reinit); // [crispy]
 extern void R_ExecuteSetViewSize(void); // [crispy]
 extern void AM_LevelInit(boolean reinit); // [crispy]
 extern void AM_initVariables(void); // [crispy]

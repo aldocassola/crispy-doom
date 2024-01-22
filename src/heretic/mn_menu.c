@@ -165,7 +165,6 @@ void MN_LoadSlotText(void);
 
 // External Functions
 
-extern void I_ReInitGraphics(int reinit);
 extern void AM_LevelInit(boolean reinit);
 extern void AM_initVariables(void);
 
