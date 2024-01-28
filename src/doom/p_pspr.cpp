@@ -120,7 +120,7 @@ P_SetPsprite
 	        action(player->mo, player, psp); // [crispy] let mobj action pointers get called from pspr states
         } else if constexpr (std::is_same_v<T, std::monostate>) { // noop
         } else {
-            std::cout << "P_SetPsprite" << ": unhandled function type for mobj:" << player->mo << " func:" << typeid(action).name() << "\n";
+            std::cerr << "P_SetPsprite" << ": unhandled function type for mobj:" << player->mo << " func:" << typeid(action).name() << "\n";
         }
 
         if (!psp->state) {

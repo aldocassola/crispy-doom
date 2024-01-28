@@ -73,4 +73,9 @@ struct FreeDeleter {
 
 using str_ptr = std::unique_ptr<char, FreeDeleter<char>>;
 
+template <typename T>
+auto zmalloc(int size, int tag, void *user) {
+    return static_cast<T>(Z_Malloc(size, tag, user));
+}
+
 #endif //_MEMORY_HPP_

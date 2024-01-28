@@ -107,7 +107,7 @@
 struct boolean {
     unsigned int val_;
     boolean() = default;
-    constexpr boolean(bool bv) : val_(bv ? !0 : 0) {}
+    constexpr boolean(bool bv) : val_(bv ? 1 : 0) {}
     constexpr boolean(int iv) : val_(iv) {}
     constexpr boolean(unsigned int uv) : val_(uv) {}
 
@@ -122,6 +122,18 @@ struct boolean {
     constexpr boolean &operator|=(int x) {
         val_ |= x;
         return *this;
+    }
+
+    constexpr bool operator==(int v) { return static_cast<int>(val_) == v; }
+    constexpr bool operator!=(int v) { return static_cast<int>(val_) != v; }
+
+    constexpr bool operator==(bool other) {
+        return (val_ == 0 && other == false) ||
+            (val_ == 1 && other == true);
+    }
+
+    constexpr bool operator!=(bool other) {
+        return !(*this == other);
     }
 };
 

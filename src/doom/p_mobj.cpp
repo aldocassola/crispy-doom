@@ -83,18 +83,17 @@ P_SetMobjState
     std::visit([&mobj](auto &&action) {
         using T = std::decay_t<decltype(action)>;
 
-        if constexpr (std::is_same_v<T, actionf_v>)
+        if constexpr (std::is_same_v<T, actionf_v>) {
 	        action(); // [crispy] let pspr action pointers get called from mobj states
-        else if constexpr (std::is_same_v<T, actionf_p1>)
+        } else if constexpr (std::is_same_v<T, actionf_p1>) {
 	        action(mobj); // [crispy] let pspr action pointers get called from mobj states
-        else if constexpr (std::is_same_v<T, actionf_p2>)
+        } else if constexpr (std::is_same_v<T, actionf_p2>) {
 	        action(mobj, NULL); // [crispy] let pspr action pointers get called from mobj states
-        else if constexpr (std::is_same_v<T, actionf_p3>)
+        } else if constexpr (std::is_same_v<T, actionf_p3>) {
 	        action(mobj, NULL, NULL); // [crispy] let pspr action pointers get called from mobj states
-        else if constexpr (std::is_same_v<T, std::monostate>) { //noop
-        }
-        else {
-            std::cout << "P_SetMobjState" << ": unhandled function type for mobj:" << mobj << " func:" << typeid(action).name() << "\n";
+        } else if constexpr (std::is_same_v<T, std::monostate>) { //noop
+        } else {
+            std::cerr << "P_SetMobjState" << ": unhandled function type for mobj:" << mobj << " func:" << typeid(action).name() << "\n";
         }
     }, st->action);
 

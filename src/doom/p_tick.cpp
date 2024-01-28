@@ -112,28 +112,30 @@ void P_RunThinkers (void)
 		std::visit([&currentthinker](auto &&action) {
             using T = std::decay_t<decltype(action)>;
 
-            if constexpr (std::is_same_v<T, actionf_p1>)
+            if constexpr (std::is_same_v<T, actionf_p1>){
                 action(reinterpret_cast<mobj_t *>(currentthinker));
-            else if constexpr (std::is_same_v<T, actionf_ceiling>)
+            } else if constexpr (std::is_same_v<T, actionf_ceiling>) {
                 action(reinterpret_cast<ceiling_t *>(currentthinker));
-            else if constexpr (std::is_same_v<T, actionf_door>)
+            } else if constexpr (std::is_same_v<T, actionf_door>) {
                 action(reinterpret_cast<vldoor_t *>(currentthinker));
-            else if constexpr (std::is_same_v<T, actionf_floor>)
+            } else if constexpr (std::is_same_v<T, actionf_floor>) {
                 action(reinterpret_cast<floormove_t *>(currentthinker));
-            else if constexpr (std::is_same_v<T, actionf_plat>)
+            } else if constexpr (std::is_same_v<T, actionf_plat>) {
                 action(reinterpret_cast<plat_t *>(currentthinker));
-            else if constexpr (std::is_same_v<T, actionf_glow>)
+            } else if constexpr (std::is_same_v<T, actionf_glow>) {
                 action(reinterpret_cast<glow_t *>(currentthinker));
-            else if constexpr (std::is_same_v<T, actionf_strobe>)
+            } else if constexpr (std::is_same_v<T, actionf_strobe>) {
                 action(reinterpret_cast<strobe_t *>(currentthinker));
-            else if constexpr (std::is_same_v<T, actionf_fireflicker>)
+            } else if constexpr (std::is_same_v<T, actionf_fireflicker>) {
                 action(reinterpret_cast<fireflicker_t *>(currentthinker));
-            else if constexpr (std::is_same_v<T, actionf_lightflash>)
+            } else if constexpr (std::is_same_v<T, actionf_lightflash>) {
                 action(reinterpret_cast<lightflash_t *>(currentthinker));
-            else if constexpr (std::is_same_v<T, actionf_thinker>)
+            } else if constexpr (std::is_same_v<T, actionf_thinker>) {
                 action(reinterpret_cast<thinker_t *>(currentthinker));
-            else {
-                std::cout << __func__ << ": unhandled function type for thinker:" << currentthinker << " func:" << typeid(action).name() << "\n";
+            } else if constexpr(std::is_same_v<T, std::monostate>) {
+                //noop;
+            } else {
+                std::cerr << __func__ << ": unhandled function type for thinker:" << currentthinker << " func:" << typeid(action).name() << "\n";
             }
         }, currentthinker->function);
         nextthinker = currentthinker->next;
